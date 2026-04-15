@@ -1,0 +1,78 @@
+{{ header }}
+
+<div class="container">
+    <h2 class="my-4">All Products</h2>
+
+    <div class="row">
+        {% for product in products %}
+            <div class="col-md-3 col-sm-6 mb-4">
+                <div class="custom-card">
+
+                    <!-- IMAGE BOX -->
+                    <a href="{{ product.href }}">
+                        <div class="image-box">
+                            <img src="{{ product.thumb }}" alt="{{ product.name }}" title="{{ product.name }}">
+                        </div>
+                    </a>
+
+                    <!-- PRODUCT NAME -->
+                    <h4><a href="{{ product.href }}">{{ product.name }}</a></h4>
+
+                    <!-- DESCRIPTION -->
+                    <p>{{ product.description }}</p>
+
+                    <!-- PRICE -->
+                    {% if product.price %}
+                        <div class="product-price">
+                            {% if not product.special %}
+                                <span style="color:black; font-weight:700;">{{ product.price }}</span>
+                            {% else %}
+                                <span>{{ product.special }}</span>
+                                <span style="text-decoration:line-through; color:#888; font-size:14px; margin-left:8px;">{{ product.price }}</span>
+                            {% endif %}
+                        </div>
+                    {% endif %}
+
+                    <!-- RATING -->
+                    {% if product.review_status and product.rating %}
+                        <div class="rating mb-2">
+                            {% for i in 1..5 %}
+                                {% if product.rating < i %}
+                                    <span class="fa-stack"><i class="fa-regular fa-star fa-stack-1x"></i></span>
+                                {% else %}
+                                    <span class="fa-stack"><i class="fa-solid fa-star fa-stack-1x"></i><i class="fa-regular fa-star fa-stack-1x"></i></span>
+                                {% endif %}
+                            {% endfor %}
+                        </div>
+                    {% endif %}
+
+                    <!-- BUY BUTTONS -->
+                    <form method="post" data-oc-toggle="ajax" data-oc-load="{{ product.cart_add }}" data-oc-target="#cart">
+                        <div class="action-row">
+                            <button type="submit" formaction="{{ product.cart_add }}" class="buy-now">
+                                Add To Cart
+                            </button>
+
+                            <button
+                                type="submit"
+                                formaction="{% if product.in_wishlist %}{{ product.wishlist_remove }}{% else %}{{ product.wishlist_add }}{% endif %}"
+                                class="like{% if product.in_wishlist %} in-wishlist{% endif %}"
+                                data-bs-toggle="tooltip"
+                                title="{{ product.button_wishlist }}"
+                                data-wishlist-add="{{ product.wishlist_add }}"
+                                data-wishlist-remove="{{ product.wishlist_remove }}"
+                            >
+                                <i class="fa-heart {% if product.in_wishlist %}fa-solid text-danger{% else %}fa-regular{% endif %}"></i>
+                            </button>
+                        </div>
+
+                        <input type="hidden" name="product_id" value="{{ product.product_id }}"/>
+                        <input type="hidden" name="quantity" value="{{ product.minimum }}"/>
+                    </form>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+</div>
+
+{{ footer }}

@@ -1,0 +1,35 @@
+</main>
+<footer style="background:#000;">
+  <div class="container">
+    <div class="row">
+      {% if informations or blog %}
+        <div class="col-sm-3">
+          <h5 style="font-size:18px;"><a href="{{ wishlist }}"><img src="image/catalog/localspotblack.png" alt="Localspot" style="height:28px;width:auto;vertical-align:middle;margin-right:8px; color:white;">Localspot</a></h5> 
+
+        </div>
+      {% endif %}
+      <div class="col-sm-3">
+        <h5 style="font-size:18px;"><a href="{{ contact }}">{{ text_contact }}</a></h5>
+
+      </div>
+      <div class="col-sm-3">
+        <h5 style="font-size:18px;"><a href="{{ manufacturer }}">{{ text_manufacturer }}</a></h5>
+
+      </div>
+      <div class="col-sm-3">
+        <h5 style="font-size:18px;"><a href="{{ account }}">{{ text_account }}</a></h5>
+    
+      </div>
+    </div>
+    <hr>
+    <p style="text-align:center;">Powered By OpenCart Localspot &copy; 2026</p>
+    
+  </div>
+</footer>
+</div>
+{{ cookie }}
+<script src="{{ bootstrap }}" type="text/javascript"></script>
+{% for script in scripts %}
+  <script src="{{ script.href }}" type="text/javascript"></script>
+{% endfor %}
+</body></html>

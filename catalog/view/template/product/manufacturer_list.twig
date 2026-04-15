@@ -1,0 +1,44 @@
+{{ header }}
+<div id="product-manufacturer" class="container">
+  <nav class="modern-breadcrumb-wrap" aria-label="Breadcrumb">
+    <ol class="modern-breadcrumb">
+      {% for breadcrumb in breadcrumbs %}
+        <li class="modern-breadcrumb-item{% if loop.last %} is-current{% endif %}">
+          {% if loop.last %}
+            <span class="modern-breadcrumb-link" aria-current="page">{{ breadcrumb.text }}</span>
+          {% else %}
+            <a href="{{ breadcrumb.href }}" class="modern-breadcrumb-link">{{ breadcrumb.text }}</a>
+          {% endif %}
+        </li>
+      {% endfor %}
+    </ol>
+  </nav>
+  <div class="row">{{ column_left }}
+    <div id="content" class="col">{{ content_top }}
+      <div class="brand-page-header">
+        <h1 class="brand-page-title">{{ heading_title }}</h1>
+        <p class="brand-page-subtitle">Shop clothing brands in one place</p>
+      </div>
+      {% if categories %}
+        <div class="row row-cols-1 row-cols-sm-2 row-cols-lg-3 row-cols-xl-4 g-3 brand-grid">
+          {% for category in categories %}
+            <div class="col">
+              <a href="{{ category.href }}" class="brand-card">
+                <div class="brand-card-logo-wrap">
+                  <img src="{{ category.logo }}" alt="{{ category.name }} logo" class="brand-card-logo" loading="lazy">
+                </div>
+                <span class="brand-card-name">{{ category.name }}</span>
+                <span class="brand-card-count">{{ category.count }} Products</span>
+                <span class="brand-card-cta">View Collection</span>
+              </a>
+            </div>
+          {% endfor %}
+        </div>
+      {% else %}
+        <p>{{ text_no_results }}</p>
+        <div class="text-end"><a href="{{ continue }}" class="btn btn-primary">{{ button_continue }}</a></div>
+      {% endif %}
+      {{ content_bottom }}</div>
+    {{ column_right }}</div>
+</div>
+{{ footer }}

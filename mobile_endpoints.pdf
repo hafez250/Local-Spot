@@ -1,0 +1,79 @@
+%PDF-1.4
+1 0 obj
+<< /Type /Catalog /Pages 2 0 R >>
+endobj
+2 0 obj
+<< /Type /Pages /Kids [3 0 R] /Count 1 >>
+endobj
+3 0 obj
+<< /Type /Page /Parent 2 0 R /MediaBox [0 0 612 792] /Resources << /Font << /F1 4 0 R >> >> /Contents 5 0 R >>
+endobj
+4 0 obj
+<< /Type /Font /Subtype /Type1 /BaseFont /Helvetica >>
+endobj
+5 0 obj
+<< /Length 1072 >>
+stream
+BT
+/F1 12 Tf
+14 TL
+72 760 Td
+(Local-Spot API Endpoints) Tj
+T*
+(Generated: 2026-04-05 21:28) Tj
+T*
+() Tj
+T*
+(1\) OpenCart Recommendations API \(Mobile\)) Tj
+T*
+(Endpoint: GET /index.php?route=api/recommendation&call=get) Tj
+T*
+(Auth query params: username, store_id, language, currency, time, signature) Tj
+T*
+(Data params: customer_id \(required\), limit \(optional, 1-20, default 5\)) Tj
+T*
+(Response: { customer_id, count, products[] \(product_id, name, thumb, price, href\) }) Tj
+T*
+() Tj
+T*
+(2\) View Event Logging \(optional for mobile\)) Tj
+T*
+(Endpoint: POST /index.php?route=tool/ai_event.log) Tj
+T*
+(Body: product_id, event_type=view) Tj
+T*
+() Tj
+T*
+(3\) Add to Cart \(OpenCart\)) Tj
+T*
+(Endpoint: POST /index.php?route=checkout/cart.add) Tj
+T*
+(Body: product_id, quantity, option[], subscription_plan_id \(if any\)) Tj
+T*
+() Tj
+T*
+(4\) AI Service \(internal use\)) Tj
+T*
+(POST http://127.0.0.1:5000/recommend) Tj
+T*
+(GET  http://127.0.0.1:5000/health) Tj
+T*
+() Tj
+T*
+(Note: Prefer calling OpenCart API from the mobile app and keep the AI service internal.) Tj
+ET
+endstream
+endobj
+xref
+0 6
+0000000000 65535 f 
+0000000009 00000 n 
+0000000058 00000 n 
+0000000115 00000 n 
+0000000241 00000 n 
+0000000311 00000 n 
+trailer
+<< /Size 6 /Root 1 0 R >>
+startxref
+1435
+%%EOF

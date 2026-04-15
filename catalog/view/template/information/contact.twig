@@ -1,0 +1,132 @@
+{{ header }}
+<div id="information-contact" class="container py-4">
+
+  <div class="row">{{ column_left }}
+    <div id="content" class="col">{{ content_top }}
+      <div class="contact-page text-black">
+        <h1 class="Ft my-4 fw-bold">{{ heading_title }}</h1>
+        <h3 class="h5 text-uppercase mb-3">{{ text_location }}</h3>
+        <div class="card mb-4 border-0 shadow-sm rounded-4">
+        <div class="card-body p-4">
+          <div class="row g-3 align-items-start">
+            {% if image %}
+              <div class="col-sm-3"><img src="{{ image }}" alt="{{ store }}" title="{{ store }}" class="img-fluid rounded-3"/></div>
+            {% endif %}
+            <div class="col-sm-3">
+              <div class="fw-semibold mb-1">{{ store }}</div>
+              <address>
+                {{ address }}
+              </address>
+              {% if geocode %}
+                <a href="https://maps.google.com/maps?q={{ geocode|url_encode }}&hl={{ geocode_hl }}&t=m&z=15" target="_blank" class="btn btn-dark btn-sm"><i class="fa-solid fa-location-dot me-1"></i>{{ button_map }}</a>
+              {% endif %}
+            </div>
+            {% if telephone %}
+              <div class="col-sm-3">
+                <div class="fw-semibold mb-1">{{ text_telephone }}</div>
+                {{ telephone }}
+                <br/>
+                <br/>
+              </div>
+            {% endif %}
+            <div class="col-sm-3">
+              {% if open %}
+                <div class="fw-semibold mb-1">{{ text_open }}</div>
+                {{ open }}
+                <br/>
+                <br/>
+              {% endif %}
+              {% if comment %}
+                <div class="fw-semibold mb-1">{{ text_comment }}</div>
+                {{ comment }}
+              {% endif %}
+            </div>
+          </div>
+        </div>
+      </div>
+      {% if locations %}
+        <h3 class="h5 text-uppercase mb-3">{{ text_store }}</h3>
+        <div id="accordion" class="accordion mb-4">
+
+          {% for location in locations %}
+
+            <div class="accordion-item border-0 shadow-sm mb-3 rounded-4 overflow-hidden">
+              <h2 class="accordion-header">
+                <button type="button" class="accordion-button" data-bs-toggle="collapse" data-bs-target="#collapse-location-{{ location.location_id }}">{{ location.name }}</button>
+              </h2>
+
+              <div id="collapse-location-{{ location.location_id }}" class="accordion-collapse collapse" data-bs-parent="#accordion">
+
+                <div class="accordion-body">
+                  <div class="row g-3 align-items-start">
+                    {% if location.image %}
+                      <div class="col-sm-3"><img src="{{ location.image }}" alt="{{ location.name }}" title="{{ location.name }}" class="img-fluid rounded-3"/></div>
+                    {% endif %}
+                    <div class="col-sm-3">
+                      <div class="fw-semibold mb-1">{{ location.name }}</div>
+                      <address>
+                        {{ location.address }}
+                      </address>
+                      {% if location.geocode %}
+                        <a href="https://maps.google.com/maps?q={{ location.geocode|url_encode }}&hl={{ geocode_hl }}&t=m&z=15" target="_blank" class="btn btn-outline-dark btn-sm"><i class="fa-solid fa-location-dot me-1"></i>{{ button_map }}</a>
+                      {% endif %}
+                    </div>
+                    <div class="col-sm-3">
+                      <div class="fw-semibold mb-1">{{ text_telephone }}</div>
+                      {{ location.telephone }}
+                      <br/>
+                      <br/>
+                    </div>
+                    <div class="col-sm-3">
+                      {% if location.open %}
+                        <div class="fw-semibold mb-1">{{ text_open }}</div>
+                        {{ location.open }}
+                        <br/>
+                      {% endif %}
+                      {% if location.comment %}
+                        {{ location.comment }}
+                      {% endif %}
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          {% endfor %}
+        </div>
+      {% endif %}
+      <form id="form-contact" action="{{ send }}" method="post" data-oc-toggle="ajax" class="card border-0 shadow-sm rounded-4 p-4">
+        <fieldset>
+          <legend class="h5 text-uppercase mb-3">{{ text_contact }}</legend>
+          <div class="row g-3 mb-3 required">
+            <label for="input-name" class="col-sm-2 col-form-label">{{ entry_name }}</label>
+            <div class="col-sm-10">
+              <input type="text" name="name" value="{{ name }}" id="input-name" class="form-control"/>
+              <div id="error-name" class="invalid-feedback"></div>
+            </div>
+          </div>
+          <div class="row g-3 mb-3 required">
+            <label for="input-email" class="col-sm-2 col-form-label">{{ entry_email }}</label>
+            <div class="col-sm-10">
+              <input type="text" name="email" value="{{ email }}" id="input-email" class="form-control"/>
+              <div id="error-email" class="invalid-feedback"></div>
+            </div>
+          </div>
+          <div class="row g-3 mb-3 required">
+            <label for="input-enquiry" class="col-sm-2 col-form-label">{{ entry_enquiry }}</label>
+            <div class="col-sm-10">
+              <textarea name="enquiry" rows="10" id="input-enquiry" class="form-control"></textarea>
+              <div id="error-enquiry" class="invalid-feedback"></div>
+            </div>
+          </div>
+          {{ captcha }}
+        </fieldset>
+        <div class="text-end">
+          <button type="submit" class="btn btn-dark px-4">{{ button_submit }}</button>
+        </div>
+      </form>
+      {{ content_bottom }}
+      </div>
+    </div>
+    {{ column_right }}</div>
+</div>
+{{ footer }}

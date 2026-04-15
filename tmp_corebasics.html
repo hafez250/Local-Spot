@@ -1,0 +1,1138 @@
+<!DOCTYPE html>
+<html dir="ltr" lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>Corebasics</title>
+  <base href="http://localhost/opencart1/"/>
+      <script src="catalog/view/javascript/jquery/jquery-3.7.1.min.js" type="text/javascript"></script>
+  <link href="catalog/view/stylesheet/bootstrap.css" type="text/css" rel="stylesheet" media="screen"/>
+  <link href="catalog/view/stylesheet/fonts/fontawesome/css/all.min.css" rel="stylesheet" type="text/css"/>
+  <link href="catalog/view/stylesheet/stylesheet.css" type="text/css" rel="stylesheet"/>
+  <link href="catalog/view/stylesheet/custom.css" rel="stylesheet"/>
+  
+  <script src="catalog/view/javascript/common.js" type="text/javascript"></script>
+      <link rel="icon" href="http://localhost/opencart1/image/catalog/localspot-removebg-preview.png" type="image/png">
+            <link href="http://localhost/opencart1/index.php?route=product/category&amp;language=en-gb&amp;path=492_544" rel="canonical"/>
+      <link href="http://localhost/opencart1/index.php?route=product/category&amp;language=en-gb&amp;path=492_544&amp;page=2" rel="next"/>
+    </head>
+<body>
+<div id="container">
+  <div id="alert"></div>
+  <div class="toast-container position-fixed top-0 start-50 translate-middle-x mt-3" style="z-index: 1080;">
+    <div id="oc-toast" class="toast wishlist-toast" role="alert" aria-live="assertive" aria-atomic="true">
+      <div class="d-flex align-items-center w-100">
+        <span class="toast-icon" aria-hidden="true">✅</span>
+        <div class="toast-body wishlist-toast-body"></div>
+        <button type="button" class="btn-close ms-auto wishlist-toast-close" data-bs-dismiss="toast" aria-label="Close"></button>
+      </div>
+    </div>
+  </div>
+
+<style>
+  .ticker-container {
+    overflow: hidden;
+    white-space: nowrap;
+    background: black;
+  }
+
+  .ticker-move {
+    display: inline-block;
+    animation: ticker 30s linear infinite;
+  }
+
+  @keyframes ticker {
+    0%   { transform: translateX(0); }
+    100% { transform: translateX(-50%); }
+  }
+
+  .ticker-text {
+    color: white;
+    font-family:Helvetica, Arial, sans-serif;
+    font-weight:600;
+
+    font-size: 13px;
+    padding-right: 60px; /* space between each repeated sentence */
+  }
+
+
+/* Top nav with background image */
+
+.top-nav {
+    background-image: url('image/catalog/kendaljenner.jpg');
+    background-size: cover;
+    background-position: center;
+    width: 100%;
+    height: 85vh;
+    position: relative;
+}
+
+/* Navbar starts transparent */
+.navbar-bg {
+    background-color: rgba(255, 255, 255, 0) !important; /* override Bootstrap */
+    transition: background-color 0.3s ease;
+}
+
+/* Navbar background on hover */
+.navbar-bg:hover {
+    background-color: rgba(255, 255, 255, 0.9) !important; /* override Bootstrap */
+}
+
+
+</style>
+
+<nav class="navbar bg-black p-0">
+  <div class="container-fluid ticker-container mx-4">
+      <div class="ticker-move ">
+
+      <!-- Your text repeated many times -->
+      <span class="ticker-text">
+        Black Friday Sale! Get up to 50% OFF on all products — Limited Time Only!
+        <a href="http://localhost/opencart1/index.php?route=common/home&amp;language=en-gb" style="color:white; text-decoration: underline;">Shop Now</a>
+      </span>
+
+      <span class="ticker-text">
+        Black Friday Sale! Get up to 50% OFF on all products — Limited Time Only!
+        <a href="http://localhost/opencart1/index.php?route=common/home&amp;language=en-gb" style="color:white; text-decoration: underline;">Shop Now</a>
+      </span>
+
+      <span class="ticker-text">
+        Black Friday Sale! Get up to 50% OFF on all products — Limited Time Only!
+        <a href="http://localhost/opencart1/index.php?route=common/home&amp;language=en-gb" style="color:white; text-decoration: underline;">Shop Now</a>
+      </span>
+
+      <span class="ticker-text">
+        Black Friday Sale! Get up to 50% OFF on all products — Limited Time Only!
+        <a href="http://localhost/opencart1/index.php?route=common/home&amp;language=en-gb" style="color:white; text-decoration: underline;">Shop Now</a>
+      </span>
+
+      <span class="ticker-text">
+        Black Friday Sale! Get up to 50% OFF on all products — Limited Time Only!
+        <a href="http://localhost/opencart1/index.php?route=common/home&amp;language=en-gb" style="color:white; text-decoration: underline;">Shop Now</a>
+      </span>
+
+      <!-- Duplicate for seamless infinite scrolling -->
+      <span class="ticker-text">
+        Black Friday Sale! Get up to 50% OFF on all products — Limited Time Only!
+        <a href="http://localhost/opencart1/index.php?route=common/home&amp;language=en-gb" style="color:white; text-decoration: underline;">Shop Now</a>
+      </span>
+
+      <span class="ticker-text">
+        Black Friday Sale! Get up to 50% OFF on all products — Limited Time Only!
+        <a href="http://localhost/opencart1/index.php?route=common/home&amp;language=en-gb" style="color:white; text-decoration: underline;">Shop Now</a>
+      </span>
+
+      <span class="ticker-text">
+        Black Friday Sale! Get up to 50% OFF on all products — Limited Time Only!
+        <a href="http://localhost/opencart1/index.php?route=common/home&amp;language=en-gb" style="color:white; text-decoration: underline;">Shop Now</a>
+      </span>
+
+    </div>
+  </div>
+</nav>
+
+  <header>
+<nav class="navbar navbar-expand-lg px-3 px-lg-5 py-0 site-main-nav">
+  <div class="container-fluid site-main-nav-inner">
+
+    <!-- LEFT: Toggler + Menu -->
+    <div class="site-main-left d-flex align-items-center">
+
+      <!-- Toggler -->
+      <button class="navbar-toggler me-2" type="button" data-bs-toggle="collapse" data-bs-target="#navbarText">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+
+      <!-- Collapsible Menu -->
+      <div class="collapse navbar-collapse site-main-collapse" id="navbarText">
+        <ul class="navbar-nav nav nav-underline mb-2 mb-lg-0 text-center">
+          <li class="nav-item">
+  <a href="http://localhost/opencart1/index.php?route=common/home&amp;language=en-gb"
+     class="nav-link ">
+     Home
+  </a>
+</li>
+         <li class="nav-item">
+        <a href="http://localhost/opencart1/index.php?route=information/contact&amp;language=en-gb" class="nav-link ">Contact Us</a>
+      </li>
+
+      
+      
+      <li class="nav-item">
+        <a href="http://localhost/opencart1/index.php?route=account/register&amp;language=en-gb" class="nav-link">Register</a>
+      </li>
+      <li class="nav-item">
+        <a href="http://localhost/opencart1/index.php?route=account/login&amp;language=en-gb" class="nav-link">Login</a>
+      </li>
+          </ul>
+
+      </div>
+
+    </div>
+
+    <!-- CENTER: Logo (ABSOLUTE → True center) -->
+    <div class="site-main-logo">
+      <a href="http://localhost/opencart1/index.php?route=common/home&amp;language=en-gb">
+        <img src="http://localhost/opencart1/image/catalog/localspot.jpeg" alt="Localspot" class="logo1">
+      </a>
+    </div>
+
+    <!-- RIGHT: Icons -->
+    <ul class="nav d-flex align-items-center site-main-actions">
+      <li class="nav-item"><a href="http://localhost/opencart1/index.php?route=account/wishlist&amp;language=en-gb" class="nav-link text-black"><i class="fa-regular fa-heart"></i></a></li>
+      <li class="nav-item"><div id="cart" class="dropdown">
+  <a data-bs-toggle="dropdown" class="nav-link text-black" style="cursor: pointer;">
+    <i class="fa-solid fa-bag-shopping"></i>
+  </a>
+
+  <ul class="dropdown-menu dropdown-menu-end p-3 shadow-lg border-0 rounded-base" style="width: 350px; font-size: 18px; border-radius: 8px;">
+          <li class="text-center py-5">
+        <div class="text-muted mb-2"><i class="fa-solid fa-cart-ghost fa-3x"></i></div>
+        <p class="m-0 fw-bold" style="color: #6b7280;">Your shopping cart is empty!</p>
+      </li>
+      </ul>
+</div>
+</li>
+      <li class="nav-item dropdown">
+        <a href="#"
+           class="nav-link text-black dropdown-toggle account-menu-toggle"
+           data-bs-toggle="dropdown"
+           aria-expanded="false">
+          <i class="fa-regular fa-user"></i>
+        </a>
+        <ul class="dropdown-menu dropdown-menu-end account-menu-dropdown">
+                      <li><a class="dropdown-item account-menu-item" href="http://localhost/opencart1/index.php?route=account/login&amp;language=en-gb">Login</a></li>
+            <li><a class="dropdown-item account-menu-item" href="http://localhost/opencart1/index.php?route=account/register&amp;language=en-gb">Register</a></li>
+                  </ul>
+      </li>
+    </ul>
+
+  </div>
+</nav>
+ 
+
+
+
+ 
+
+   
+   </header>
+
+ 
+  <main>
+
+<div id="product-category" class="container">
+  <nav class="modern-breadcrumb-wrap" aria-label="Breadcrumb">
+    <ol class="modern-breadcrumb">
+              <li class="modern-breadcrumb-item">
+                      <a href="http://localhost/opencart1/index.php?route=common/home&amp;language=en-gb" class="modern-breadcrumb-link"><i class="fas fa-home"></i></a>
+                  </li>
+              <li class="modern-breadcrumb-item">
+                      <a href="http://localhost/opencart1/index.php?route=product/category&amp;language=en-gb&amp;path=492" class="modern-breadcrumb-link">Clothing</a>
+                  </li>
+              <li class="modern-breadcrumb-item is-current">
+                      <span class="modern-breadcrumb-link" aria-current="page">Corebasics</span>
+                  </li>
+          </ol>
+  </nav>
+  
+  <div class="row">
+    <div id="content" class="col">
+
+                        <h1 class=" Ft mb-5 pt-5 mt-3 ">Corebasics</h1>
+      
+      
+              <div class="row">
+          <div class="col-lg-3">
+            <div class="mb-3">
+              <a href="http://localhost/opencart1/index.php?route=product/compare&amp;language=en-gb" id="compare-total" class="btn btn-primary d-block compare-btn"><i class="fa-solid fa-arrow-right-arrow-left"></i> <span class="d-none d-xl-inline">Compare (0)</span></a>
+            </div>
+          </div>
+          <div class="col-lg-6 col-6 ms-auto d-flex justify-content-end align-items-center gap-2">
+            <div class="btn-group d-none d-lg-inline-flex">
+              <button type="button" id="button-list" class="btn btn-light" data-bs-toggle="tooltip" title="List"><i class="fa-solid fa-table-list"></i></button>
+              <button type="button" id="button-grid" class="btn btn-light" data-bs-toggle="tooltip" title="Grid"><i class="fa-solid fa-table-cells"></i></button>
+            </div>
+
+                          <div class="dropdown" data-bs-auto-close="outside">
+                <button class="btn btn-secondary dropdown-toggle sort-dropdown-btn d-inline-flex align-items-center gap-2" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                  Filter
+                  <i class="fa-solid fa-chevron-down"></i>
+                </button>
+                <div class="dropdown-menu p-2 subcategory-filter-menu">
+                                      <label class="form-check d-flex align-items-center gap-2 subcategory-filter-item">
+                      <input class="form-check-input subcategory-filter-checkbox" type="checkbox" value="551">
+                      <span class="form-check-label">Accessories</span>
+                    </label>
+                                      <label class="form-check d-flex align-items-center gap-2 subcategory-filter-item">
+                      <input class="form-check-input subcategory-filter-checkbox" type="checkbox" value="554">
+                      <span class="form-check-label">All Products</span>
+                    </label>
+                                      <label class="form-check d-flex align-items-center gap-2 subcategory-filter-item">
+                      <input class="form-check-input subcategory-filter-checkbox" type="checkbox" value="547">
+                      <span class="form-check-label">Bottoms</span>
+                    </label>
+                                      <label class="form-check d-flex align-items-center gap-2 subcategory-filter-item">
+                      <input class="form-check-input subcategory-filter-checkbox" type="checkbox" value="548">
+                      <span class="form-check-label">Dresses</span>
+                    </label>
+                                      <label class="form-check d-flex align-items-center gap-2 subcategory-filter-item">
+                      <input class="form-check-input subcategory-filter-checkbox" type="checkbox" value="549">
+                      <span class="form-check-label">Jackets</span>
+                    </label>
+                                      <label class="form-check d-flex align-items-center gap-2 subcategory-filter-item">
+                      <input class="form-check-input subcategory-filter-checkbox" type="checkbox" value="545">
+                      <span class="form-check-label">New Drops</span>
+                    </label>
+                                      <label class="form-check d-flex align-items-center gap-2 subcategory-filter-item">
+                      <input class="form-check-input subcategory-filter-checkbox" type="checkbox" value="550">
+                      <span class="form-check-label">Sets</span>
+                    </label>
+                                      <label class="form-check d-flex align-items-center gap-2 subcategory-filter-item">
+                      <input class="form-check-input subcategory-filter-checkbox" type="checkbox" value="552">
+                      <span class="form-check-label">Summer Collection</span>
+                    </label>
+                                      <label class="form-check d-flex align-items-center gap-2 subcategory-filter-item">
+                      <input class="form-check-input subcategory-filter-checkbox" type="checkbox" value="546">
+                      <span class="form-check-label">Tops</span>
+                    </label>
+                                      <label class="form-check d-flex align-items-center gap-2 subcategory-filter-item">
+                      <input class="form-check-input subcategory-filter-checkbox" type="checkbox" value="553">
+                      <span class="form-check-label">Winter Collection</span>
+                    </label>
+                                    <div class="d-flex justify-content-between pt-2 mt-2 border-top">
+                    <button type="button" class="btn btn-sm btn-outline-dark" id="subcategory-filter-clear">Clear</button>
+                    <span class="small text-muted align-self-center" id="subcategory-filter-count"></span>
+                  </div>
+                </div>
+              </div>
+            
+
+
+            <div class="dropdown">
+                                                                                                                                                                                                                                                                                                                                                          <button class="btn btn-secondary dropdown-toggle sort-dropdown-btn d-inline-flex align-items-center gap-2" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                Best Selling
+                <i class="fa-solid fa-chevron-down"></i>
+              </button>
+              <ul class="dropdown-menu">
+                                  <li>
+                    <a class="dropdown-item active" href="http://localhost/opencart1/index.php?route=product/category&amp;language=en-gb&amp;sort=p.sort_order&amp;order=ASC&amp;path=492_544">
+                      Best Selling
+                    </a>
+                  </li>
+                                  <li>
+                    <a class="dropdown-item" href="http://localhost/opencart1/index.php?route=product/category&amp;language=en-gb&amp;sort=pd.name&amp;order=ASC&amp;path=492_544">
+                      Name (A - Z)
+                    </a>
+                  </li>
+                                  <li>
+                    <a class="dropdown-item" href="http://localhost/opencart1/index.php?route=product/category&amp;language=en-gb&amp;sort=pd.name&amp;order=DESC&amp;path=492_544">
+                      Name (Z - A)
+                    </a>
+                  </li>
+                                  <li>
+                    <a class="dropdown-item" href="http://localhost/opencart1/index.php?route=product/category&amp;language=en-gb&amp;sort=p.price&amp;order=ASC&amp;path=492_544">
+                      Price (Low &gt; High)
+                    </a>
+                  </li>
+                                  <li>
+                    <a class="dropdown-item" href="http://localhost/opencart1/index.php?route=product/category&amp;language=en-gb&amp;sort=p.price&amp;order=DESC&amp;path=492_544">
+                      Price (High &gt; Low)
+                    </a>
+                  </li>
+                                  <li>
+                    <a class="dropdown-item" href="http://localhost/opencart1/index.php?route=product/category&amp;language=en-gb&amp;sort=rating&amp;order=DESC&amp;path=492_544">
+                      Rating (Highest)
+                    </a>
+                  </li>
+                                  <li>
+                    <a class="dropdown-item" href="http://localhost/opencart1/index.php?route=product/category&amp;language=en-gb&amp;sort=rating&amp;order=ASC&amp;path=492_544">
+                      Rating (Lowest)
+                    </a>
+                  </li>
+                                  <li>
+                    <a class="dropdown-item" href="http://localhost/opencart1/index.php?route=product/category&amp;language=en-gb&amp;sort=p.model&amp;order=ASC&amp;path=492_544">
+                      Model (A - Z)
+                    </a>
+                  </li>
+                                  <li>
+                    <a class="dropdown-item" href="http://localhost/opencart1/index.php?route=product/category&amp;language=en-gb&amp;sort=p.model&amp;order=DESC&amp;path=492_544">
+                      Model (Z - A)
+                    </a>
+                  </li>
+                              </ul>
+            </div>
+            <a href="index.php?route=product/search" class="ms-5 d-inline-flex align-items-center justify-content-center text-decoration-none" aria-label="Search" title="Search">
+              <i class="fas fa-search" style="color: #000000; font-size: 1.5rem;"></i>
+            </a>
+            
+
+
+
+          </div>
+                            </div>
+
+        <div id="product-list" class="row row-cols-1 row-cols-sm-2 row-cols-md-2 row-cols-lg-4 mt-6">
+                      <div class="col mb-3 mt-5 product-filter-card" data-subcategories="554"><div class="custom-card">
+
+    <!-- IMAGE BOX -->
+    <a href="http://localhost/opencart1/index.php?route=product/product&amp;language=en-gb&amp;product_id=40709&amp;path=492_544">
+        <div class="image-box">
+            <img src="http://localhost/opencart1/image/cache/catalog/corebasics/all-day-oversized-blazer-500x500.jpg" alt="ALL-DAY Oversized Blazer" title="ALL-DAY Oversized Blazer" loading="lazy" onerror="this.onerror=null;this.src='image/placeholder.png';">
+        </div>
+    </a>
+
+
+
+    <!-- PRODUCT NAME -->
+    <h4>
+        <a href="http://localhost/opencart1/index.php?route=product/product&amp;language=en-gb&amp;product_id=40709&amp;path=492_544">ALL-DAY Oversized Blazer</a>
+    </h4>
+        <!-- DESCRIPTION -->
+     <p>An oversized blazer that effortlessly pairs with countless styles.
+Variants: Black / L/XL | Black / ..</p>
+    <!-- PRICE AREA -->
+        <div class="product-price">
+                   <span style="color:black; font-weight:700; font-family:'SF Pro Text', 'SF Pro Icons', 'Helvetica Neue', Helvetica, Arial, sans-serif;">1,200.00</span>
+            </div>
+    
+    <!-- RATING -->
+    
+    <!-- BUY BUTTON -->
+    <form method="post" data-oc-toggle="ajax" data-oc-load="http://localhost/opencart1/index.php?route=common/cart.info&amp;language=en-gb" data-oc-target="#cart">
+        <div class="action-row">
+    <button type="submit" formaction="http://localhost/opencart1/index.php?route=checkout/cart.add&amp;language=en-gb" class="buy-now">
+       Add To Cart
+    </button>
+
+    <button
+        type="submit"
+        formaction="http://localhost/opencart1/index.php?route=account/wishlist.add&amp;language=en-gb"
+        class="like"
+        data-bs-toggle="tooltip"
+        title="Add to Wish List"
+        data-wishlist-add="http://localhost/opencart1/index.php?route=account/wishlist.add&amp;language=en-gb"
+        data-wishlist-remove="http://localhost/opencart1/index.php?route=account/wishlist.remove&amp;language=en-gb"
+    >
+        <i class="fa-heart fa-regular"></i>
+    </button>
+</div>
+
+
+        <input type="hidden" name="product_id" value="40709"/>
+        <input type="hidden" name="quantity" value="1"/>
+    </form>
+
+</div>
+
+
+</div>
+                      <div class="col mb-3 mt-5 product-filter-card" data-subcategories="554"><div class="custom-card">
+
+    <!-- IMAGE BOX -->
+    <a href="http://localhost/opencart1/index.php?route=product/product&amp;language=en-gb&amp;product_id=40696&amp;path=492_544">
+        <div class="image-box">
+            <img src="http://localhost/opencart1/image/cache/catalog/corebasics/backless-bodysuit-500x500.jpg" alt="Backless Bodysuit" title="Backless Bodysuit" loading="lazy" onerror="this.onerror=null;this.src='image/placeholder.png';">
+        </div>
+    </a>
+
+
+
+    <!-- PRODUCT NAME -->
+    <h4>
+        <a href="http://localhost/opencart1/index.php?route=product/product&amp;language=en-gb&amp;product_id=40696&amp;path=492_544">Backless Bodysuit</a>
+    </h4>
+        <!-- DESCRIPTION -->
+     <p>No description
+Variants: S/M / Black | S/M / White | S/M / Red | S/M / Pink | S/M / Gray | Medium / ..</p>
+    <!-- PRICE AREA -->
+        <div class="product-price">
+                   <span style="color:black; font-weight:700; font-family:'SF Pro Text', 'SF Pro Icons', 'Helvetica Neue', Helvetica, Arial, sans-serif;">400.00</span>
+            </div>
+    
+    <!-- RATING -->
+    
+    <!-- BUY BUTTON -->
+    <form method="post" data-oc-toggle="ajax" data-oc-load="http://localhost/opencart1/index.php?route=common/cart.info&amp;language=en-gb" data-oc-target="#cart">
+        <div class="action-row">
+    <button type="submit" formaction="http://localhost/opencart1/index.php?route=checkout/cart.add&amp;language=en-gb" class="buy-now">
+       Add To Cart
+    </button>
+
+    <button
+        type="submit"
+        formaction="http://localhost/opencart1/index.php?route=account/wishlist.add&amp;language=en-gb"
+        class="like"
+        data-bs-toggle="tooltip"
+        title="Add to Wish List"
+        data-wishlist-add="http://localhost/opencart1/index.php?route=account/wishlist.add&amp;language=en-gb"
+        data-wishlist-remove="http://localhost/opencart1/index.php?route=account/wishlist.remove&amp;language=en-gb"
+    >
+        <i class="fa-heart fa-regular"></i>
+    </button>
+</div>
+
+
+        <input type="hidden" name="product_id" value="40696"/>
+        <input type="hidden" name="quantity" value="1"/>
+    </form>
+
+</div>
+
+
+</div>
+                      <div class="col mb-3 mt-5 product-filter-card" data-subcategories="554"><div class="custom-card">
+
+    <!-- IMAGE BOX -->
+    <a href="http://localhost/opencart1/index.php?route=product/product&amp;language=en-gb&amp;product_id=40708&amp;path=492_544">
+        <div class="image-box">
+            <img src="http://localhost/opencart1/image/cache/catalog/corebasics/backless-top-copy-500x500.jpg" alt="Backless Dress" title="Backless Dress" loading="lazy" onerror="this.onerror=null;this.src='image/placeholder.png';">
+        </div>
+    </a>
+
+
+
+    <!-- PRODUCT NAME -->
+    <h4>
+        <a href="http://localhost/opencart1/index.php?route=product/product&amp;language=en-gb&amp;product_id=40708&amp;path=492_544">Backless Dress</a>
+    </h4>
+        <!-- DESCRIPTION -->
+     <p>A sleek and flattering backless dress with an elastic design, combining comfort and elegance for a p..</p>
+    <!-- PRICE AREA -->
+        <div class="product-price">
+                   <span style="color:black; font-weight:700; font-family:'SF Pro Text', 'SF Pro Icons', 'Helvetica Neue', Helvetica, Arial, sans-serif;">900.00</span>
+            </div>
+    
+    <!-- RATING -->
+    
+    <!-- BUY BUTTON -->
+    <form method="post" data-oc-toggle="ajax" data-oc-load="http://localhost/opencart1/index.php?route=common/cart.info&amp;language=en-gb" data-oc-target="#cart">
+        <div class="action-row">
+    <button type="submit" formaction="http://localhost/opencart1/index.php?route=checkout/cart.add&amp;language=en-gb" class="buy-now">
+       Add To Cart
+    </button>
+
+    <button
+        type="submit"
+        formaction="http://localhost/opencart1/index.php?route=account/wishlist.add&amp;language=en-gb"
+        class="like"
+        data-bs-toggle="tooltip"
+        title="Add to Wish List"
+        data-wishlist-add="http://localhost/opencart1/index.php?route=account/wishlist.add&amp;language=en-gb"
+        data-wishlist-remove="http://localhost/opencart1/index.php?route=account/wishlist.remove&amp;language=en-gb"
+    >
+        <i class="fa-heart fa-regular"></i>
+    </button>
+</div>
+
+
+        <input type="hidden" name="product_id" value="40708"/>
+        <input type="hidden" name="quantity" value="1"/>
+    </form>
+
+</div>
+
+
+</div>
+                      <div class="col mb-3 mt-5 product-filter-card" data-subcategories="554"><div class="custom-card">
+
+    <!-- IMAGE BOX -->
+    <a href="http://localhost/opencart1/index.php?route=product/product&amp;language=en-gb&amp;product_id=40694&amp;path=492_544">
+        <div class="image-box">
+            <img src="http://localhost/opencart1/image/cache/catalog/corebasics/backless-top-500x500.jpg" alt="Backless Top" title="Backless Top" loading="lazy" onerror="this.onerror=null;this.src='image/placeholder.png';">
+        </div>
+    </a>
+
+
+
+    <!-- PRODUCT NAME -->
+    <h4>
+        <a href="http://localhost/opencart1/index.php?route=product/product&amp;language=en-gb&amp;product_id=40694&amp;path=492_544">Backless Top</a>
+    </h4>
+        <!-- DESCRIPTION -->
+     <p>Backless top that combines flattering, contouring fit with timeless elegance-a chic twist on everyda..</p>
+    <!-- PRICE AREA -->
+        <div class="product-price">
+                   <span style="color:black; font-weight:700; font-family:'SF Pro Text', 'SF Pro Icons', 'Helvetica Neue', Helvetica, Arial, sans-serif;">400.00</span>
+            </div>
+    
+    <!-- RATING -->
+    
+    <!-- BUY BUTTON -->
+    <form method="post" data-oc-toggle="ajax" data-oc-load="http://localhost/opencart1/index.php?route=common/cart.info&amp;language=en-gb" data-oc-target="#cart">
+        <div class="action-row">
+    <button type="submit" formaction="http://localhost/opencart1/index.php?route=checkout/cart.add&amp;language=en-gb" class="buy-now">
+       Add To Cart
+    </button>
+
+    <button
+        type="submit"
+        formaction="http://localhost/opencart1/index.php?route=account/wishlist.add&amp;language=en-gb"
+        class="like"
+        data-bs-toggle="tooltip"
+        title="Add to Wish List"
+        data-wishlist-add="http://localhost/opencart1/index.php?route=account/wishlist.add&amp;language=en-gb"
+        data-wishlist-remove="http://localhost/opencart1/index.php?route=account/wishlist.remove&amp;language=en-gb"
+    >
+        <i class="fa-heart fa-regular"></i>
+    </button>
+</div>
+
+
+        <input type="hidden" name="product_id" value="40694"/>
+        <input type="hidden" name="quantity" value="1"/>
+    </form>
+
+</div>
+
+
+</div>
+                      <div class="col mb-3 mt-5 product-filter-card" data-subcategories="552"><div class="custom-card">
+
+    <!-- IMAGE BOX -->
+    <a href="http://localhost/opencart1/index.php?route=product/product&amp;language=en-gb&amp;product_id=40699&amp;path=492_544">
+        <div class="image-box">
+            <img src="http://localhost/opencart1/image/cache/catalog/corebasics/boated-top-500x500.jpg" alt="Boated Top" title="Boated Top" loading="lazy" onerror="this.onerror=null;this.src='image/placeholder.png';">
+        </div>
+    </a>
+
+
+
+    <!-- PRODUCT NAME -->
+    <h4>
+        <a href="http://localhost/opencart1/index.php?route=product/product&amp;language=en-gb&amp;product_id=40699&amp;path=492_544">Boated Top</a>
+    </h4>
+        <!-- DESCRIPTION -->
+     <p>Everyday boated top with flattering, contouring fit.
+Variants: Black / S/M | Red / S/M | White / S/M..</p>
+    <!-- PRICE AREA -->
+        <div class="product-price">
+                   <span style="color:black; font-weight:700; font-family:'SF Pro Text', 'SF Pro Icons', 'Helvetica Neue', Helvetica, Arial, sans-serif;">500.00</span>
+            </div>
+    
+    <!-- RATING -->
+    
+    <!-- BUY BUTTON -->
+    <form method="post" data-oc-toggle="ajax" data-oc-load="http://localhost/opencart1/index.php?route=common/cart.info&amp;language=en-gb" data-oc-target="#cart">
+        <div class="action-row">
+    <button type="submit" formaction="http://localhost/opencart1/index.php?route=checkout/cart.add&amp;language=en-gb" class="buy-now">
+       Add To Cart
+    </button>
+
+    <button
+        type="submit"
+        formaction="http://localhost/opencart1/index.php?route=account/wishlist.add&amp;language=en-gb"
+        class="like"
+        data-bs-toggle="tooltip"
+        title="Add to Wish List"
+        data-wishlist-add="http://localhost/opencart1/index.php?route=account/wishlist.add&amp;language=en-gb"
+        data-wishlist-remove="http://localhost/opencart1/index.php?route=account/wishlist.remove&amp;language=en-gb"
+    >
+        <i class="fa-heart fa-regular"></i>
+    </button>
+</div>
+
+
+        <input type="hidden" name="product_id" value="40699"/>
+        <input type="hidden" name="quantity" value="1"/>
+    </form>
+
+</div>
+
+
+</div>
+                      <div class="col mb-3 mt-5 product-filter-card" data-subcategories="554"><div class="custom-card">
+
+    <!-- IMAGE BOX -->
+    <a href="http://localhost/opencart1/index.php?route=product/product&amp;language=en-gb&amp;product_id=40692&amp;path=492_544">
+        <div class="image-box">
+            <img src="http://localhost/opencart1/image/cache/catalog/corebasics/cone-top-500x500.jpg" alt="Cone Top" title="Cone Top" loading="lazy" onerror="this.onerror=null;this.src='image/placeholder.png';">
+        </div>
+    </a>
+
+
+
+    <!-- PRODUCT NAME -->
+    <h4>
+        <a href="http://localhost/opencart1/index.php?route=product/product&amp;language=en-gb&amp;product_id=40692&amp;path=492_544">Cone Top</a>
+    </h4>
+        <!-- DESCRIPTION -->
+     <p>Flattering, chic and timeless top, 
+ paired with its multi-style scarf. 
+   
+ 
+ 
+ 
+   
+ small  
+ med..</p>
+    <!-- PRICE AREA -->
+        <div class="product-price">
+                   <span style="color:black; font-weight:700; font-family:'SF Pro Text', 'SF Pro Icons', 'Helvetica Neue', Helvetica, Arial, sans-serif;">450.00</span>
+            </div>
+    
+    <!-- RATING -->
+    
+    <!-- BUY BUTTON -->
+    <form method="post" data-oc-toggle="ajax" data-oc-load="http://localhost/opencart1/index.php?route=common/cart.info&amp;language=en-gb" data-oc-target="#cart">
+        <div class="action-row">
+    <button type="submit" formaction="http://localhost/opencart1/index.php?route=checkout/cart.add&amp;language=en-gb" class="buy-now">
+       Add To Cart
+    </button>
+
+    <button
+        type="submit"
+        formaction="http://localhost/opencart1/index.php?route=account/wishlist.add&amp;language=en-gb"
+        class="like"
+        data-bs-toggle="tooltip"
+        title="Add to Wish List"
+        data-wishlist-add="http://localhost/opencart1/index.php?route=account/wishlist.add&amp;language=en-gb"
+        data-wishlist-remove="http://localhost/opencart1/index.php?route=account/wishlist.remove&amp;language=en-gb"
+    >
+        <i class="fa-heart fa-regular"></i>
+    </button>
+</div>
+
+
+        <input type="hidden" name="product_id" value="40692"/>
+        <input type="hidden" name="quantity" value="1"/>
+    </form>
+
+</div>
+
+
+</div>
+                      <div class="col mb-3 mt-5 product-filter-card" data-subcategories="554"><div class="custom-card">
+
+    <!-- IMAGE BOX -->
+    <a href="http://localhost/opencart1/index.php?route=product/product&amp;language=en-gb&amp;product_id=40714&amp;path=492_544">
+        <div class="image-box">
+            <img src="http://localhost/opencart1/image/cache/catalog/corebasics/corebasics-essential-cap-1-500x500.jpg" alt="Corebasics essential cap" title="Corebasics essential cap" loading="lazy" onerror="this.onerror=null;this.src='image/placeholder.png';">
+        </div>
+    </a>
+
+
+
+    <!-- PRODUCT NAME -->
+    <h4>
+        <a href="http://localhost/opencart1/index.php?route=product/product&amp;language=en-gb&amp;product_id=40714&amp;path=492_544">Corebasics essential cap</a>
+    </h4>
+        <!-- DESCRIPTION -->
+     <p>Everyday cap.
+Variants: Beige | Black | Red | Olive | Green
+Category: All Products
+Handle: corebasic..</p>
+    <!-- PRICE AREA -->
+        <div class="product-price">
+                   <span style="color:black; font-weight:700; font-family:'SF Pro Text', 'SF Pro Icons', 'Helvetica Neue', Helvetica, Arial, sans-serif;">300.00</span>
+            </div>
+    
+    <!-- RATING -->
+    
+    <!-- BUY BUTTON -->
+    <form method="post" data-oc-toggle="ajax" data-oc-load="http://localhost/opencart1/index.php?route=common/cart.info&amp;language=en-gb" data-oc-target="#cart">
+        <div class="action-row">
+    <button type="submit" formaction="http://localhost/opencart1/index.php?route=checkout/cart.add&amp;language=en-gb" class="buy-now">
+       Add To Cart
+    </button>
+
+    <button
+        type="submit"
+        formaction="http://localhost/opencart1/index.php?route=account/wishlist.add&amp;language=en-gb"
+        class="like"
+        data-bs-toggle="tooltip"
+        title="Add to Wish List"
+        data-wishlist-add="http://localhost/opencart1/index.php?route=account/wishlist.add&amp;language=en-gb"
+        data-wishlist-remove="http://localhost/opencart1/index.php?route=account/wishlist.remove&amp;language=en-gb"
+    >
+        <i class="fa-heart fa-regular"></i>
+    </button>
+</div>
+
+
+        <input type="hidden" name="product_id" value="40714"/>
+        <input type="hidden" name="quantity" value="1"/>
+    </form>
+
+</div>
+
+
+</div>
+                      <div class="col mb-3 mt-5 product-filter-card" data-subcategories="554"><div class="custom-card">
+
+    <!-- IMAGE BOX -->
+    <a href="http://localhost/opencart1/index.php?route=product/product&amp;language=en-gb&amp;product_id=40716&amp;path=492_544">
+        <div class="image-box">
+            <img src="http://localhost/opencart1/image/cache/catalog/corebasics/corebasics-essential-sock-2-pairs-500x500.jpg" alt="Corebasics essential sock (2 pairs)" title="Corebasics essential sock (2 pairs)" loading="lazy" onerror="this.onerror=null;this.src='image/placeholder.png';">
+        </div>
+    </a>
+
+
+
+    <!-- PRODUCT NAME -->
+    <h4>
+        <a href="http://localhost/opencart1/index.php?route=product/product&amp;language=en-gb&amp;product_id=40716&amp;path=492_544">Corebasics essential sock (2 pairs)</a>
+    </h4>
+        <!-- DESCRIPTION -->
+     <p>100% Cotton pair of stocks.
+Variants: White | Grey | White and Gray
+Category: All Products
+Handle: c..</p>
+    <!-- PRICE AREA -->
+        <div class="product-price">
+                   <span style="color:black; font-weight:700; font-family:'SF Pro Text', 'SF Pro Icons', 'Helvetica Neue', Helvetica, Arial, sans-serif;">90.00</span>
+            </div>
+    
+    <!-- RATING -->
+    
+    <!-- BUY BUTTON -->
+    <form method="post" data-oc-toggle="ajax" data-oc-load="http://localhost/opencart1/index.php?route=common/cart.info&amp;language=en-gb" data-oc-target="#cart">
+        <div class="action-row">
+    <button type="submit" formaction="http://localhost/opencart1/index.php?route=checkout/cart.add&amp;language=en-gb" class="buy-now">
+       Add To Cart
+    </button>
+
+    <button
+        type="submit"
+        formaction="http://localhost/opencart1/index.php?route=account/wishlist.add&amp;language=en-gb"
+        class="like"
+        data-bs-toggle="tooltip"
+        title="Add to Wish List"
+        data-wishlist-add="http://localhost/opencart1/index.php?route=account/wishlist.add&amp;language=en-gb"
+        data-wishlist-remove="http://localhost/opencart1/index.php?route=account/wishlist.remove&amp;language=en-gb"
+    >
+        <i class="fa-heart fa-regular"></i>
+    </button>
+</div>
+
+
+        <input type="hidden" name="product_id" value="40716"/>
+        <input type="hidden" name="quantity" value="1"/>
+    </form>
+
+</div>
+
+
+</div>
+                      <div class="col mb-3 mt-5 product-filter-card" data-subcategories="554"><div class="custom-card">
+
+    <!-- IMAGE BOX -->
+    <a href="http://localhost/opencart1/index.php?route=product/product&amp;language=en-gb&amp;product_id=40710&amp;path=492_544">
+        <div class="image-box">
+            <img src="http://localhost/opencart1/image/cache/catalog/corebasics/cropped-jacket-500x500.jpg" alt="Cropped Jacket" title="Cropped Jacket" loading="lazy" onerror="this.onerror=null;this.src='image/placeholder.png';">
+        </div>
+    </a>
+
+
+
+    <!-- PRODUCT NAME -->
+    <h4>
+        <a href="http://localhost/opencart1/index.php?route=product/product&amp;language=en-gb&amp;product_id=40710&amp;path=492_544">Cropped Jacket</a>
+    </h4>
+        <!-- DESCRIPTION -->
+     <p>Features a relaxed , comfiest fit.
+Variants: S/M / Black | S/M / Red | S/M / Beige | S/M / Brown | L..</p>
+    <!-- PRICE AREA -->
+        <div class="product-price">
+                   <span style="color:black; font-weight:700; font-family:'SF Pro Text', 'SF Pro Icons', 'Helvetica Neue', Helvetica, Arial, sans-serif;">670.00</span>
+            </div>
+    
+    <!-- RATING -->
+    
+    <!-- BUY BUTTON -->
+    <form method="post" data-oc-toggle="ajax" data-oc-load="http://localhost/opencart1/index.php?route=common/cart.info&amp;language=en-gb" data-oc-target="#cart">
+        <div class="action-row">
+    <button type="submit" formaction="http://localhost/opencart1/index.php?route=checkout/cart.add&amp;language=en-gb" class="buy-now">
+       Add To Cart
+    </button>
+
+    <button
+        type="submit"
+        formaction="http://localhost/opencart1/index.php?route=account/wishlist.add&amp;language=en-gb"
+        class="like"
+        data-bs-toggle="tooltip"
+        title="Add to Wish List"
+        data-wishlist-add="http://localhost/opencart1/index.php?route=account/wishlist.add&amp;language=en-gb"
+        data-wishlist-remove="http://localhost/opencart1/index.php?route=account/wishlist.remove&amp;language=en-gb"
+    >
+        <i class="fa-heart fa-regular"></i>
+    </button>
+</div>
+
+
+        <input type="hidden" name="product_id" value="40710"/>
+        <input type="hidden" name="quantity" value="1"/>
+    </form>
+
+</div>
+
+
+</div>
+                      <div class="col mb-3 mt-5 product-filter-card" data-subcategories="554"><div class="custom-card">
+
+    <!-- IMAGE BOX -->
+    <a href="http://localhost/opencart1/index.php?route=product/product&amp;language=en-gb&amp;product_id=40690&amp;path=492_544">
+        <div class="image-box">
+            <img src="http://localhost/opencart1/image/cache/catalog/corebasics/cropped-sweater-500x500.jpg" alt="Cropped sweater" title="Cropped sweater" loading="lazy" onerror="this.onerror=null;this.src='image/placeholder.png';">
+        </div>
+    </a>
+
+
+
+    <!-- PRODUCT NAME -->
+    <h4>
+        <a href="http://localhost/opencart1/index.php?route=product/product&amp;language=en-gb&amp;product_id=40690&amp;path=492_544">Cropped sweater</a>
+    </h4>
+        <!-- DESCRIPTION -->
+     <p>Mixed fabric cropped sweater
+Variants: Gray / S/M | Black / S/M | Silver / S/M | Olive / S/M | Gray ..</p>
+    <!-- PRICE AREA -->
+        <div class="product-price">
+                   <span style="color:black; font-weight:700; font-family:'SF Pro Text', 'SF Pro Icons', 'Helvetica Neue', Helvetica, Arial, sans-serif;">800.00</span>
+            </div>
+    
+    <!-- RATING -->
+    
+    <!-- BUY BUTTON -->
+    <form method="post" data-oc-toggle="ajax" data-oc-load="http://localhost/opencart1/index.php?route=common/cart.info&amp;language=en-gb" data-oc-target="#cart">
+        <div class="action-row">
+    <button type="submit" formaction="http://localhost/opencart1/index.php?route=checkout/cart.add&amp;language=en-gb" class="buy-now">
+       Add To Cart
+    </button>
+
+    <button
+        type="submit"
+        formaction="http://localhost/opencart1/index.php?route=account/wishlist.add&amp;language=en-gb"
+        class="like"
+        data-bs-toggle="tooltip"
+        title="Add to Wish List"
+        data-wishlist-add="http://localhost/opencart1/index.php?route=account/wishlist.add&amp;language=en-gb"
+        data-wishlist-remove="http://localhost/opencart1/index.php?route=account/wishlist.remove&amp;language=en-gb"
+    >
+        <i class="fa-heart fa-regular"></i>
+    </button>
+</div>
+
+
+        <input type="hidden" name="product_id" value="40690"/>
+        <input type="hidden" name="quantity" value="1"/>
+    </form>
+
+</div>
+
+
+</div>
+                      <div class="col mb-3 mt-5 product-filter-card" data-subcategories="554"><div class="custom-card">
+
+    <!-- IMAGE BOX -->
+    <a href="http://localhost/opencart1/index.php?route=product/product&amp;language=en-gb&amp;product_id=40705&amp;path=492_544">
+        <div class="image-box">
+            <img src="http://localhost/opencart1/image/cache/catalog/corebasics/double-layered-dress-500x500.jpg" alt="Double layered dress" title="Double layered dress" loading="lazy" onerror="this.onerror=null;this.src='image/placeholder.png';">
+        </div>
+    </a>
+
+
+
+    <!-- PRODUCT NAME -->
+    <h4>
+        <a href="http://localhost/opencart1/index.php?route=product/product&amp;language=en-gb&amp;product_id=40705&amp;path=492_544">Double layered dress</a>
+    </h4>
+        <!-- DESCRIPTION -->
+     <p>flattering double layer short dress  
+ complement the body.
+Variants: Yellow / S/M | Black / S/M | Y..</p>
+    <!-- PRICE AREA -->
+        <div class="product-price">
+                   <span style="color:black; font-weight:700; font-family:'SF Pro Text', 'SF Pro Icons', 'Helvetica Neue', Helvetica, Arial, sans-serif;">600.00</span>
+            </div>
+    
+    <!-- RATING -->
+    
+    <!-- BUY BUTTON -->
+    <form method="post" data-oc-toggle="ajax" data-oc-load="http://localhost/opencart1/index.php?route=common/cart.info&amp;language=en-gb" data-oc-target="#cart">
+        <div class="action-row">
+    <button type="submit" formaction="http://localhost/opencart1/index.php?route=checkout/cart.add&amp;language=en-gb" class="buy-now">
+       Add To Cart
+    </button>
+
+    <button
+        type="submit"
+        formaction="http://localhost/opencart1/index.php?route=account/wishlist.add&amp;language=en-gb"
+        class="like"
+        data-bs-toggle="tooltip"
+        title="Add to Wish List"
+        data-wishlist-add="http://localhost/opencart1/index.php?route=account/wishlist.add&amp;language=en-gb"
+        data-wishlist-remove="http://localhost/opencart1/index.php?route=account/wishlist.remove&amp;language=en-gb"
+    >
+        <i class="fa-heart fa-regular"></i>
+    </button>
+</div>
+
+
+        <input type="hidden" name="product_id" value="40705"/>
+        <input type="hidden" name="quantity" value="1"/>
+    </form>
+
+</div>
+
+
+</div>
+                      <div class="col mb-3 mt-5 product-filter-card" data-subcategories="554"><div class="custom-card">
+
+    <!-- IMAGE BOX -->
+    <a href="http://localhost/opencart1/index.php?route=product/product&amp;language=en-gb&amp;product_id=40711&amp;path=492_544">
+        <div class="image-box">
+            <img src="http://localhost/opencart1/image/cache/catalog/corebasics/finger-quarter-zip-sweater-500x500.jpg" alt="Finger Quarter Zip Sweater" title="Finger Quarter Zip Sweater" loading="lazy" onerror="this.onerror=null;this.src='image/placeholder.png';">
+        </div>
+    </a>
+
+
+
+    <!-- PRODUCT NAME -->
+    <h4>
+        <a href="http://localhost/opencart1/index.php?route=product/product&amp;language=en-gb&amp;product_id=40711&amp;path=492_544">Finger Quarter Zip Sweater</a>
+    </h4>
+        <!-- DESCRIPTION -->
+     <p>Features a relaxed , comfiest fit.
+Variants: S/M / Black | S/M / Red | S/M / Beige | S/M / Brown | L..</p>
+    <!-- PRICE AREA -->
+        <div class="product-price">
+                   <span style="color:black; font-weight:700; font-family:'SF Pro Text', 'SF Pro Icons', 'Helvetica Neue', Helvetica, Arial, sans-serif;">650.00</span>
+            </div>
+    
+    <!-- RATING -->
+    
+    <!-- BUY BUTTON -->
+    <form method="post" data-oc-toggle="ajax" data-oc-load="http://localhost/opencart1/index.php?route=common/cart.info&amp;language=en-gb" data-oc-target="#cart">
+        <div class="action-row">
+    <button type="submit" formaction="http://localhost/opencart1/index.php?route=checkout/cart.add&amp;language=en-gb" class="buy-now">
+       Add To Cart
+    </button>
+
+    <button
+        type="submit"
+        formaction="http://localhost/opencart1/index.php?route=account/wishlist.add&amp;language=en-gb"
+        class="like"
+        data-bs-toggle="tooltip"
+        title="Add to Wish List"
+        data-wishlist-add="http://localhost/opencart1/index.php?route=account/wishlist.add&amp;language=en-gb"
+        data-wishlist-remove="http://localhost/opencart1/index.php?route=account/wishlist.remove&amp;language=en-gb"
+    >
+        <i class="fa-heart fa-regular"></i>
+    </button>
+</div>
+
+
+        <input type="hidden" name="product_id" value="40711"/>
+        <input type="hidden" name="quantity" value="1"/>
+    </form>
+
+</div>
+
+
+</div>
+                  </div>
+
+        <div class="row">
+          <div class="col-sm-12 text-center mx-auto mt-5 "><nav aria-label="Page navigation">
+  <ul class="pagination">
+                      <li class="page-item active"><span class="page-link">1</span></li>
+                        <li class="page-item"><a href="http://localhost/opencart1/index.php?route=product/category&amp;language=en-gb&amp;path=492_544&amp;page=2" class="page-link">2</a></li>
+                        <li class="page-item"><a href="http://localhost/opencart1/index.php?route=product/category&amp;language=en-gb&amp;path=492_544&amp;page=3" class="page-link">3</a></li>
+                    <li class="page-item">
+        <a class="page-link" href="http://localhost/opencart1/index.php?route=product/category&amp;language=en-gb&amp;path=492_544&amp;page=2" aria-label="Next">
+          <span aria-hidden="true">&raquo;</span>
+        </a>
+      </li>
+      </ul>
+</nav>
+</div>
+        </div>
+        <div class="row">
+          <div class="col-sm-12 text-end results-text">Showing 1 to 12 of 28 (3 Pages)</div>
+        </div>
+                  
+<div class="fullwidth-wrapper">
+    </div></div>
+    </div>
+</div>
+<script type="text/javascript"><!--
+(function() {
+  var checkboxes = document.querySelectorAll('.subcategory-filter-checkbox');
+  var clearBtn = document.getElementById('subcategory-filter-clear');
+  var countEl = document.getElementById('subcategory-filter-count');
+  if (!checkboxes.length) return;
+
+  function getSelected() {
+    var selected = [];
+    checkboxes.forEach(function(cb) {
+      if (cb.checked) selected.push(String(cb.value));
+    });
+    return selected;
+  }
+
+  function applyFilter() {
+    var selected = getSelected();
+    var url = new URL(window.location.href);
+
+    if (selected.length) {
+      url.searchParams.set('subcats', selected.join(','));
+    } else {
+      url.searchParams.delete('subcats');
+    }
+
+    url.searchParams.set('page', '1');
+    window.location.href = url.toString();
+  }
+
+  checkboxes.forEach(function(cb) {
+    cb.addEventListener('change', applyFilter);
+  });
+
+  if (clearBtn) {
+    clearBtn.addEventListener('click', function() {
+      var url = new URL(window.location.href);
+      url.searchParams.delete('subcats');
+      url.searchParams.set('page', '1');
+      window.location.href = url.toString();
+    });
+  }
+
+  if (countEl) {
+    var selectedNow = getSelected();
+    countEl.textContent = selectedNow.length ? (selectedNow.length + ' selected') : '';
+  }
+})();
+//--></script>
+</main>
+<footer style="background:#000;">
+  <div class="container">
+    <div class="row">
+              <div class="col-sm-3">
+          <h5 style="font-size:18px;"><a href="http://localhost/opencart1/index.php?route=account/wishlist&amp;language=en-gb"><img src="image/catalog/localspotblack.png" alt="Localspot" style="height:28px;width:auto;vertical-align:middle;margin-right:8px; color:white;">Localspot</a></h5> 
+
+        </div>
+            <div class="col-sm-3">
+        <h5 style="font-size:18px;"><a href="http://localhost/opencart1/index.php?route=information/contact&amp;language=en-gb">Contact Us</a></h5>
+
+      </div>
+      <div class="col-sm-3">
+        <h5 style="font-size:18px;"><a href="http://localhost/opencart1/index.php?route=product/manufacturer&amp;language=en-gb">Brands</a></h5>
+
+      </div>
+      <div class="col-sm-3">
+        <h5 style="font-size:18px;"><a href="http://localhost/opencart1/index.php?route=account/account&amp;language=en-gb">My Account</a></h5>
+    
+      </div>
+    </div>
+    <hr>
+    <p style="text-align:center;">Powered By OpenCart Localspot &copy; 2026</p>
+    
+  </div>
+</footer>
+</div>
+
+<script src="catalog/view/javascript/bootstrap/js/bootstrap.bundle.min.js" type="text/javascript"></script>
+</body></html>
+

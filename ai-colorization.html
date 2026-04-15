@@ -1,0 +1,390 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>AI Colorization</title>
+  <style>
+    *{
+      box-sizing: border-box;
+      font-family: Arial;
+    }
+
+    body{
+      margin:0;
+      background:#f3f4f6;
+    }
+
+    .page{
+      display:none;
+      width:100%;
+      height:100vh;
+    }
+
+    .active{
+      display:flex;
+      justify-content:center;
+      align-items:center;
+    }
+
+    .auth-box{
+      width:350px;
+      background:white;
+      padding:30px;
+      border-radius:20px;
+      box-shadow:0 10px 30px rgba(0,0,0,0.1);
+      text-align:center;
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+    }
+
+    input{
+      width:100%;
+      padding:12px;
+      margin:10px 0;
+      border-radius:10px;
+      border:1px solid #ddd;
+    }
+
+    textarea{
+      width:100%;
+      padding:15px;
+      border-radius:15px;
+      border:1px solid #ddd;
+      height:100px;
+    }
+
+    button{
+      width: 90%;
+      padding:10px;
+      border:none;
+      border-radius:10px;
+      background:linear-gradient(to right,#4facfe,#6a11cb);
+      color:white;
+      cursor:pointer;
+      margin:5px;
+    }
+
+    button:hover{
+      opacity:0.85;
+      transform:scale(1.03);
+      transition:0.2s;
+    }
+
+    .link{
+      color:#6a11cb;
+      cursor:pointer;
+    }
+
+    .app{
+      display:flex;
+      flex-direction:column;
+      width:80%;
+      height:100vh;
+      padding:20px;
+      gap:20px;
+    }
+
+    .card{
+      background:white;
+      border-radius:20px;
+      padding:20px;
+      box-shadow:0 5px 15px rgba(0,0,0,0.05);
+    }
+
+    .header{
+      background:linear-gradient(to right,#4facfe,#6a11cb);
+      color:white;
+      text-align:center;
+    }
+
+    .img-box{
+      height:140px;
+      background:#e5e7eb;
+      border-radius:15px;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      margin:15px 0;
+      overflow:hidden;
+    }
+
+    .img-box img{
+      max-height:100%;
+      border-radius:15px;
+    }
+
+    .stats{
+      display:flex;
+      gap:15px;
+    }
+
+    .stat{
+      flex:1;
+      padding:20px;
+      border-radius:15px;
+      color:white;
+      text-align:center;
+    }
+
+    .blue{background:#4facfe;}
+    .purple{background:#6a11cb;}
+
+    .upload-box{
+      border:2px dashed #ccc;
+      padding:40px;
+      text-align:center;
+      border-radius:15px;
+      margin:15px 0;
+    }
+
+    li{
+      padding:8px;
+      background:#f9fafb;
+      margin:5px 0;
+      border-radius:8px;
+    }
+
+    .nav{
+      display:flex;
+      justify-content:space-around;
+      background:white;
+      padding: 8px;
+      border-radius:16px;
+      box-shadow:0 5px 15px rgba(0,0,0,0.05);
+    }
+
+    .section{
+      display:none;
+    }
+
+    .section.active{
+      display:block;
+    }
+
+    /* ⭐ Stars */
+    #stars{
+      display:flex;
+      gap:10px;
+      justify-content:center;
+      margin:10px 0;
+    }
+
+    #stars span{
+      font-size:25px;
+      cursor:pointer;
+      opacity:0.4;
+    }
+
+    #stars span.active{
+      opacity:1;
+    }
+  </style>
+</head>
+<body>
+  <!-- LOGIN -->
+  <div id="login" class="page active">
+    <div class="auth-box">
+      <h2>Login</h2>
+      <input type="email" placeholder="Email">
+      <input type="password" placeholder="Password">
+      <button onclick="login()">Login</button>
+      <span class="link" onclick="goTo('forget')">Forget Password?</span>
+      <span class="link" onclick="goTo('signup')">Sign Up</span>
+    </div>
+  </div>
+
+  <!-- SIGNUP -->
+  <div id="signup" class="page">
+    <div class="auth-box">
+      <h2>Sign Up</h2>
+      <input placeholder="Name">
+      <input placeholder="Email">
+      <input placeholder="Password">
+      <button onclick="goTo('login')">Create Account</button>
+      <span class="link" onclick="goTo('login')">Back</span>
+    </div>
+  </div>
+
+  <!-- FORGET -->
+  <div id="forget" class="page">
+    <div class="auth-box">
+      <h2>Reset Password</h2>
+      <input placeholder="Enter email">
+      <button>Send Link</button>
+      <span class="link" onclick="goTo('login')">Back</span>
+    </div>
+  </div>
+
+  <!-- APP -->
+  <div id="app" class="page">
+    <div class="app">
+      <div class="card header">
+        <h2>AI Colorization</h2>
+        <p>Welcome Back</p>
+      </div>
+
+      <!-- HOME -->
+      <div id="home" class="section active card">
+        <p>Last Uploaded Image</p>
+
+        <div class="img-box">
+          <img id="preview" style="display:none;">
+          <span id="placeholder">Preview</span>
+        </div>
+
+        <div class="stats">
+          <div class="stat blue">
+            <h2 id="total">0</h2>
+            Images
+          </div>
+          <div class="stat purple">
+            <h2 id="week">0</h2>
+            This Week
+          </div>
+        </div>
+      </div>
+
+      <!-- UPLOAD -->
+      <div id="upload" class="section card">
+        <div class="upload-box">
+          <input type="file" id="file">
+          <p>Upload Image</p>
+        </div>
+        <button onclick="upload()">Colorize</button>
+      </div>
+
+      <!-- HISTORY -->
+      <div id="history" class="section card">
+        <p id="empty">No uploads yet </p>
+        <ul id="list"></ul>
+      </div>
+
+      <!-- FEEDBACK -->
+      <div id="feedback" class="section card">
+        <h3>Feedback</h3>
+        <p>Help us improve the app</p>
+        <textarea id="feedbackText" placeholder="Write your feedback here..."></textarea>
+        <p>Rating</p>
+        <div id="stars">
+          <span onclick="rate(1)">⭐</span>
+          <span onclick="rate(2)">⭐</span>
+          <span onclick="rate(3)">⭐</span>
+          <span onclick="rate(4)">⭐</span>
+          <span onclick="rate(5)">⭐</span>
+        </div>
+        <button onclick="submitFeedback()">Submit Feedback</button>
+      </div>
+
+      <!-- NAV -->
+      <div class="nav">
+        <button onclick="show('home')">Home</button>
+        <button onclick="show('upload')">Upload</button>
+        <button onclick="show('history')">History</button>
+        <button onclick="show('feedback')">Feedback</button>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    let history = JSON.parse(localStorage.getItem("history")) || [];
+    let currentRating = 0;
+
+    window.onload = function(){
+      updateHistory();
+      document.getElementById("total").innerText = history.length;
+      document.getElementById("week").innerText = history.length;
+    }
+
+    function goTo(id){
+      document.querySelectorAll(".page").forEach(p=>p.classList.remove("active"));
+      document.getElementById(id).classList.add("active");
+    }
+
+    function login(){
+      goTo("app");
+    }
+
+    function show(id){
+      document.querySelectorAll(".section").forEach(s=>s.classList.remove("active"));
+      document.getElementById(id).classList.add("active");
+    }
+
+    function upload(){
+      let file = document.getElementById("file");
+
+      if(file.files.length === 0){
+        alert("Choose image");
+        return;
+      }
+
+      let selected = file.files[0];
+      let name = selected.name;
+
+      let reader = new FileReader();
+      reader.onload = function(e){
+        let img = document.getElementById("preview");
+        let text = document.getElementById("placeholder");
+
+        img.src = e.target.result;
+        img.style.display = "block";
+        text.style.display = "none";
+      }
+      reader.readAsDataURL(selected);
+
+      history.push(name);
+      localStorage.setItem("history", JSON.stringify(history));
+
+      document.getElementById("total").innerText = history.length;
+      document.getElementById("week").innerText = history.length;
+
+      updateHistory();
+    }
+
+    function updateHistory(){
+      let list = document.getElementById("list");
+      let empty = document.getElementById("empty");
+
+      list.innerHTML = "";
+
+      if(history.length === 0){
+        empty.style.display = "block";
+      }else{
+        empty.style.display = "none";
+        history.forEach(i=>{
+          let li = document.createElement("li");
+          li.innerText = i;
+          list.appendChild(li);
+        });
+      }
+    }
+
+    function rate(num){
+      currentRating = num;
+      let stars = document.querySelectorAll("#stars span");
+
+      stars.forEach((s, i)=>{
+        if(i < num){
+          s.classList.add("active");
+        }else{
+          s.classList.remove("active");
+        }
+      });
+    }
+
+    function submitFeedback(){
+      let text = document.getElementById("feedbackText").value;
+
+      if(text === "" || currentRating === 0){
+        alert("Please write feedback and rate ⭐");
+        return;
+      }
+
+      alert("Thanks for your feedback ❤️");
+
+      document.getElementById("feedbackText").value = "";
+      currentRating = 0;
+      document.querySelectorAll("#stars span").forEach(s=>s.classList.remove("active"));
+    }
+  </script>
+</body>
+</html>

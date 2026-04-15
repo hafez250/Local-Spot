@@ -1,0 +1,14 @@
+<h2>{{ heading_title }}</h2>
+
+{% if products %}
+  <ul class="list-group">
+    {% for product in products %}
+      <li class="list-group-item">
+        {{ product.name }} - ${{ product.price }}
+        <a href="index.php?route=product/product&product_id={{ product.product_id }}" class="btn btn-sm btn-primary float-end">View</a>
+      </li>
+    {% endfor %}
+  </ul>
+{% else %}
+  <p>No recommendations yet. Buy some products to get recommendations!</p>
+{% endif %}

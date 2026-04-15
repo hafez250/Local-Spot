@@ -1,0 +1,229 @@
+{{ header }}
+<div id="product-category" class="container">
+  <nav class="modern-breadcrumb-wrap" aria-label="Breadcrumb">
+    <ol class="modern-breadcrumb">
+      {% for breadcrumb in breadcrumbs %}
+        <li class="modern-breadcrumb-item{% if loop.last %} is-current{% endif %}">
+          {% if loop.last %}
+            <span class="modern-breadcrumb-link" aria-current="page">{{ breadcrumb.text }}</span>
+          {% else %}
+            <a href="{{ breadcrumb.href }}" class="modern-breadcrumb-link">{{ breadcrumb.text }}</a>
+          {% endif %}
+        </li>
+      {% endfor %}
+    </ol>
+  </nav>
+  
+  <div class="row">{{ column_left }}
+    <div id="content" class="col">{{ content_top }}
+      {% if category_id == 61 %}
+        <div class="text-center pt-5 mt-3 mb-2">
+          <img src="image/catalog/starnine.avif" alt="Starnine Logo" style="width: 130px; height: auto;">
+        </div>
+      {% endif %}
+      {% if category_id == 62 %}
+        <div class="text-center pt-5 mt-3 mb-2">
+          <img src="image/catalog/svglogo.webp" alt="Svg Logo" style="width: 130px; height: auto;">
+        </div>
+      {% endif %}
+      {% if category_id == 493 %}
+        <div class="text-center pt-5 mt-3 mb-2">
+          <img src="image/catalog/seemlybanner.avif" alt="Seemly Logo" style="width: 200px; height: auto;">
+        </div>
+      {% endif %}
+      <h1 class=" Ft mb-5 {% if category_id == 61 %}{% else %}pt-5 mt-3 {% endif %}">{{ heading_title }}</h1>
+      {% if image or description %}
+        <div class="row">
+          
+          {% if description %}
+            <div class="col-9">{{ description }}</div>
+          {% endif %}
+        </div>
+        <hr/>
+      {% endif %}
+
+      {% if categories and not subcategory_menu %}
+
+        {% if categories|length <= 5 %}
+          <div class="row">
+            {# 
+            <div class="col-sm-3">
+              <ul>
+                {% for category in categories %}
+                  <li><a href="{{ category.href }}">{{ category.name }}</a></li>
+                {% endfor %}
+              </ul>
+            </div>
+            #}
+          </div>
+        {% else %}
+          <div class="row row-cols-sm-2 row-cols-lg-4">
+            {% set total = categories|length %}
+            {% if total > 20 %}
+              {% set batch = (total / 4)|round(0, 'ceil') %}
+            {% else %}
+              {% set batch = 5 %}
+            {% endif %}
+            {% for category in categories|batch(batch) %}
+              <div class="col">
+                <ul>
+                  {% for child in category %}
+                    <li><a href="{{ child.href }}">{{ child.name }}</a></li>
+                  {% endfor %}
+                </ul>
+              </div>
+            {% endfor %}
+          </div>
+          <br/>
+        {% endif %}
+      {% endif %}
+
+      {% if products %}
+        <div class="row">
+          <div class="col-lg-3">
+            <div class="mb-3">
+              <a href="{{ compare }}" id="compare-total" class="btn btn-primary d-block compare-btn"><i class="fa-solid fa-arrow-right-arrow-left"></i> <span class="d-none d-xl-inline">{{ text_compare }}</span></a>
+            </div>
+          </div>
+          <div class="col-lg-6 col-6 ms-auto d-flex justify-content-end align-items-center gap-2">
+            <div class="btn-group d-none d-lg-inline-flex">
+              <button type="button" id="button-list" class="btn btn-light" data-bs-toggle="tooltip" title="{{ button_list }}"><i class="fa-solid fa-table-list"></i></button>
+              <button type="button" id="button-grid" class="btn btn-light" data-bs-toggle="tooltip" title="{{ button_grid }}"><i class="fa-solid fa-table-cells"></i></button>
+            </div>
+
+            {% if subcategory_menu %}
+              <div class="dropdown" data-bs-auto-close="outside">
+                <button class="btn btn-secondary dropdown-toggle sort-dropdown-btn d-inline-flex align-items-center gap-2" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                  Filter
+                  <i class="fa-solid fa-chevron-down"></i>
+                </button>
+                <div class="dropdown-menu p-2 subcategory-filter-menu">
+                  {% for item in subcategory_menu %}
+                    <label class="form-check d-flex align-items-center gap-2 subcategory-filter-item">
+                      <input class="form-check-input subcategory-filter-checkbox" type="checkbox" value="{{ item.category_id }}"{% if item.category_id in selected_subcategory_ids %} checked{% endif %}>
+                      <span class="form-check-label">{{ item.name }}</span>
+                    </label>
+                  {% endfor %}
+                  <div class="d-flex justify-content-between pt-2 mt-2 border-top">
+                    <button type="button" class="btn btn-sm btn-outline-dark" id="subcategory-filter-clear">Clear</button>
+                    <span class="small text-muted align-self-center" id="subcategory-filter-count"></span>
+                  </div>
+                </div>
+              </div>
+            {% endif %}
+
+
+
+            <div class="dropdown">
+              {% set current_sort_text = text_sort %}
+              {% for sorts in sorts %}
+                {% if sorts.value == '%s-%s'|format(sort, order) %}
+                  {% set current_sort_text = sorts.text %}
+                {% endif %}
+              {% endfor %}
+              <button class="btn btn-secondary dropdown-toggle sort-dropdown-btn d-inline-flex align-items-center gap-2" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                {{ current_sort_text }}
+                <i class="fa-solid fa-chevron-down"></i>
+              </button>
+              <ul class="dropdown-menu">
+                {% for sorts in sorts %}
+                  <li>
+                    <a class="dropdown-item{% if sorts.value == '%s-%s'|format(sort, order) %} active{% endif %}" href="{{ sorts.href }}">
+                      {{ sorts.text }}
+                    </a>
+                  </li>
+                {% endfor %}
+              </ul>
+            </div>
+            <a href="index.php?route=product/search" class="ms-5 d-inline-flex align-items-center justify-content-center text-decoration-none" aria-label="Search" title="Search">
+              <i class="fas fa-search" style="color: #000000; font-size: 1.5rem;"></i>
+            </a>
+            
+
+
+
+          </div>
+          {# Limit dropdown hidden for now #}
+          {# 
+          <div class="col-lg-3 col-6">
+            <div class="input-group mb-3">
+              <label for="input-limit" class="input-group-text">{{ text_limit }}</label>
+              <select id="input-limit" class="form-select limit-select" onchange="location = this.value;">
+                {% for limits in limits %}
+                  <option value="{{ limits.href }}"{% if limits.value == limit %} selected{% endif %}>{{ limits.text }}</option>
+                {% endfor %}
+              </select>
+            </div>
+          </div>
+          #}
+        </div>
+
+        <div id="product-list" class="row row-cols-1 row-cols-sm-2 row-cols-md-2 row-cols-lg-4 mt-6">
+          {% for product in products %}
+            <div class="col mb-3 mt-5 product-filter-card" data-subcategories="{{ product_subcategory_ids[loop.index0]|default('') }}">{{ product }}</div>
+          {% endfor %}
+        </div>
+
+        <div class="row">
+          <div class="col-sm-12 text-center mx-auto mt-5 ">{{ pagination }}</div>
+        </div>
+        <div class="row">
+          <div class="col-sm-12 text-end results-text">{{ results }}</div>
+        </div>
+      {% endif %}
+      {% if not categories and not products %}
+        <p>{{ text_no_results }}</p>
+        <div class="text-end"><a href="{{ continue }}" class="btn btn-primary">{{ button_continue }}</a></div>
+      {% endif %}
+      {{ content_bottom }}</div>
+    {{ column_right }}</div>
+</div>
+<script type="text/javascript"><!--
+(function() {
+  var checkboxes = document.querySelectorAll('.subcategory-filter-checkbox');
+  var clearBtn = document.getElementById('subcategory-filter-clear');
+  var countEl = document.getElementById('subcategory-filter-count');
+  if (!checkboxes.length) return;
+
+  function getSelected() {
+    var selected = [];
+    checkboxes.forEach(function(cb) {
+      if (cb.checked) selected.push(String(cb.value));
+    });
+    return selected;
+  }
+
+  function applyFilter() {
+    var selected = getSelected();
+    var url = new URL(window.location.href);
+
+    if (selected.length) {
+      url.searchParams.set('subcats', selected.join(','));
+    } else {
+      url.searchParams.delete('subcats');
+    }
+
+    url.searchParams.set('page', '1');
+    window.location.href = url.toString();
+  }
+
+  checkboxes.forEach(function(cb) {
+    cb.addEventListener('change', applyFilter);
+  });
+
+  if (clearBtn) {
+    clearBtn.addEventListener('click', function() {
+      var url = new URL(window.location.href);
+      url.searchParams.delete('subcats');
+      url.searchParams.set('page', '1');
+      window.location.href = url.toString();
+    });
+  }
+
+  if (countEl) {
+    var selectedNow = getSelected();
+    countEl.textContent = selectedNow.length ? (selectedNow.length + ' selected') : '';
+  }
+})();
+//--></script>
+{{ footer }}

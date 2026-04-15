@@ -1,0 +1,43 @@
+{% if products %}
+  <div class="row row-cols-1 row-cols-sm-2 row-cols-md-2 row-cols-lg-4 g-4">
+    {% set product_row = 0 %}
+    {% for product in products %}
+      <div class="col">
+        <div class="custom-card h-100">
+          <a href="{{ product.href }}">
+            <div class="image-box">
+              {% if product.thumb %}
+                <img src="{{ product.thumb }}" alt="{{ product.name }}" title="{{ product.name }}">
+              {% endif %}
+            </div>
+          </a>
+
+          <h4><a href="{{ product.href }}">{{ product.name }}</a></h4>
+
+          {% if product.price %}
+            <div class="product-price">
+              {% if not product.special %}
+                {{ product.price }}
+              {% else %}
+                <span style="color:#1bbf63; font-weight:700;">{{ product.special }}</span>
+                <span style="text-decoration:line-through; color:#888; font-size:14px; margin-left:8px;">{{ product.price }}</span>
+              {% endif %}
+            </div>
+          {% endif %}
+
+          <form id="form-product-{{ product_row }}" action="{{ cart_add }}" method="post" data-oc-toggle="ajax" data-oc-load="{{ cart }}" data-oc-target="#cart">
+            <div class="action-row">
+              <button type="submit" class="buy-now">{{ button_cart }}</button>
+              <a href="{{ product.remove }}" class="btn-remove btn-danger" aria-label="{{ button_remove }}"><i class="fa-regular fa-trash-can"></i></a>
+            </div>
+            <input type="hidden" name="product_id" value="{{ product.product_id }}"/>
+            <input type="hidden" name="quantity" value="{{ product.minimum }}"/>
+          </form>
+        </div>
+      </div>
+      {% set product_row = product_row + 1 %}
+    {% endfor %}
+  </div>
+{% else %}
+  <p>{{ text_no_results }}</p>
+{% endif %}

@@ -1,0 +1,73 @@
+{{ header }}
+<div id="account-seller-welcome" class="container">
+  <nav class="modern-breadcrumb-wrap" aria-label="Breadcrumb">
+    <ol class="modern-breadcrumb">
+      {% for breadcrumb in breadcrumbs %}
+        <li class="modern-breadcrumb-item{% if loop.last %} is-current{% endif %}">
+          {% if loop.last %}
+            <span class="modern-breadcrumb-link" aria-current="page">{{ breadcrumb.text }}</span>
+          {% else %}
+            <a href="{{ breadcrumb.href }}" class="modern-breadcrumb-link">{{ breadcrumb.text }}</a>
+          {% endif %}
+        </li>
+      {% endfor %}
+    </ol>
+  </nav>
+  <div class="row">
+    {{ column_left }}
+    <div id="content" class="col">
+      {{ content_top }}
+      <div class="register-shell">
+        <div class="register-panel register-modern-card text-center welcome-card">
+          {% if brand_logo %}
+            <img src="{{ brand_logo }}" alt="{{ brand_name }}" style="width:160px;height:160px;object-fit:cover;border-radius:50%;margin:0 auto 16px;">
+          {% endif %}
+
+          <h1 class="welcome-title mb-4ok"><span class="welcome-prefix">{{ text_welcome_prefix }}</span> <span class="welcome-brand">{{ brand_name }}</span> <span class="welcome-suffix">{{ text_welcome_suffix }}</span></h1>
+          <a href="{{ continue }}" class="btn welcome-continue-btn">{{ button_continue }}</a>
+        </div>
+      </div>
+      {{ content_bottom }}
+    </div>
+    {{ column_right }}
+  </div>
+</div>
+{{ footer }}
+<style>
+  .welcome-card {
+    font-family: "Outfit", "Manrope", "Montserrat", "Helvetica Neue", Arial, sans-serif;
+  }
+  .welcome-title {
+    margin: 6px 0 16px;
+    font-size: 32px;
+    font-weight: 700;
+    letter-spacing: .4px;
+    font-family:serif;
+
+  }
+  .welcome-prefix,
+  .welcome-suffix {
+    color: #000000;
+    font-weight: 500;
+  }
+  .welcome-brand {
+    color: #000;
+    font-weight: 800;
+    font-size: 34px;
+  }
+  .welcome-continue-btn {
+    background: #000;
+    color: #fff;
+    border: 2px solid #000;
+    border-radius: 999px;
+    padding: 7px 20px;
+    font-size: 16px;
+    font-weight: 700;
+    letter-spacing: .5px;
+    text-transform: uppercase;
+  }
+  .welcome-continue-btn:hover {
+    background: #fff;
+    color: #000;
+  }
+</style>

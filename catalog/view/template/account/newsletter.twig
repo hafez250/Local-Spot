@@ -1,0 +1,53 @@
+{{ header }}
+<div id="account-newsletter" class="container py-4" style="font-size: 18px; line-height: 1.5;">
+  <nav class="mb-4" aria-label="Breadcrumb">
+    <ol class="d-flex align-items-center list-unstyled p-0 m-0">
+      {% for breadcrumb in breadcrumbs %}
+        <li class="d-flex align-items-center">
+          {% if not loop.last %}
+            <a href="{{ breadcrumb.href }}" class="text-decoration-none fw-bold" style="font-size: 18px; color: #4b5563;">{{ breadcrumb.text }}</a>
+            <svg class="mx-2" width="7" height="12" viewBox="0 0 6 10" fill="none" xmlns="http://www.w3.org/2000/svg" style="color: #9ca3af;">
+              <path d="M1 9L5 5L1 1" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          {% else %}
+            <span class="fw-bolder" aria-current="page" style="font-size: 18px; color: #000000;">{{ breadcrumb.text }}</span>
+          {% endif %}
+        </li>
+      {% endfor %}
+    </ol>
+  </nav>
+
+  <div class="row g-4">
+    {{ column_left }}
+
+    <div id="content" class="col-lg-9 col-md-8">
+      {{ content_top }}
+
+      <div class="p-4 bg-white rounded-base border shadow-sm" style="border-color: #f3f4f6 !important; border-radius: 8px;">
+        <h1 class="fw-bold mb-4 d-flex align-items-center" style="font-size: 24px;">
+          <span class="bg-brand rounded-pill me-2" style="width: 4px; height: 28px; display: inline-block; background-color: #000;"></span>
+          {{ heading_title }}
+        </h1>
+
+        <form id="form-newsletter" action="{{ save }}" method="post" data-oc-toggle="ajax">
+          <div class="p-3 border rounded-base bg-light-subtle mb-4 d-flex justify-content-between align-items-center">
+            <label for="input-newsletter" class="mb-0 fw-semibold">{{ entry_newsletter }}</label>
+            <div class="form-check form-switch form-switch-lg m-0">
+              <input type="hidden" name="newsletter" value="0"/>
+              <input type="checkbox" name="newsletter" value="1" id="input-newsletter" class="form-check-input"{% if newsletter %} checked{% endif %}/>
+            </div>
+          </div>
+
+          <div class="d-flex justify-content-between">
+            <a href="{{ back }}" class="btn btn-outline-dark px-4 py-2" style="border-radius: 6px;">{{ button_back }}</a>
+            <button type="submit" class="btn btn-dark px-5" style="font-size: 16px; padding: 10px 30px; border-radius: 6px; background-color: #000; color: #fff;">{{ button_continue }}</button>
+          </div>
+        </form>
+      </div>
+
+      {{ content_bottom }}
+    </div>
+    {{ column_right }}
+  </div>
+</div>
+{{ footer }}

@@ -1,0 +1,25 @@
+<div class="featured-container mb-5 ">
+  <h3 class="mb-5 Ft 5 mt-5 pt-3">{{ heading_title }}</h3>
+
+  <div class=" px-2 row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-xl-4">
+
+    {% for product in products %}
+      <div class="col mb-3">
+        {{ product }}
+      </div>
+    {% endfor %}
+
+    <!-- VIEW ALL BUTTON AS 4TH ITEM -->
+    <div class="col mb-3 d-flex justify-content-center align-items-center">
+    <a href="{{ all_products_link }}" class="viewall-btn btn btn-dark d-flex justify-content-center align-items-center">
+    Explore All <i class="mx-2 fa-solid fa-arrow-right-long"></i>
+</a>
+
+
+
+     
+    </div>
+
+  </div>
+</div>
+

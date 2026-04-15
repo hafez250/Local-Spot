@@ -1,0 +1,91 @@
+{{ header }}{{ column_left }}
+<div id="content" style="font-size: 18px; line-height: 1.5; background-color: #f8f9fa;">
+  <div class="page-header" style="background: #fff; padding: 20px 0; border-bottom: 1px solid #eee; margin-bottom: 30px;">
+    <div class="container-fluid">
+      <div class="float-end">
+        <button type="submit" id="button-invoice" form="form-order" formaction="{{ invoice }}" formtarget="_blank" class="btn btn-dark" style="background: #333; border: none; padding: 10px 15px; border-radius: 6px;" data-bs-toggle="tooltip" title="{{ button_invoice_print }}"><i class="fa-solid fa-print"></i></button>
+        <button type="submit" id="button-shipping" form="form-order" formaction="{{ shipping }}" formtarget="_blank" class="btn btn-dark" style="background: #333; border: none; padding: 10px 15px; border-radius: 6px;" data-bs-toggle="tooltip" title="{{ button_shipping_print }}"><i class="fa-solid fa-truck"></i></button>
+        <a href="{{ add }}" class="btn btn-dark" style="background: #000; border: none; padding: 10px 15px; border-radius: 6px;" data-bs-toggle="tooltip" title="{{ button_add }}"><i class="fa-solid fa-plus"></i></a>
+        <button type="submit" data-oc-toggle="ajax" form="form-order" formaction="{{ delete }}" class="btn btn-outline-danger" style="padding: 10px 15px; border-radius: 6px;" onclick="return confirm('{{ text_confirm }}');" data-bs-toggle="tooltip" title="{{ button_delete }}"><i class="fa-regular fa-trash-can"></i></button>
+      </div>
+
+      <h1 class="fw-bold d-flex align-items-center" style="font-size: 26px; color: #000;">
+        <span class="bg-brand rounded-pill me-2" style="width: 4px; height: 28px; display: inline-block; background-color: #000;"></span>
+        {{ heading_title }}
+      </h1>
+
+      <nav aria-label="breadcrumb">
+        <ol class="d-flex align-items-center list-unstyled p-0 m-0">
+          {% for breadcrumb in breadcrumbs %}
+            <li class="d-flex align-items-center">
+              {% if not loop.last %}
+                <a href="{{ breadcrumb.href }}" class="text-decoration-none fw-bold" style="font-size: 16px; color: #4b5563;">{{ breadcrumb.text }}</a>
+                <svg class="mx-2" width="7" height="12" viewBox="0 0 6 10" fill="none" xmlns="http://www.w3.org/2000/svg" style="color: #9ca3af;">
+                  <path d="M1 9L5 5L1 1" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+              {% else %}
+                <span class="fw-bolder" style="font-size: 16px; color: #000;">{{ breadcrumb.text }}</span>
+              {% endif %}
+            </li>
+          {% endfor %}
+        </ol>
+      </nav>
+    </div>
+  </div>
+
+  <div class="container-fluid">
+    <div class="row g-4">
+      <div id="filter-order" class="col-lg-3 col-md-12 order-lg-last">
+        <div class="card border-0 shadow-sm rounded-base p-2">
+          <div class="card-header bg-transparent border-0 fw-bold text-uppercase" style="font-size: 13px; letter-spacing: 1px; color: #6b7280;">
+            <i class="fa-solid fa-filter me-2"></i> {{ text_filter }}
+          </div>
+          <div class="card-body">
+            <form id="form-filter">
+              <div class="mb-3">
+                <label for="input-order-id" class="form-label small fw-semibold">{{ entry_order_id }}</label>
+                <input type="text" name="filter_order_id" value="{{ filter_order_id }}" id="input-order-id" class="form-control rounded-base" style="font-size: 16px; padding: 10px;"/>
+              </div>
+              <div class="mb-3">
+                <label class="form-label small fw-semibold">{{ entry_customer }}</label>
+                <input type="text" name="filter_customer" value="{{ filter_customer }}" id="input-customer" class="form-control rounded-base" style="font-size: 16px; padding: 10px;"/>
+              </div>
+              <div class="mb-3">
+                <label for="input-order-status" class="form-label small fw-semibold">{{ entry_order_status }}</label>
+                <select name="filter_order_status_id" id="input-order-status" class="form-select rounded-base" style="font-size: 16px; padding: 10px;">
+                  <option value=""></option>
+                  <option value="0"{% if filter_order_status_id == '0' %} selected{% endif %}>{{ text_missing }}</option>
+                  {% for order_status in order_statuses %}
+                    <option value="{{ order_status.order_status_id }}"{% if order_status.order_status_id == filter_order_status_id %} selected{% endif %}>{{ order_status.name }}</option>
+                  {% endfor %}
+                </select>
+              </div>
+              <div class="mb-4">
+                <label for="input-date-from" class="form-label small fw-semibold">{{ entry_date_from }}</label>
+                <input type="date" name="filter_date_from" value="{{ filter_date_from }}" id="input-date-from" class="form-control rounded-base" style="font-size: 16px; padding: 10px;"/>
+              </div>
+              <div class="d-grid gap-2">
+                <button type="button" id="button-filter" class="btn btn-dark py-2 rounded-base" style="background: #000;">{{ button_filter }}</button>
+                <button type="reset" class="btn btn-light py-2 rounded-base border">{{ button_reset }}</button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-lg-9 col-md-12">
+        <div class="card border-0 shadow-sm rounded-base p-2">
+          <div class="card-header bg-transparent border-0 fw-bold text-uppercase" style="font-size: 13px; letter-spacing: 1px; color: #6b7280;">
+            <i class="fa-solid fa-list me-2"></i> {{ text_list }}
+          </div>
+          <div id="order" class="card-body">
+            {{ list }}
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script type="text/javascript"></script>
+{{ footer }}

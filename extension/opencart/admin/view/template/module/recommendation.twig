@@ -1,0 +1,69 @@
+{{ header }}{{ column_left }}
+
+<div id="content">
+  <div class="page-header">
+    <div class="container-fluid">
+      <div class="float-end">
+        <button type="submit" form="form-module" class="btn btn-primary"><i class="fa-solid fa-save"></i> {{ button_save }}</button>
+        <a href="{{ back }}" class="btn btn-light"><i class="fa-solid fa-reply"></i> {{ button_back }}</a>
+      </div>
+      <h1>{{ heading_title }}</h1>
+      <ul class="breadcrumb">
+        {% for breadcrumb in breadcrumbs %}
+          <li class="breadcrumb-item"><a href="{{ breadcrumb.href }}">{{ breadcrumb.text }}</a></li>
+        {% endfor %}
+      </ul>
+    </div>
+  </div>
+
+  <div class="container-fluid">
+    <div class="card">
+      <div class="card-header"><i class="fa-solid fa-pencil"></i> {{ text_edit }}</div>
+      <div class="card-body">
+        <form id="form-module" action="{{ save }}" method="post" data-oc-toggle="ajax" enctype="multipart/form-data">
+          
+          <!-- Module Name -->
+          <div class="mb-3">
+            <label for="input-name" class="form-label">{{ entry_name }}</label>
+            <input type="text" name="module[0][name]" value="{{ module_recommendation_name }}" id="input-name" class="form-control"/>
+          </div>
+
+          <!-- Category Name -->
+          <div class="mb-3">
+            <label for="input-category" class="form-label">Category Name</label>
+            <input type="text" name="module[0][category_name]" value="{{ module_recommendation_category_name }}" id="input-category" class="form-control"/>
+          </div>
+
+          <!-- Number of Products -->
+          <div class="mb-3">
+            <label for="input-number" class="form-label">Number of Products</label>
+            <input type="number" name="module[0][number_of_products]" value="{{ module_recommendation_number_of_products }}" min="1" id="input-number" class="form-control"/>
+          </div>
+
+          <!-- Sort By -->
+          <div class="mb-3">
+            <label for="input-sort" class="form-label">Sort By</label>
+            <select name="module[0][sort_by]" id="input-sort" class="form-select">
+              <option value="date_added" {{ module_recommendation_sort_by == 'date_added' ? 'selected' : '' }}>Date Added</option>
+              <option value="name" {{ module_recommendation_sort_by == 'name' ? 'selected' : '' }}>Name</option>
+              <option value="price" {{ module_recommendation_sort_by == 'price' ? 'selected' : '' }}>Price</option>
+              <option value="rating" {{ module_recommendation_sort_by == 'rating' ? 'selected' : '' }}>Rating</option>
+            </select>
+          </div>
+
+          <!-- Status -->
+          <div class="mb-3">
+            <label for="input-status" class="form-label">Status</label>
+            <select name="module[0][status]" id="input-status" class="form-select">
+              <option value="1" {{ module_recommendation_status ? 'selected' : '' }}>Enabled</option>
+              <option value="0" {{ not module_recommendation_status ? 'selected' : '' }}>Disabled</option>
+            </select>
+          </div>
+
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+{{ footer }}

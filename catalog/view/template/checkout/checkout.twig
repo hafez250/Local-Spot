@@ -1,0 +1,59 @@
+{{ header }}
+<div id="checkout-checkout" class="container">
+  <nav class="modern-breadcrumb-wrap" aria-label="Breadcrumb">
+    <ol class="modern-breadcrumb">
+      {% for breadcrumb in breadcrumbs %}
+        <li class="modern-breadcrumb-item{% if loop.last %} is-current{% endif %}">
+          {% if loop.first %}
+            {% if loop.last %}
+              <span class="modern-breadcrumb-link" aria-current="page">
+                <svg class="modern-breadcrumb-home" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="none" viewBox="0 0 24 24"><path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m4 12 8-8 8 8M6 10.5V19a1 1 0 0 0 1 1h3v-3a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1v3h3a1 1 0 0 0 1-1v-8.5"/></svg>
+                {{ breadcrumb.text }}
+              </span>
+            {% else %}
+              <a href="{{ breadcrumb.href }}" class="modern-breadcrumb-link">{{ breadcrumb.text }}</a>
+            {% endif %}
+          {% else %}
+            {% if loop.last %}
+              <span class="modern-breadcrumb-link" aria-current="page">{{ breadcrumb.text }}</span>
+            {% else %}
+              <a href="{{ breadcrumb.href }}" class="modern-breadcrumb-link">{{ breadcrumb.text }}</a>
+            {% endif %}
+          {% endif %}
+        </li>
+      {% endfor %}
+    </ol>
+  </nav>
+  <div class="row">{{ column_left }}
+    <div id="content" class="col">{{ content_top }}
+      <div class="checkout-header">
+        <h1>{{ heading_title }}</h1>
+      </div>
+      <div class="row checkout-layout">
+        {% if register or payment_address or shipping_address %}
+          <div class="col-md-7 mb-3">
+            {% if register %}
+              <div id="checkout-register" class="checkout-panel mb-3">{{ register }}</div>
+            {% endif %}
+            {% if payment_address %}
+              <div id="checkout-payment-address" class="checkout-panel mb-3">{{ payment_address }}</div>
+            {% endif %}
+            {% if shipping_address %}
+              <div id="checkout-shipping-address" class="checkout-panel mb-3">{{ shipping_address }}</div>
+            {% endif %}
+          </div>
+        {% endif %}
+        <div class="col checkout-right-column">
+          {% if shipping_method %}
+            <div id="checkout-shipping-method" class="checkout-panel mb-3">{{ shipping_method }}</div>
+          {% endif %}
+          <div id="checkout-payment-method" class="checkout-panel mb-3">{{ payment_method }}</div>
+          <div id="checkout-confirm" class="checkout-panel checkout-confirm-panel">{{ confirm }}</div>
+        </div>
+      </div>
+    </div>
+    {{ content_bottom }}
+  </div>
+  {{ column_right }}
+</div>
+{{ footer }}

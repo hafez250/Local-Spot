@@ -1,0 +1,73 @@
+{{ header }}
+<div id="account-seller-onboard" class="container">
+  <nav class="modern-breadcrumb-wrap" aria-label="Breadcrumb">
+    <ol class="modern-breadcrumb">
+      {% for breadcrumb in breadcrumbs %}
+        <li class="modern-breadcrumb-item{% if loop.last %} is-current{% endif %}">
+          {% if loop.last %}
+            <span class="modern-breadcrumb-link" aria-current="page">{{ breadcrumb.text }}</span>
+          {% else %}
+            <a href="{{ breadcrumb.href }}" class="modern-breadcrumb-link">{{ breadcrumb.text }}</a>
+          {% endif %}
+        </li>
+      {% endfor %}
+    </ol>
+  </nav>
+  <div class="row">
+    {{ column_left }}
+    <div id="content" class="col">
+      {{ content_top }}
+      {% if success %}
+        <div class="alert alert-success alert-dismissible"><i class="fa-solid fa-circle-check"></i> {{ success }} <button type="button" class="btn-close" data-bs-dismiss="alert"></button></div>
+      {% endif %}
+      {% if error %}
+        <div class="alert alert-danger alert-dismissible"><i class="fa-solid fa-circle-exclamation"></i> {{ error }} <button type="button" class="btn-close" data-bs-dismiss="alert"></button></div>
+      {% endif %}
+
+      <div class="register-shell">
+        <div class="register-panel register-modern-card">
+          <h1 class="register-modern-title">{{ heading_title }}</h1>
+          <p class="text-muted">Complete your brand profile to unlock your seller dashboard.</p>
+
+          <form action="{{ brand_save }}" method="post" enctype="multipart/form-data" class="register-modern-form">
+            <fieldset>
+              <legend>{{ text_brand }}</legend>
+              <div class="row mb-3 required">
+                <label for="input-brand-name" class="col-sm-2 col-form-label">{{ entry_brand_name }}</label>
+                <div class="col-sm-10">
+                  <input type="text" name="brand_name" value="{{ brand_name }}" id="input-brand-name" class="form-control" placeholder="{{ entry_brand_name }}"/>
+                </div>
+              </div>
+              <div class="row mb-3 required">
+                <label for="input-brand-gender" class="col-sm-2 col-form-label">{{ entry_brand_gender }}</label>
+                <div class="col-sm-10">
+                  <select name="brand_gender" id="input-brand-gender" class="form-select">
+                    <option value="">{{ text_select }}</option>
+                    {% for key, label in gender_options %}
+                      <option value="{{ key }}"{% if brand_gender == key %} selected{% endif %}>{{ label }}</option>
+                    {% endfor %}
+                  </select>
+                </div>
+              </div>
+              <div class="row mb-3">
+                <label for="input-brand-logo" class="col-sm-2 col-form-label">{{ entry_brand_logo }}</label>
+                <div class="col-sm-10">
+                  <input type="file" name="brand_logo" id="input-brand-logo" class="form-control"/>
+                  {% if brand_image %}
+                    <small class="text-muted">Current: {{ brand_image }}</small>
+                  {% endif %}
+                </div>
+              </div>
+              <div class="text-end">
+                <button type="submit" class="btn btn-primary">{{ button_save_brand }}</button>
+              </div>
+            </fieldset>
+          </form>
+        </div>
+      </div>
+      {{ content_bottom }}
+    </div>
+    {{ column_right }}
+  </div>
+</div>
+{{ footer }}

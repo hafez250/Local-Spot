@@ -1,0 +1,325 @@
+{{ header }}
+<div id="account-register" class="container">
+  <nav class="modern-breadcrumb-wrap" aria-label="Breadcrumb">
+    <ol class="modern-breadcrumb">
+      {% for breadcrumb in breadcrumbs %}
+        <li class="modern-breadcrumb-item{% if loop.last %} is-current{% endif %}">
+          {% if loop.last %}
+            <span class="modern-breadcrumb-link" aria-current="page">{{ breadcrumb.text }}</span>
+          {% else %}
+            <a href="{{ breadcrumb.href }}" class="modern-breadcrumb-link">{{ breadcrumb.text }}</a>
+          {% endif %}
+        </li>
+      {% endfor %}
+    </ol>
+  </nav>
+  <div class="row">
+    {{ column_left }}
+    <div id="content" class="col">{{ content_top }}
+      <div class="register-shell">
+        <div class="register-panel register-modern-card">
+          <div class="login-icon-wrap">
+            <span class="login-icon"><i class="fa-solid fa-user-plus"></i></span>
+          </div>
+          <h1 class="register-modern-title" style="margin-bottom: 35px;">{{ heading_title }}</h1>
+
+          <div class="account-type-shell" id="account-type-shell">
+            <div class="account-type-grid">
+              <button type="button" class="account-type-card" data-account-type="buyer" aria-pressed="false">
+                <img src="image/catalog/buyer.jpg" alt="Buyer" class="account-type-image">
+                <span class="account-type-label">Buyer</span>
+              </button>
+              <button type="button" class="account-type-card" data-account-type="seller" aria-pressed="false">
+                <img src="image/catalog/seller.jpeg" alt="Seller" class="account-type-image">
+                <span class="account-type-label">Seller</span>
+              </button>
+            </div>
+            <div class="account-type-hint">Choose account type to continue.</div>
+          </div>
+
+          <form id="form-register" class="register-modern-form" action="{{ register }}" method="post" data-oc-toggle="ajax" style="display:none;">
+        <input type="hidden" name="account_type" id="input-account-type" value="">
+        <input type="hidden" name="customer_group_id" id="input-customer-group" value="">
+        <fieldset id="account">
+          <legend>{{ text_your_details }}</legend>
+          <div class="row mb-3 required">
+            <label for="input-firstname" class="col-sm-2 col-form-label">{{ entry_firstname }}</label>
+            <div class="col-sm-10">
+              <input type="text" name="firstname" value="" placeholder="{{ entry_firstname }}" id="input-firstname" class="form-control"/>
+              <div id="error-firstname" class="invalid-feedback"></div>
+            </div>
+          </div>
+          <div class="row mb-3 required">
+            <label for="input-lastname" class="col-sm-2 col-form-label">{{ entry_lastname }}</label>
+            <div class="col-sm-10">
+              <input type="text" name="lastname" value="" placeholder="{{ entry_lastname }}" id="input-lastname" class="form-control"/>
+              <div id="error-lastname" class="invalid-feedback"></div>
+            </div>
+          </div>
+          <div class="row mb-3 required">
+            <label for="input-email" class="col-sm-2 col-form-label">{{ entry_email }}</label>
+            <div class="col-sm-10">
+              <input type="email" name="email" value="" placeholder="{{ entry_email }}" id="input-email" class="form-control"/>
+              <div id="error-email" class="invalid-feedback"></div>
+            </div>
+          </div>
+
+          {% if config_telephone_display %}
+            <div class="row mb-3{% if config_telephone_required %} required{% endif %}">
+              <label for="input-telephone" class="col-sm-2 col-form-label">{{ entry_telephone }}</label>
+              <div class="col-sm-10">
+                <input type="tel" name="telephone" value="" placeholder="{{ entry_telephone }}" id="input-telephone" class="form-control"/>
+                <div id="error-telephone" class="invalid-feedback"></div>
+              </div>
+            </div>
+          {% endif %}
+
+          {% for custom_field in custom_fields %}
+
+            {% if custom_field.type == 'select' %}
+              <div class="row mb-3 custom-field custom-field-{{ custom_field.custom_field_id }}">
+                <label for="input-custom-field-{{ custom_field.custom_field_id }}" class="col-sm-2 col-form-label">{{ custom_field.name }}</label>
+                <div class="col-sm-10">
+                  <select name="custom_field[{{ custom_field.custom_field_id }}]" id="input-custom-field-{{ custom_field.custom_field_id }}" class="form-select">
+                    <option value="">{{ text_select }}</option>
+                    {% for custom_field_value in custom_field.custom_field_value %}
+                      <option value="{{ custom_field_value.custom_field_value_id }}">{{ custom_field_value.name }}</option>
+                    {% endfor %}
+                  </select>
+                  <div id="error-custom-field-{{ custom_field.custom_field_id }}" class="invalid-feedback"></div>
+                </div>
+              </div>
+            {% endif %}
+
+            {% if custom_field.type == 'radio' %}
+              <div class="row mb-3 custom-field custom-field-{{ custom_field.custom_field_id }}">
+                <label class="col-sm-2 col-form-label">{{ custom_field.name }}</label>
+                <div class="col-sm-10">
+                  <div id="input-custom-field-{{ custom_field.custom_field_id }}">
+                    {% for custom_field_value in custom_field.custom_field_value %}
+                      <div class="form-check">
+                        <input type="radio" name="custom_field[{{ custom_field.custom_field_id }}]" value="{{ custom_field_value.custom_field_value_id }}" id="input-custom-value-{{ custom_field_value.custom_field_value_id }}" class="form-check-input"/> <label for="input-custom-value-{{ custom_field_value.custom_field_value_id }}" class="form-check-label">{{ custom_field_value.name }}</label>
+                      </div>
+                    {% endfor %}
+                  </div>
+                  <div id="error-custom-field-{{ custom_field.custom_field_id }}" class="invalid-feedback"></div>
+                </div>
+              </div>
+            {% endif %}
+
+            {% if custom_field.type == 'checkbox' %}
+              <div class="row mb-3 custom-field custom-field-{{ custom_field.custom_field_id }}">
+                <label class="col-sm-2 col-form-label">{{ custom_field.name }}</label>
+                <div class="col-sm-10">
+                  <div id="input-custom-field-{{ custom_field.custom_field_id }}">
+                    {% for custom_field_value in custom_field.custom_field_value %}
+                      <div class="form-check">
+                        <input type="checkbox" name="custom_field[{{ custom_field.custom_field_id }}][]" value="{{ custom_field_value.custom_field_value_id }}" id="input-custom-value-{{ custom_field_value.custom_field_value_id }}" class="form-check-input"/> <label for="input-custom-value-{{ custom_field_value.custom_field_value_id }}" class="form-check-label">{{ custom_field_value.name }}</label>
+                      </div>
+                    {% endfor %}
+                  </div>
+                  <div id="error-custom-field-{{ custom_field.custom_field_id }}" class="invalid-feedback"></div>
+                </div>
+              </div>
+            {% endif %}
+
+            {% if custom_field.type == 'text' %}
+              <div class="row mb-3 custom-field custom-field-{{ custom_field.custom_field_id }}">
+                <label for="input-custom-field-{{ custom_field.custom_field_id }}" class="col-sm-2 col-form-label">{{ custom_field.name }}</label>
+                <div class="col-sm-10">
+                  <input type="text" name="custom_field[{{ custom_field.custom_field_id }}]" value="{{ custom_field.value }}" placeholder="{{ custom_field.name }}" id="input-custom-field-{{ custom_field.custom_field_id }}" class="form-control"/>
+                  <div id="error-custom-field-{{ custom_field.custom_field_id }}" class="invalid-feedback"></div>
+                </div>
+              </div>
+            {% endif %}
+
+            {% if custom_field.type == 'textarea' %}
+              <div class="row mb-3 custom-field custom-field-{{ custom_field.custom_field_id }}">
+                <label for="input-custom-field-{{ custom_field.custom_field_id }}" class="col-sm-2 col-form-label">{{ custom_field.name }}</label>
+                <div class="col-sm-10">
+                  <textarea name="custom_field[{{ custom_field.custom_field_id }}]" rows="5" placeholder="{{ custom_field.name }}" id="input-custom-field-{{ custom_field.custom_field_id }}" class="form-control">{{ custom_field.value }}</textarea>
+                  <div id="error-custom-field-{{ custom_field.custom_field_id }}" class="invalid-feedback"></div>
+                </div>
+              </div>
+            {% endif %}
+
+            {% if custom_field.type == 'file' %}
+              <div class="row mb-3 custom-field custom-field-{{ custom_field.custom_field_id }}">
+                <label class="col-sm-2 col-form-label">{{ custom_field.name }}</label>
+                <div class="col-sm-10">
+                  <div>
+                    <button type="button" data-oc-toggle="upload" data-oc-url="{{ upload }}" data-oc-size-max="{{ config_file_max_size }}" data-oc-size-error="{{ error_upload_size }}" data-oc-target="#input-custom-field-{{ custom_field.custom_field_id }}" class="btn btn-light"><i class="fa-solid fa-upload"></i> {{ button_upload }}</button>
+                    <input type="hidden" name="custom_field[{{ custom_field.custom_field_id }}]" value="" id="input-custom-field-{{ custom_field.custom_field_id }}"/>
+                  </div>
+                  <div id="error-custom-field-{{ custom_field.custom_field_id }}" class="invalid-feedback"></div>
+                </div>
+              </div>
+            {% endif %}
+
+            {% if custom_field.type == 'date' %}
+              <div class="row mb-3 custom-field custom-field-{{ custom_field.custom_field_id }}">
+                <label for="input-custom-field-{{ custom_field.custom_field_id }}" class="col-sm-2 col-form-label">{{ custom_field.name }}</label>
+                <div class="col-sm-10">
+                  <input type="date" name="custom_field[{{ custom_field.custom_field_id }}]" value="{{ custom_field.value }}" placeholder="{{ custom_field.name }}" id="input-custom-field-{{ custom_field.custom_field_id }}" class="form-control"/>
+                  <div id="error-custom-field-{{ custom_field.custom_field_id }}" class="invalid-feedback"></div>
+                </div>
+              </div>
+            {% endif %}
+
+            {% if custom_field.type == 'time' %}
+              <div class="row mb-3 custom-field custom-field-{{ custom_field.custom_field_id }}">
+                <label for="input-custom-field-{{ custom_field.custom_field_id }}" class="col-sm-2 col-form-label">{{ custom_field.name }}</label>
+                <div class="col-sm-10">
+                  <input type="time" name="custom_field[{{ custom_field.custom_field_id }}]" value="{{ custom_field.value }}" placeholder="{{ custom_field.name }}" id="input-custom-field-{{ custom_field.custom_field_id }}" class="form-control"/>
+                  <div id="error-custom-field-{{ custom_field.custom_field_id }}" class="invalid-feedback"></div>
+                </div>
+              </div>
+            {% endif %}
+
+            {% if custom_field.type == 'datetime' %}
+              <div class="row mb-3 custom-field custom-field-{{ custom_field.custom_field_id }}">
+                <label for="input-custom-field-{{ custom_field.custom_field_id }}" class="col-sm-2 col-form-label">{{ custom_field.name }}</label>
+                <div class="col-sm-10">
+                  <input type="datetime-local" name="custom_field[{{ custom_field.custom_field_id }}]" value="{{ custom_field.value }}" placeholder="{{ custom_field.name }}" id="input-custom-field-{{ custom_field.custom_field_id }}" class="form-control"/>
+                  <div id="error-custom-field-{{ custom_field.custom_field_id }}" class="invalid-feedback"></div>
+                </div>
+              </div>
+            {% endif %}
+
+          {% endfor %}
+        </fieldset>
+
+        <fieldset>
+          <legend>{{ text_your_password }}</legend>
+          <div class="row mb-3 required">
+            <label for="input-password" class="col-sm-2 col-form-label">{{ entry_password }}</label>
+            <div class="col-sm-10">
+              <input type="password" name="password" value="" placeholder="{{ entry_password }}" id="input-password" class="form-control"/>
+              <div id="error-password" class="invalid-feedback"></div>
+            </div>
+          </div>
+        </fieldset>
+
+        <fieldset>
+          <legend>{{ text_newsletter }}</legend>
+          <div class="row mb-3">
+            <label class="col-sm-2 col-form-label">{{ entry_newsletter }}</label>
+            <div class="col-sm-10">
+              <div class="form-check form-switch form-switch-lg">
+                <input type="hidden" name="newsletter" value="0"/>
+                <input type="checkbox" name="newsletter" value="1" id="input-newsletter" class="form-check-input"/>
+              </div>
+            </div>
+          </div>
+        </fieldset>
+        {{ captcha }}
+        <div class="text-end register-submit-wrap">
+          {% if text_agree %}
+            <div class="form-check form-switch form-switch-lg form-check-reverse form-check-inline">
+              <label class="form-check-label">{{ text_agree }}</label> <input type="checkbox" name="agree" value="1" class="form-check-input"/>
+            </div>
+          {% endif %}
+          <button type="submit" class="btn btn-primary register-main-btn">{{ button_continue }}</button>
+        </div>
+      </form>
+          <p class="register-account-note">{{ text_account_already }}</p>
+        </div>
+      </div>
+      {{ content_bottom }}
+    </div>
+    {{ column_right }}
+  </div>
+</div>
+<style>
+  .account-type-shell {
+    margin: 10px 0 24px;
+  }
+  .account-type-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 16px;
+  }
+  .account-type-card {
+    border: 2px solid rgba(0,0,0,0.1);
+    border-radius: 18px;
+    padding: 0;
+    background: #fff;
+    overflow: hidden;
+    text-align: left;
+    position: relative;
+    transition: transform .2s ease, box-shadow .2s ease, border-color .2s ease;
+  }
+  .account-type-card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 10px 24px rgba(0,0,0,0.08);
+  }
+  .account-type-card.is-selected {
+    border-color: #111;
+    box-shadow: 0 12px 30px rgba(0,0,0,0.12);
+  }
+  .account-type-image {
+    width: 100%;
+    height: 220px;
+    object-fit: cover;
+    display: block;
+  }
+  .account-type-label {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 12px 16px;
+    font-weight: 700;
+    letter-spacing: .5px;
+    text-align: center;
+  }
+  .account-type-hint {
+    margin-top: 10px;
+    color: #666;
+    font-size: 13px;
+  }
+</style>
+<script type="text/javascript"><!--
+const buyerGroupId = {{ buyer_group_id }};
+const sellerGroupId = {{ seller_group_id }};
+
+function refreshCustomFields(groupId) {
+    $.ajax({
+        url: 'index.php?route=account/custom_field&customer_group_id=' + groupId + '&language={{ language }}',
+        dataType: 'json',
+        success: function(json) {
+            $('.custom-field').hide();
+            $('.custom-field').removeClass('required');
+
+            for (i = 0; i < json.length; i++) {
+                custom_field = json[i];
+
+                $('.custom-field-' + custom_field['custom_field_id']).show();
+
+                if (custom_field['required']) {
+                    $('.custom-field-' + custom_field['custom_field_id']).addClass('required');
+                }
+            }
+        },
+        error: function(xhr, ajaxOptions, thrownError) {
+            console.log(thrownError + "\r\n" + xhr.statusText + "\r\n" + xhr.responseText);
+        }
+    });
+}
+
+function selectAccountType(type) {
+    const groupId = type === 'seller' ? sellerGroupId : buyerGroupId;
+    $('#input-account-type').val(type);
+    $('#input-customer-group').val(groupId);
+    $('.account-type-card').removeClass('is-selected').attr('aria-pressed', 'false');
+    $('.account-type-card[data-account-type="' + type + '"]').addClass('is-selected').attr('aria-pressed', 'true');
+    $('#account-type-shell').hide();
+    $('#form-register').show();
+    refreshCustomFields(groupId);
+}
+
+$('.account-type-card').on('click', function() {
+    const type = $(this).data('account-type');
+    selectAccountType(type);
+});
+//--></script>
+{{ footer }}

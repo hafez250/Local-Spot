@@ -1,0 +1,157 @@
+{{ header }}
+<div id="account-order" class="container py-4" style="font-size: 18px; line-height: 1.5;">
+  
+  <nav class="mb-4" aria-label="Breadcrumb">
+    <ol class="d-flex align-items-center list-unstyled p-0 m-0">
+      {% for breadcrumb in breadcrumbs %}
+        <li class="d-flex align-items-center">
+          {% if not loop.last %}
+            <a href="{{ breadcrumb.href }}" class="text-decoration-none fw-bold" style="font-size: 18px; color: #4b5563;">{{ breadcrumb.text }}</a>
+            <svg class="mx-2" width="7" height="12" viewBox="0 0 6 10" fill="none" xmlns="http://www.w3.org/2000/svg" style="color: #9ca3af;">
+              <path d="M1 9L5 5L1 1" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          {% else %}
+            <span class="fw-bolder" aria-current="page" style="font-size: 18px; color: #000000;">{{ breadcrumb.text }}</span>
+          {% endif %}
+        </li>
+      {% endfor %}
+    </ol>
+  </nav>
+
+  <div class="row g-4">
+    {{ column_left }}
+    <div id="content" class="col-lg-9 col-md-8">
+      {{ content_top }}
+      
+      <div class="p-4 bg-white rounded-base border shadow-sm mb-4" style="border-color: #f3f4f6 !important; border-radius: 8px;">
+        <h1 class="fw-bold mb-4 d-flex align-items-center" style="font-size: 24px;">
+          <span class="bg-brand rounded-pill me-2" style="width: 4px; height: 28px; display: inline-block; background-color: #000;"></span>
+          {{ text_order_id }} #{{ order_id }}
+        </h1>
+
+        <div class="row g-3 mb-4">
+          <div class="col-md-6">
+            <div class="p-3 border rounded-base bg-light-subtle">
+              <strong class="text-uppercase text-muted" style="font-size: 12px; letter-spacing: 1px;">{{ text_invoice_no }}</strong>
+              <div class="fw-bold mt-1">{% if invoice_no %}{{ invoice_no }}{% else %}{{ text_tbc }}{% endif %}</div>
+            </div>
+          </div>
+          <div class="col-md-6">
+            <div class="p-3 border rounded-base bg-light-subtle">
+              <strong class="text-uppercase text-muted" style="font-size: 12px; letter-spacing: 1px;">{{ text_date_added }}</strong>
+              <div class="fw-bold mt-1">{{ date_added }}</div>
+            </div>
+          </div>
+        </div>
+
+        {% if payment_address or shipping_address %}
+        <div class="row g-3 mb-4">
+          {% if payment_address %}
+          <div class="col-md-6">
+            <div class="p-3 border rounded-base h-100">
+              <strong class="text-uppercase text-muted d-block mb-2" style="font-size: 12px; letter-spacing: 1px;">{{ text_payment_address }}</strong>
+              <div style="font-size: 16px;">{{ payment_address }}</div>
+            </div>
+          </div>
+          {% endif %}
+          {% if shipping_address %}
+          <div class="col-md-6">
+            <div class="p-3 border rounded-base h-100">
+              <strong class="text-uppercase text-muted d-block mb-2" style="font-size: 12px; letter-spacing: 1px;">{{ text_shipping_address }}</strong>
+              <div style="font-size: 16px;">{{ shipping_address }}</div>
+            </div>
+          </div>
+          {% endif %}
+        </div>
+        {% endif %}
+
+        <div class="row g-3 mb-4">
+          {% if shipping_method %}
+          <div class="col-md-6">
+            <div class="p-3 border rounded-base">
+              <strong class="text-uppercase text-muted" style="font-size: 12px; letter-spacing: 1px;">{{ text_shipping_method }}</strong>
+              <div class="fw-semibold mt-1">{{ shipping_method }}</div>
+            </div>
+          </div>
+          {% endif %}
+          <div class="col-md-6">
+            <div class="p-3 border rounded-base">
+              <strong class="text-uppercase text-muted" style="font-size: 12px; letter-spacing: 1px;">{{ text_payment_method }}</strong>
+              <div class="fw-semibold mt-1">{{ payment_method }}</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="table-responsive">
+          <table class="table align-middle">
+            <thead class="bg-light">
+              <tr>
+                <th class="border-0 py-3 text-uppercase text-muted" style="font-size: 12px;">{{ column_product }}</th>
+                <th class="border-0 py-3 text-end text-uppercase text-muted" style="font-size: 12px;">{{ column_quantity }}</th>
+                <th class="border-0 py-3 text-end text-uppercase text-muted" style="font-size: 12px;">{{ column_price }}</th>
+                <th class="border-0 py-3 text-end text-uppercase text-muted" style="font-size: 12px;">{{ column_total }}</th>
+                <th class="border-0 py-3 text-end text-uppercase text-muted" style="font-size: 12px;">{{ column_action }}</th>
+              </tr>
+            </thead>
+            <tbody>
+              {% set product_row = 0 %}
+              {% for product in products %}
+              <tr id="product-row-{{ product_row }}">
+                <td class="py-3">
+                  <a href="{{ product.view }}" class="text-dark fw-bold text-decoration-none hover-black">{{ product.name }}</a>
+                  <div class="text-muted small mt-1">
+                    {{ text_model }}: {{ product.model }}
+                    {% for option in product.option %}
+                    <br/>- {{ option.name }}: {{ option.value }}
+                    {% endfor %}
+                  </div>
+                </td>
+                <td class="text-end">{{ product.quantity }}</td>
+                <td class="text-end">{{ product.price }}</td>
+                <td class="text-end fw-bold">{{ product.total }}</td>
+                <td class="text-end">
+                  <form id="form-product-{{ product_row }}">
+                    <input type="hidden" name="product_id" value="{{ product.product_id }}"/> 
+                    <input type="hidden" name="quantity" value="{{ product.quantity }}"/>
+                    <button type="submit" form="form-product-{{ product_row }}" class="btn btn-dark btn-sm rounded-base px-3" style="background-color: #000;">{{ button_reorder }}</button>
+                  </form>
+                </td>
+              </tr>
+              {% set product_row = product_row + 1 %}
+              {% endfor %}
+            </tbody>
+            <tfoot>
+              {% for total in totals %}
+              <tr>
+                <td colspan="3" class="border-0 text-end py-1 text-muted">{{ total.title }}</td>
+                <td class="border-0 text-end py-1 fw-bold">{{ total.text }}</td>
+                <td class="border-0"></td>
+              </tr>
+              {% endfor %}
+            </tfoot>
+          </table>
+        </div>
+
+        {% if comment %}
+        <div class="mt-4 p-3 border rounded-base bg-light-subtle">
+          <strong class="text-uppercase text-muted" style="font-size: 12px; letter-spacing: 1px;">{{ text_comment }}</strong>
+          <div class="mt-2">{{ comment }}</div>
+        </div>
+        {% endif %}
+      </div>
+
+      <div class="p-4 bg-white rounded-base border shadow-sm mb-4" style="border-color: #f3f4f6 !important;">
+        <h2 class="h5 fw-bold mb-4 d-flex align-items-center">
+          <span class="bg-brand rounded-pill me-2" style="width: 4px; height: 24px; display: inline-block; background-color: #000;"></span>
+          {{ text_history }}
+        </h2>
+        <div id="history">{{ history }}</div>
+      </div>
+
+      <div class="text-end"><a href="{{ continue }}" class="btn btn-dark px-5 py-2 rounded-base" style="background-color: #000;">{{ button_continue }}</a></div>
+      {{ content_bottom }}
+    </div>
+    {{ column_right }}
+  </div>
+</div>
+{{ footer }}

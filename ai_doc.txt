@@ -1,0 +1,206 @@
+AI-Driven Personalized E-Commerce 
+Recommender 
+System Flow & Architecture Documentation 
+Content-Based Filter + LightGBM Hybrid Model 
+Graduation Project | Faculty of Computer Science 
+ 
+1. System Overview 
+The system is a Hybrid Recommender that combines two main components working together in 
+a sequential pipeline to deliver personalized fashion recommendations: 
+ 
+Component Role Technology 
+Content-Based Filter Generates 50 smart candidates based on the user's 
+purchase history and subcategory preferences 
+Python / Pandas 
+LightGBM Ranker Ranks the 50 candidates using real product 
+features and user profile to return Top 5 
+LightGBM 
+ 
+2. Input — What the System Receives 
+The PHP backend sends a POST request to the Flask API with the following JSON structure: 
+ 
+{   "user_id": 6,   "events": [     { "product_id": 40510, "event_type": 
+"purchase" },     { "product_id": 40370, "event_type": "purchase" }   ],   
+"limit": 5 } 
+ 
+Field Type Description Required 
+user_id Integer The logged-in customer ID from 
+OpenCart 
+Yes 
+events Array List of the user's recent interactions with 
+products 
+Yes 
+events[].product_id Integer The product the user interacted with Yes 
+events[].event_type String Type of interaction: purchase / view / 
+add_to_cart 
+Yes 
+limit Integer Number of recommendations to return 
+(default: 5) 
+No 
+ 
+3. Complete System Flow — Step by Step 
+ 
+Step 1 — PHP Backend Sends Request 
+The OpenCart PHP backend collects the logged-in user's recent purchase history and sends it 
+as a POST request to the Flask server running on port 5000. 
+ 
+Step 2 — Content-Based Filter (Candidate Generation) 
+This is the core of the candidate generation phase. The system analyzes the user's purchase 
+history to understand their preferences: 
+ 
+• Extracts the subcategories from the user's history (e.g., Hoodies, Sweatpants) 
+• Identifies the top 3 most purchased subcategories 
+• Generates 50 candidates: 70% from preferred subcategories + 30% from other 
+subcategories for diversity 
+• Excludes products already purchased by the user 
+ 
+Example: User bought Hoodies + Sweatpants + T-Shirts 
+  → 35 candidates from Hoodies, Sweatpants, T-Shirts (70%) 
+  → 15 candidates from Jackets, Pants, Accessories (30% diversity) 
+ 
+Step 3 — LightGBM Ranks the 50 Candidates 
+The LightGBM ranker takes the 50 candidates and scores each one using real features from the 
+product database and the user's purchase profile: 
+ 
+Feature Source Description 
+category_encoded products_clean.csv Encoded main category of the candidate product 
+subcategory_encoded products_clean.csv Encoded subcategory of the candidate product 
+price products_clean.csv Actual price of the candidate product 
+price_normalized products_clean.csv Price scaled between 0 and 1 
+fav_category user_profiles.pkl The user's most purchased category 
+fav_subcategory user_profiles.pkl The user's most purchased subcategory 
+avg_price user_profiles.pkl The user's average spending per product 
+purchase_count user_profiles.pkl Total number of purchases by the user 
+ 
+Step 4 — Diversity Filter 
+After LightGBM ranks all 50 candidates, a diversity filter ensures the Top 5 results are not all 
+from the same subcategory. Maximum 2 products from any single subcategory are allowed in 
+the final results. 
+ 
+Step 5 — Top 5 Results Returned to PHP 
+The Flask API returns the top 5 ranked products as a JSON response: 
+ 
+{   "recommendations": [     { "product_id": 40552, "name": "Men's Black Printed 
+Casual Hoodie", "category": "KNTD", "price": 450.0, "score": 0.893 },     { 
+"product_id": 40343, "name": "Basic Olive Zip-Up Hoodie", "category": "Blackedition", 
+"price": 600.0, "score": 0.8796 },     { "product_id": 40193, "name": "Winter Beige 
+Sweatpants", "category": "Seemly", "price": 700.0, "score": 0.8304 }   ] } 
+ 
+ 
+4. Cold Start — New User with No Purchase History 
+When a new user visits the system for the first time and has no purchase history, the system 
+handles this gracefully: 
+ 
+Scenario Content Filter LightGBM Result 
+Existing user with 
+purchases 
+Uses purchase history 
+subcategories 
+Uses full user profile Fully personalized 
+recommendations 
+New user (cold start) 
+with events 
+Uses events sent in 
+request 
+Uses average user 
+profile values 
+Content-based 
+recommendations 
+New user with no 
+events 
+Returns empty 
+recommendations 
+Not called Empty response — no 
+data to work with 
+ 
+Cold Start Handling: If the user has no purchase history in user_profiles.pkl, the system uses 
+average values across all users to ensure LightGBM can still score the candidates. 
+ 
+ 
+5. Content-Based Filter — What It Does Exactly 
+The Content-Based Filter replaces the GRU model as the candidate generator. It works by 
+analyzing what the user has already purchased and finding similar products: 
+ 
+How It Works 
+1. Extract subcategories from the user's purchase history 
+2. Count frequency of each subcategory (e.g., Hoodies: 5 times, T-Shirts: 3 times) 
+3. Select top 3 most purchased subcategories as 'primary preferences' 
+4. Generate candidate pool: 70% from primary + 30% from other subcategories 
+5. Remove already-purchased products from candidates 
+ 
+Why This Is Better Than Random Selection 
+• Ensures candidates are relevant to the user's actual taste 
+• The 30% diversity prevents the system from only recommending the same subcategory 
+• Excludes already-purchased products to avoid repetition 
+• Works for both existing users and cold-start users 
+ 
+ 
+6. LightGBM Ranker — What It Does Exactly 
+LightGBM (Light Gradient Boosting Machine) is the core ranking model. It takes the 50 
+candidates from the Content Filter and assigns a relevance score to each one. 
+ 
+How It Works 
+• For each of the 50 candidates, it creates a feature vector combining product features + 
+user profile features 
+• It predicts the probability that the user will purchase each candidate (score between 0 
+and 1) 
+• The higher the score, the more relevant the product is for this specific user 
+• Candidates are ranked by score and the Top 5 are returned 
+ 
+Why LightGBM? 
+Feature Benefit 
+Works with tabular data Product features and user profiles are structured data — perfect for 
+LightGBM 
+Fast inference Ranks 50 products in milliseconds 
+Handles imbalanced data Uses class_weight='balanced' to handle the fact that users buy few 
+products out of many 
+Interpretable Can explain why a product was recommended using feature 
+importance 
+ 
+ 
+7. Model Files — What Each File Does 
+File Used By Purpose 
+lightgbm_model.txt LightGBM Trained LightGBM ranking model weights 
+features.json LightGBM List of feature names used during training 
+product_lookup.pkl Content Filter + 
+LightGBM 
+Maps product_id to name, category, 
+subcategory, price 
+user_profiles.pkl LightGBM Stores each user's favorite category, avg 
+price, purchase count 
+user_subcats.pkl Content Filter Stores each user's preferred subcategories 
+lgb_cat_encoder.pkl LightGBM Encodes category names to integers 
+lgb_subcat_encoder.pkl LightGBM Encodes subcategory names to integers 
+products_clean.csv Both Clean product data with categories and 
+prices 
+ 
+ 
+8. Output — What the System Returns 
+Field Type Description 
+product_id Integer The recommended product's ID in the OpenCart database 
+name String The product's display name 
+category String The brand/category of the recommended product 
+price Float The product price in EGP 
+score Float (0-1) Confidence score from LightGBM — higher means more 
+relevant 
+ 
+ 
+9. Model Performance 
+Metric Value Description 
+LightGBM Accuracy 88% How often the model correctly predicts if a user will 
+purchase a product 
+ROC-AUC Score 93.03% How well the model separates relevant from non-
+relevant products 
+Top-5 Subcategory Accuracy 77.05% How often the Top 5 recommendations match the 
+user's preferred subcategory 
+ 
+ 
+10. Pipeline Summary 
+Step Component Input Output 
+1 PHP Backend User ID + purchase history POST request to Flask API 
+2 Content-Based Filter User's event history 50 smart candidates 
+3 LightGBM Ranker 50 candidates + user profile Scored and ranked list 
+4 Diversity Filter Ranked list Max 2 per subcategory enforced 
+5 Flask API Response Top 5 products JSON with names, prices, scores 
+ 
+AI-Driven Personalized E-Commerce Recommender | Graduation Project | Faculty of Computer Science 

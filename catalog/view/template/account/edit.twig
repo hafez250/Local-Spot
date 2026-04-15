@@ -1,0 +1,85 @@
+{{ header }}
+<div id="account-edit" class="container py-4" style="font-size: 18px; line-height: 1.5;">
+  
+  <div id="product-category" class="container py-2">
+    <nav class="mb-4" aria-label="Breadcrumb">
+      <ol class="d-flex align-items-center list-unstyled p-0 m-0">
+        {% for breadcrumb in breadcrumbs %}
+          <li class="d-flex align-items-center">
+            {% if not loop.last %}
+              <a href="{{ breadcrumb.href }}" class="text-decoration-none fw-bold" style="font-size: 18px; color: #4b5563;">
+                {{ breadcrumb.text }}
+              </a>
+              <svg class="mx-2" width="7" height="12" viewBox="0 0 6 10" fill="none" xmlns="http://www.w3.org/2000/svg" style="color: #9ca3af;">
+                <path d="M1 9L5 5L1 1" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+            {% else %}
+              <span class="fw-bolder" aria-current="page" style="font-size: 18px; color: #000000;">{{ breadcrumb.text }}</span>
+            {% endif %}
+          </li>
+        {% endfor %}
+      </ol>
+    </nav>
+
+    <div class="row g-4">
+      {{ column_left }}
+      
+      <div id="content" class="col-lg-9 col-md-8">
+        {{ content_top }}
+        
+        <div class="p-4 bg-white rounded-base border shadow-sm" style="border-color: #f3f4f6 !important; border-radius: 8px;">
+          
+          <h1 class="fw-bold mb-4 d-flex align-items-center" style="font-size: 24px;">
+            <span class="bg-brand rounded-pill me-2" style="width: 4px; height: 28px; display: inline-block; background-color: #000;"></span>
+            {{ heading_title }}
+          </h1>
+
+          <form id="form-customer" action="{{ save }}" method="post" data-oc-toggle="ajax">
+            <fieldset class="mb-4">
+              <legend class="fw-bold text-muted mb-3 text-uppercase" style="font-size: 13px; letter-spacing: 1px;">
+                {{ text_your_details }}
+              </legend>
+
+              <div class="mb-3 required">
+                <label for="input-firstname" class="form-label fw-semibold mb-1" style="font-size: 16px; color: #374151;">{{ entry_firstname }}</label>
+                <input type="text" name="firstname" value="{{ firstname }}" placeholder="{{ entry_firstname }}" id="input-firstname" class="form-control" style="font-size: 17px; padding: 10px 14px; border-radius: 6px;"/>
+                <div id="error-firstname" class="invalid-feedback"></div>
+              </div>
+
+              <div class="mb-3 required">
+                <label for="input-lastname" class="form-label fw-semibold mb-1" style="font-size: 16px; color: #374151;">{{ entry_lastname }}</label>
+                <input type="text" name="lastname" value="{{ lastname }}" placeholder="{{ entry_lastname }}" id="input-lastname" class="form-control" style="font-size: 17px; padding: 10px 14px; border-radius: 6px;"/>
+                <div id="error-lastname" class="invalid-feedback"></div>
+              </div>
+
+              <div class="mb-3 required">
+                <label for="input-email" class="form-label fw-semibold mb-1" style="font-size: 16px; color: #374151;">{{ entry_email }}</label>
+                <input type="email" name="email" value="{{ email }}" placeholder="{{ entry_email }}" id="input-email" class="form-control" style="font-size: 17px; padding: 10px 14px; border-radius: 6px;"/>
+                <div id="error-email" class="invalid-feedback"></div>
+              </div>
+
+              {% if config_telephone_display %}
+              <div class="mb-3 {% if config_telephone_required %}required{% endif %}">
+                <label for="input-telephone" class="form-label fw-semibold mb-1" style="font-size: 16px; color: #374151;">{{ entry_telephone }}</label>
+                <input type="tel" name="telephone" value="{{ telephone }}" placeholder="{{ entry_telephone }}" id="input-telephone" class="form-control" style="font-size: 17px; padding: 10px 14px; border-radius: 6px;"/>
+                <div id="error-telephone" class="invalid-feedback"></div>
+              </div>
+              {% endif %}
+            </fieldset>
+
+            <div class="d-flex justify-content-between align-items-center mt-4 pt-3 border-top">
+              <a href="{{ back }}" class="btn btn-light px-4" style="font-size: 15px; padding: 8px 16px; border-radius: 6px;">{{ button_back }}</a>
+              <button type="submit" class="btn btn-dark px-5" style="font-size: 16px; padding: 10px 24px; border-radius: 6px; background-color: #000; color: #fff;">
+                {{ button_continue }}
+              </button>
+            </div>
+          </form>
+        </div>
+
+        {{ content_bottom }}
+      </div>
+      {{ column_right }}
+    </div>
+  </div>
+</div>
+{{ footer }}

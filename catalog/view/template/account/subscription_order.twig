@@ -1,0 +1,34 @@
+<div class="table-responsive">
+  <table class="table align-middle">
+    <thead style="background-color: #f9fafb;">
+      <tr>
+        <th class="py-3 border-0 text-end text-uppercase text-muted" style="font-size: 12px; letter-spacing: 1px;">{{ column_order_id }}</th>
+        <th class="py-3 border-0 text-uppercase text-muted" style="font-size: 12px; letter-spacing: 1px;">{{ column_status }}</th>
+        <th class="py-3 border-0 text-end text-uppercase text-muted" style="font-size: 12px; letter-spacing: 1px;">{{ column_total }}</th>
+        <th class="py-3 border-0 text-uppercase text-muted" style="font-size: 12px; letter-spacing: 1px;">{{ column_date_added }}</th>
+      </tr>
+    </thead>
+    <tbody style="border-top: 1px solid #f3f4f6;">
+      {% if orders %}
+        {% for order in orders %}
+          <tr>
+            <td class="py-3 text-end fw-bold"><a href="{{ order.view }}" target="_blank" class="text-dark text-decoration-none">#{{ order.order_id }}</a></td>
+            <td class="py-3">
+              <span class="px-3 py-1 rounded-pill bg-light fw-semibold" style="font-size: 14px; border: 1px solid #e5e7eb;">{{ order.status }}</span>
+            </td>
+            <td class="py-3 text-end fw-semibold">{{ order.total }}</td>
+            <td class="py-3 text-muted" style="font-size: 15px;">{{ order.date_added }}</td>
+          </tr>
+        {% endfor %}
+      {% else %}
+        <tr>
+          <td class="text-center py-4 text-muted" colspan="4">{{ text_no_results }}</td>
+        </tr>
+      {% endif %}
+    </tbody>
+  </table>
+</div>
+<div class="d-flex justify-content-between align-items-center mt-3 pt-3 border-top">
+  <div>{{ pagination }}</div>
+  <div class="small text-muted">{{ results }}</div>
+</div>

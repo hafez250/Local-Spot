@@ -1,0 +1,25 @@
+<div class="container my-4">
+  <h2>{{ text_heading }}</h2>
+
+  {% if products %}
+    <div class="row">
+      {% for product in products %}
+        <div class="col-6 col-md-3 mb-4">
+          <div class="card h-100">
+            <a href="{{ product.href }}">
+              <img src="{{ product.thumb }}" class="card-img-top" alt="{{ product.name }}">
+            </a>
+            <div class="card-body">
+              <h5 class="card-title">
+                <a href="{{ product.href }}">{{ product.name }}</a>
+              </h5>
+              <p class="card-text">{{ product.price }}</p>
+            </div>
+          </div>
+        </div>
+      {% endfor %}
+    </div>
+  {% else %}
+    <p>{{ text_no_products }}</p>
+  {% endif %}
+</div>

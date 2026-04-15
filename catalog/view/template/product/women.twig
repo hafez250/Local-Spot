@@ -1,0 +1,189 @@
+{{ header }}
+<div id="product-women" class="container">
+  <nav class="modern-breadcrumb-wrap" aria-label="Breadcrumb">
+    <ol class="modern-breadcrumb">
+      {% for breadcrumb in breadcrumbs %}
+        <li class="modern-breadcrumb-item{% if loop.last %} is-current{% endif %}">
+          {% if loop.last %}
+            <span class="modern-breadcrumb-link" aria-current="page">{{ breadcrumb.text }}</span>
+          {% else %}
+            <a href="{{ breadcrumb.href }}" class="modern-breadcrumb-link">{{ breadcrumb.text }}</a>
+          {% endif %}
+        </li>
+      {% endfor %}
+    </ol>
+  </nav>
+
+  <div class="row">
+    {{ column_left }}
+    <div id="content" class="col">
+      {{ content_top }}
+
+      <h1 class="Ft mb-5 pt-5 mt-3">{{ heading_title }}</h1>
+
+      {% if products %}
+        <div class="row">
+          <div class="col-lg-3">
+            <div class="mb-3">
+              <a href="{{ compare }}" id="compare-total" class="btn btn-primary d-block compare-btn"><i class="fa-solid fa-arrow-right-arrow-left"></i> <span>{{ text_compare }}</span></a>
+            </div>
+          </div>
+
+          <div class="col-lg-6 col-6 ms-auto d-flex justify-content-end align-items-center gap-2">
+            <div class="dropdown" data-bs-auto-close="outside">
+              <button class="btn btn-secondary dropdown-toggle sort-dropdown-btn d-inline-flex align-items-center gap-2" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                Type
+                <i class="fa-solid fa-chevron-down"></i>
+              </button>
+              <div class="dropdown-menu p-2 subcategory-filter-menu">
+                {% for key, label in women_filters %}
+                  <label class="form-check d-flex align-items-center gap-2 subcategory-filter-item">
+                    <input class="form-check-input women-filter-checkbox" type="checkbox" value="{{ key }}"{% if key in selected_women_tags %} checked{% endif %}>
+                    <span class="form-check-label">{{ label }}</span>
+                  </label>
+                {% endfor %}
+                <div class="d-flex justify-content-between pt-2 mt-2 border-top">
+                  <button type="button" class="btn btn-sm btn-outline-dark" id="women-tag-clear">Clear</button>
+                  <span class="small text-muted align-self-center" id="women-tag-count"></span>
+                </div>
+              </div>
+            </div>
+
+            <div class="dropdown" data-bs-auto-close="outside">
+              <button class="btn btn-secondary dropdown-toggle sort-dropdown-btn d-inline-flex align-items-center gap-2" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                Brand
+                <i class="fa-solid fa-chevron-down"></i>
+              </button>
+              <div class="dropdown-menu p-2 subcategory-filter-menu">
+                {% for brand_id, brand_name in women_brand_filters %}
+                  <label class="form-check d-flex align-items-center gap-2 subcategory-filter-item">
+                    <input class="form-check-input women-brand-checkbox" type="checkbox" value="{{ brand_id }}"{% if brand_id in selected_women_brands %} checked{% endif %}>
+                    <span class="form-check-label">{{ brand_name }}</span>
+                  </label>
+                {% endfor %}
+                <div class="d-flex justify-content-between pt-2 mt-2 border-top">
+                  <button type="button" class="btn btn-sm btn-outline-dark" id="women-brand-clear">Clear</button>
+                  <span class="small text-muted align-self-center" id="women-brand-count"></span>
+                </div>
+              </div>
+            </div>
+
+            <div class="dropdown">
+              {% set current_sort_text = text_sort %}
+              {% for sorts in sorts %}
+                {% if sorts.value == '%s-%s'|format(sort, order) %}
+                  {% set current_sort_text = sorts.text %}
+                {% endif %}
+              {% endfor %}
+              <button class="btn btn-secondary dropdown-toggle sort-dropdown-btn d-inline-flex align-items-center gap-2" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                {{ current_sort_text }}
+                <i class="fa-solid fa-chevron-down"></i>
+              </button>
+              <ul class="dropdown-menu">
+                {% for sorts in sorts %}
+                  <li>
+                    <a class="dropdown-item{% if sorts.value == '%s-%s'|format(sort, order) %} active{% endif %}" href="{{ sorts.href }}">
+                      {{ sorts.text }}
+                    </a>
+                  </li>
+                {% endfor %}
+              </ul>
+            </div>
+          </div>
+        </div>
+
+        <div id="product-list" class="row row-cols-1 row-cols-sm-2 row-cols-md-2 row-cols-lg-4 mt-6">
+          {% for product in products %}
+            <div class="col mb-3 mt-5">{{ product }}</div>
+          {% endfor %}
+        </div>
+
+        <div class="row">
+          <div class="col-sm-12 text-center mx-auto mt-5">{{ pagination }}</div>
+        </div>
+        <div class="row">
+          <div class="col-sm-12 text-end results-text">{{ results }}</div>
+        </div>
+      {% else %}
+        <p>{{ text_no_results }}</p>
+        <div class="text-end"><a href="{{ continue }}" class="btn btn-primary">{{ button_continue }}</a></div>
+      {% endif %}
+
+      {{ content_bottom }}
+    </div>
+    {{ column_right }}
+  </div>
+</div>
+<script type="text/javascript"><!--
+(function() {
+  var tagCheckboxes = document.querySelectorAll('.women-filter-checkbox');
+  var brandCheckboxes = document.querySelectorAll('.women-brand-checkbox');
+  var allCheckboxes = document.querySelectorAll('.women-filter-checkbox, .women-brand-checkbox');
+  var clearTagBtn = document.getElementById('women-tag-clear');
+  var clearBrandBtn = document.getElementById('women-brand-clear');
+  var tagCountEl = document.getElementById('women-tag-count');
+  var brandCountEl = document.getElementById('women-brand-count');
+  if (!allCheckboxes.length) return;
+
+  function getSelected(checkboxList) {
+    var selected = [];
+    checkboxList.forEach(function(cb) {
+      if (cb.checked) selected.push(String(cb.value));
+    });
+    return selected;
+  }
+
+  function applyFilter() {
+    var selectedTags = getSelected(tagCheckboxes);
+    var selectedBrands = getSelected(brandCheckboxes);
+    var url = new URL(window.location.href);
+
+    if (selectedTags.length) {
+      url.searchParams.set('women_tags', selectedTags.join(','));
+    } else {
+      url.searchParams.delete('women_tags');
+    }
+    if (selectedBrands.length) {
+      url.searchParams.set('women_brands', selectedBrands.join(','));
+    } else {
+      url.searchParams.delete('women_brands');
+    }
+
+    url.searchParams.set('page', '1');
+    window.location.href = url.toString();
+  }
+
+  allCheckboxes.forEach(function(cb) {
+    cb.addEventListener('change', applyFilter);
+  });
+
+  if (clearTagBtn) {
+    clearTagBtn.addEventListener('click', function() {
+      var url = new URL(window.location.href);
+      url.searchParams.delete('women_tags');
+      url.searchParams.set('page', '1');
+      window.location.href = url.toString();
+    });
+  }
+
+  if (clearBrandBtn) {
+    clearBrandBtn.addEventListener('click', function() {
+      var url = new URL(window.location.href);
+      url.searchParams.delete('women_brands');
+      url.searchParams.set('page', '1');
+      window.location.href = url.toString();
+    });
+  }
+
+  if (tagCountEl) {
+    var selectedTagsNow = getSelected(tagCheckboxes);
+    tagCountEl.textContent = selectedTagsNow.length ? (selectedTagsNow.length + ' selected') : '';
+  }
+
+  if (brandCountEl) {
+    var selectedBrandsNow = getSelected(brandCheckboxes);
+    brandCountEl.textContent = selectedBrandsNow.length ? (selectedBrandsNow.length + ' selected') : '';
+  }
+})();
+//--></script>
+{{ footer }}

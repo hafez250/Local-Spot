@@ -1,0 +1,82 @@
+{{ header }}
+<div id="account-login" class="container">
+  <nav class="modern-breadcrumb-wrap" aria-label="Breadcrumb">
+    <ol class="modern-breadcrumb">
+      {% for breadcrumb in breadcrumbs %}
+        <li class="modern-breadcrumb-item{% if loop.last %} is-current{% endif %}">
+          {% if loop.first %}
+            {% if loop.last %}
+              <span class="modern-breadcrumb-link" aria-current="page">
+                <svg class="modern-breadcrumb-home" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="none" viewBox="0 0 24 24"><path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m4 12 8-8 8 8M6 10.5V19a1 1 0 0 0 1 1h3v-3a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1v3h3a1 1 0 0 0 1-1v-8.5"/></svg>
+                {{ breadcrumb.text }}
+              </span>
+            {% else %}
+              <a href="{{ breadcrumb.href }}" class="modern-breadcrumb-link">{{ breadcrumb.text }}</a>
+            {% endif %}
+          {% else %}
+            {% if loop.last %}
+              <span class="modern-breadcrumb-link" aria-current="page">{{ breadcrumb.text }}</span>
+            {% else %}
+              <a href="{{ breadcrumb.href }}" class="modern-breadcrumb-link">{{ breadcrumb.text }}</a>
+            {% endif %}
+          {% endif %}
+        </li>
+      {% endfor %}
+    </ol>
+  </nav>
+  {% if success %}
+    <div class="alert alert-success alert-dismissible"><i class="fa-solid fa-circle-check"></i> {{ success }} <button type="button" class="btn-close" data-bs-dismiss="alert"></button></div>
+  {% endif %}
+  {% if error_warning %}
+    <div class="alert alert-danger alert-dismissible"><i class="fa-solid fa-circle-exclamation"></i> {{ error_warning }} <button type="button" class="btn-close" data-bs-dismiss="alert"></button></div>
+  {% endif %}
+  <div class="row">
+    {{ column_left }}
+    <div id="content" class="col">
+      {{ content_top }}
+      <div class="login-shell">
+        <div class="login-panel login-modern-card">
+          <div class="login-icon-wrap">
+            <span class="login-icon"><i class="fa-solid fa-right-to-bracket"></i></span>
+          </div>
+          <h2 class="login-modern-title">Sign in with email</h2>
+          <p class="login-modern-subtitle">Access your account and continue shopping.</p>
+
+          <form id="form-login" action="{{ login }}" method="post" data-oc-toggle="ajax">
+            <div class="mb-2">
+              <label for="input-email" class="visually-hidden">{{ entry_email }}</label>
+              <div class="login-input-wrap">
+                <i class="fa-solid fa-envelope"></i>
+                <input type="email" name="email" value="{{ email }}" placeholder="{{ entry_email }}" id="input-email" class="form-control"/>
+              </div>
+            </div>
+            <div class="mb-2">
+              <label for="input-password" class="visually-hidden">{{ entry_password }}</label>
+              <div class="login-input-wrap">
+                <i class="fa-solid fa-lock"></i>
+                <input type="password" name="password" value="{{ password }}" placeholder="{{ entry_password }}" id="input-password" class="form-control"/>
+              </div>
+            </div>
+            <div class="text-end login-forgot-wrap">
+              <a href="{{ forgotten }}">{{ text_forgotten }} ?</a>
+            </div>
+            <input type="hidden" name="redirect" id="input-redirect" value="{{ redirect }}"/>
+            <button type="submit" class="btn btn-primary login-main-btn">{{ button_login }}</button>
+          </form>
+
+          <p class="register-line">I don't have an account<span class="register-question">?</span> <a href="{{ register }}">Register now</a></p>
+
+          <div class="login-divider"><span>Or sign in with</span></div>
+          <div class="social-grid">
+            <button type="button" class="social-btn" aria-label="Sign in with Google"><i class="fa-brands fa-google"></i></button>
+            <button type="button" class="social-btn" aria-label="Sign in with Facebook"><i class="fa-brands fa-facebook-f"></i></button>
+            <button type="button" class="social-btn" aria-label="Sign in with Apple"><i class="fa-brands fa-apple"></i></button>
+          </div>
+        </div>
+      </div>
+      {{ content_bottom }}
+    </div>
+    {{ column_right }}
+  </div>
+</div>
+{{ footer }}

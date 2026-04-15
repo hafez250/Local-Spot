@@ -1,0 +1,224 @@
+{{ header }}
+<div id="account-subscription" class="container py-4" style="font-size: 18px; line-height: 1.5;">
+  <nav class="mb-4" aria-label="Breadcrumb">
+    <ol class="d-flex align-items-center list-unstyled p-0 m-0">
+      {% for breadcrumb in breadcrumbs %}
+        <li class="d-flex align-items-center">
+          {% if not loop.last %}
+            <a href="{{ breadcrumb.href }}" class="text-decoration-none fw-bold" style="font-size: 18px; color: #4b5563;">{{ breadcrumb.text }}</a>
+            <svg class="mx-2" width="7" height="12" viewBox="0 0 6 10" fill="none" xmlns="http://www.w3.org/2000/svg" style="color: #9ca3af;">
+              <path d="M1 9L5 5L1 1" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          {% else %}
+            <span class="fw-bolder" aria-current="page" style="font-size: 18px; color: #000000;">{{ breadcrumb.text }}</span>
+          {% endif %}
+        </li>
+      {% endfor %}
+    </ol>
+  </nav>
+
+  <div class="row g-4">
+    {{ column_left }}
+
+    <div id="content" class="col-lg-9 col-md-8">
+      {{ content_top }}
+
+      <div class="p-4 bg-white rounded-base border shadow-sm mb-4" style="border-color: #f3f4f6 !important; border-radius: 8px;">
+        <h1 class="fw-bold mb-4 d-flex align-items-center" style="font-size: 24px;">
+          <span class="bg-brand rounded-pill me-2" style="width: 4px; height: 28px; display: inline-block; background-color: #000;"></span>
+          {{ heading_title }}
+        </h1>
+
+        <div class="row g-3 mb-3">
+          <div class="col-md-6">
+            <div class="p-3 border rounded-base bg-light-subtle h-100">
+              <strong class="d-block mb-1">{{ text_subscription_id }}</strong>
+              <span class="fw-semibold">#{{ subscription_id }}</span>
+            </div>
+          </div>
+          {% if order_id %}
+            <div class="col-md-6">
+              <div class="p-3 border rounded-base bg-light-subtle h-100">
+                <strong class="d-block mb-1">{{ text_order_id }}</strong>
+                <a href="{{ order_link }}" target="_blank" class="text-dark fw-semibold text-decoration-underline">{{ order_id }}</a>
+              </div>
+            </div>
+          {% endif %}
+        </div>
+
+        {% if payment_address or shipping_address %}
+          <div class="row g-3 mb-3">
+            {% if payment_address %}
+              <div class="col-md-6">
+                <div class="p-3 border rounded-base h-100">
+                  <strong class="d-block mb-2">{{ text_payment_address }}</strong>
+                  <div>{{ payment_address }}</div>
+                </div>
+              </div>
+            {% endif %}
+            {% if shipping_address %}
+              <div class="col-md-6">
+                <div class="p-3 border rounded-base h-100">
+                  <strong class="d-block mb-2">{{ text_shipping_address }}</strong>
+                  <div>{{ shipping_address }}</div>
+                </div>
+              </div>
+            {% endif %}
+          </div>
+        {% endif %}
+
+        <div class="row g-3 mb-4">
+          {% if shipping_method %}
+            <div class="col-md-6">
+              <div class="p-3 border rounded-base bg-light-subtle h-100">
+                <strong class="d-block mb-1">{{ text_shipping_method }}</strong>
+                <span>{{ shipping_method }}</span>
+              </div>
+            </div>
+          {% endif %}
+          <div class="col-md-6">
+            <div class="p-3 border rounded-base bg-light-subtle h-100">
+              <strong class="d-block mb-1">{{ text_payment_method }}</strong>
+              <span>{{ payment_method }}</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="table-responsive mb-4">
+          <table class="table align-middle">
+            <thead style="background-color: #f9fafb;">
+              <tr>
+                <th class="py-3 border-0 text-uppercase text-muted" style="font-size: 12px; letter-spacing: 1px;">{{ column_product }}</th>
+                <th class="py-3 border-0 text-end text-uppercase text-muted" style="font-size: 12px; letter-spacing: 1px;">{{ column_quantity }}</th>
+                <th class="py-3 border-0 text-end text-uppercase text-muted" style="font-size: 12px; letter-spacing: 1px;">{{ column_trial_price }}</th>
+                <th class="py-3 border-0 text-end text-uppercase text-muted" style="font-size: 12px; letter-spacing: 1px;">{{ column_price }}</th>
+              </tr>
+            </thead>
+            <tbody style="border-top: 1px solid #f3f4f6;">
+              {% if products %}
+                {% for product in products %}
+                  <tr>
+                    <td class="py-3">
+                      <a href="{{ product.product_edit }}" target="_blank" class="text-dark fw-semibold text-decoration-none">{{ product.name }}</a>
+                      <ul class="list-unstyled mb-0 mt-1 text-muted" style="font-size: 14px;">
+                        <li>{{ text_model }}: {{ product.model }}</li>
+                        {% for option in product.option %}
+                          <li>{{ option.name }}: {{ option.value }}</li>
+                        {% endfor %}
+                      </ul>
+                    </td>
+                    <td class="py-3 text-end">{{ product.quantity }}</td>
+                    <td class="py-3 text-end">{{ product.trial_price }}</td>
+                    <td class="py-3 text-end fw-semibold">{{ product.price }}</td>
+                  </tr>
+                {% endfor %}
+              {% else %}
+                <tr>
+                  <td colspan="4" class="text-center py-4 text-muted">{{ text_no_results }}</td>
+                </tr>
+              {% endif %}
+            </tbody>
+          </table>
+        </div>
+
+        <div class="p-3 border rounded-base bg-light-subtle mb-3">
+          <strong class="d-block mb-1">{{ text_subscription_plan }}</strong>
+          <div>{{ description }}</div>
+        </div>
+
+        <div class="row g-3 mb-4">
+          <div class="col-md-6">
+            <div class="p-3 border rounded-base h-100">
+              <strong class="d-block mb-1">{{ text_date_next }}</strong>
+              <span>{{ date_next }}</span>
+            </div>
+          </div>
+          {% if duration %}
+            <div class="col-md-6">
+              <div class="p-3 border rounded-base h-100">
+                <strong class="d-block mb-1">{{ text_remaining }}</strong>
+                <span>{{ remaining }}</span>
+              </div>
+            </div>
+          {% endif %}
+        </div>
+
+        <div class="text-end mb-4">
+          <button type="button" id="button-cancel" class="btn btn-outline-dark px-4 py-2" style="border-radius: 6px;">{{ button_cancel }}</button>
+        </div>
+
+        <div class="p-4 bg-white rounded-base border shadow-sm mb-4" style="border-color: #f3f4f6 !important;">
+          <h2 class="h5 fw-bold mb-3 d-flex align-items-center">
+            <span class="bg-brand rounded-pill me-2" style="width: 4px; height: 24px; display: inline-block; background-color: #000;"></span>
+            {{ text_history }}
+          </h2>
+          <div id="history">{{ history }}</div>
+        </div>
+
+        <div class="p-4 bg-white rounded-base border shadow-sm" style="border-color: #f3f4f6 !important;">
+          <h2 class="h5 fw-bold mb-3 d-flex align-items-center">
+            <span class="bg-brand rounded-pill me-2" style="width: 4px; height: 24px; display: inline-block; background-color: #000;"></span>
+            {{ text_order }}
+          </h2>
+          <div id="order">{{ order }}</div>
+        </div>
+      </div>
+
+      <div class="d-flex justify-content-end">
+        <a href="{{ continue }}" class="btn btn-dark px-5" style="font-size: 16px; padding: 10px 30px; border-radius: 6px; background-color: #000; color: #fff;">
+          {{ button_continue }}
+        </a>
+      </div>
+
+      {{ content_bottom }}
+    </div>
+    {{ column_right }}
+  </div>
+</div>
+<script type="text/javascript"><!--
+$('#button-cancel').on('click', function(e) {
+    e.preventDefault();
+
+    var element = this;
+
+    $.ajax({
+        url: 'index.php?route=account/subscription.cancel&language={{ language }}&customer_token={{ customer_token }}&subscription_id={{ subscription_id }}',
+        dataType: 'json',
+        beforeSend: function() {
+            $(element).button('loading');
+        },
+        complete: function() {
+            $(element).button('reset');
+        },
+        success: function(json) {
+            console.log(json);
+
+            if (json['error']) {
+                $('#alert').prepend('<div class="alert alert-danger alert-dismissible"><i class="fa-solid fa-circle-exclamation"></i> ' + json['error'] + ' <button type="button" class="btn-close" data-bs-dismiss="alert"></button></div>');
+            }
+
+            if (json['success']) {
+                $('#alert').prepend('<div class="alert alert-success alert-dismissible"><i class="fa-solid fa-circle-check"></i> ' + json['success'] + ' <button type="button" class="btn-close" data-bs-dismiss="alert"></button></div>');
+
+                $('#history').load('index.php?route=account/subscription.history&language={{ language }}&customer_token={{ customer_token }}&subscription_id={{ subscription_id }}');
+            }
+        },
+        error: function(xhr, ajaxOptions, thrownError) {
+            console.log(thrownError + "\r\n" + xhr.statusText + "\r\n" + xhr.responseText);
+        }
+    });
+});
+
+$('#history').on('click', '.pagination a', function(e) {
+    e.preventDefault();
+
+    $('#history').load(this.href);
+});
+
+$('#order').on('click', '.pagination a', function(e) {
+    e.preventDefault();
+
+    $('#order').load(this.href);
+});
+//--></script>
+{{ footer }}

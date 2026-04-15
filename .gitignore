@@ -1,0 +1,42 @@
+# OpenCart local config (do NOT commit real creds)
+/config.php
+/salah/config.php
+
+# Example configs are allowed
+!/config.php.example
+!/salah/config.php.example
+
+# Storage / runtime
+/system/storage/
+/storage/
+C:/xampp/storage/
+
+# Cache / logs / sessions / uploads
+/image/cache/
+/system/storage/cache/
+/system/storage/logs/
+/system/storage/session/
+/system/storage/upload/
+
+# Logs
+*.log
+
+# IDE
+.vscode/
+.idea/
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Images / media (do not commit)
+*.jpg
+*.jpeg
+*.png
+*.gif
+*.webp
+*.avif
+*.svg
+*.bmp
+*.ico
+image/

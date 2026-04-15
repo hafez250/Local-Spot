@@ -1,0 +1,70 @@
+<div id="cart" class="dropdown">
+  <a data-bs-toggle="dropdown" class="nav-link text-black" style="cursor: pointer;">
+    <i class="fa-solid fa-bag-shopping"></i>
+  </a>
+
+  <ul class="dropdown-menu dropdown-menu-end p-3 shadow-lg border-0 rounded-base" style="width: 350px; font-size: 18px; border-radius: 8px;">
+    {% if products %}
+      <li>
+        <div class="overflow-auto" style="max-height: 400px;">
+          <table class="table align-middle mb-3">
+            <tbody>
+              {% for product in products %}
+                <tr style="border-bottom: 1px solid #f3f4f6;">
+                  <td class="text-center py-2" style="width: 70px;">
+                    {% if product.thumb %}
+                      <a href="{{ product.href }}">
+                        <img src="{{ product.thumb }}" alt="{{ product.name }}" class="img-fluid rounded" style="max-width: 60px;"/>
+                      </a>
+                    {% endif %}
+                  </td>
+
+                  <td class="py-2">
+                    <a href="{{ product.href }}" class="text-decoration-none fw-bold text-dark d-block" style="font-size: 16px; line-height: 1.2;">
+                      {{ product.name }}
+                    </a>
+                    <div class="text-muted" style="font-size: 14px;">
+                      x {{ product.quantity }} — <span class="fw-bold text-dark">{{ product.total }}</span>
+                    </div>
+                  </td>
+
+                  <td class="text-end py-2">
+                    <form action="{{ remove }}" method="post" data-oc-toggle="ajax" data-oc-load="{{ list }}" data-oc-target="#cart">
+                      <input type="hidden" name="key" value="{{ product.cart_id }}">
+                      <button type="submit" class="btn p-1 text-muted hover-black" style="background: none; border: none;">
+                        <i class="fa-solid fa-xmark" style="font-size: 16px;"></i>
+                      </button>
+                    </form>
+                  </td>
+                </tr>
+              {% endfor %}
+            </tbody>
+          </table>
+        </div>
+
+        <div class="pt-2">
+          {% for total in totals %}
+            <div class="d-flex justify-content-between mb-1" style="font-size: 16px;">
+              <span class="text-muted">{{ total.title }}</span>
+              <span class="fw-bold">{{ total.text }}</span>
+            </div>
+          {% endfor %}
+          
+          <div class="d-grid gap-2 mt-3">
+            <a href="{{ checkout }}" class="btn btn-dark py-2 fw-bold" style="background-color: #000; color: #fff; border-radius: 6px; font-size: 16px;">
+              {{ text_checkout }}
+            </a>
+            <a href="{{ cart }}" class="btn btn-outline-dark py-2 fw-bold" style="border-radius: 6px; font-size: 16px; border-color: #000; color: #000;">
+              {{ text_cart }}
+            </a>
+          </div>
+        </div>
+      </li>
+    {% else %}
+      <li class="text-center py-5">
+        <div class="text-muted mb-2"><i class="fa-solid fa-cart-ghost fa-3x"></i></div>
+        <p class="m-0 fw-bold" style="color: #6b7280;">{{ text_no_results }}</p>
+      </li>
+    {% endif %}
+  </ul>
+</div>

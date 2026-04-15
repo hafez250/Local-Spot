@@ -1,0 +1,91 @@
+<div id="shopping-cart" class="container py-4" style="font-size: 18px; line-height: 1.5;">
+  {% if products %}
+    {% if error_warning %}
+      <div class="alert alert-danger border-0 shadow-sm rounded-base mb-4"><i class="fa-solid fa-circle-exclamation me-2"></i> {{ error_warning }}</div>
+    {% endif %}
+    {% if success %}
+      <div class="alert alert-success border-0 shadow-sm rounded-base mb-4"><i class="fa-solid fa-circle-check me-2"></i> {{ success }}</div>
+    {% endif %}
+
+    <h1 class="fw-bold mb-4 d-flex align-items-center" style="font-size: 26px; color: #000;">
+      <span class="bg-brand rounded-pill me-2" style="width: 5px; height: 32px; display: inline-block; background-color: #000;"></span>
+      {{ heading_title }}{% if weight %} ({{ weight }}){% endif %}
+    </h1>
+
+    <div class="p-4 bg-white rounded-base border shadow-sm mb-4" style="border-color: #f3f4f6 !important; border-radius: 8px;">
+      <div id="output-cart" class="table-responsive">
+        <table class="table align-middle">
+          <thead style="background-color: #f9fafb;">
+            <tr>
+              <th class="py-3 border-0 text-center text-uppercase text-muted" style="font-size: 12px; letter-spacing: 1px; width: 100px;">{{ column_image }}</th>
+              <th class="py-3 border-0 text-uppercase text-muted" style="font-size: 12px; letter-spacing: 1px;">{{ column_name }}</th>
+              <th class="py-3 border-0 text-center text-uppercase text-muted" style="font-size: 12px; letter-spacing: 1px; width: 180px;">{{ column_quantity }}</th>
+              <th class="py-3 border-0 text-end text-uppercase text-muted" style="font-size: 12px; letter-spacing: 1px;">{{ column_price }}</th>
+              <th class="py-3 border-0 text-end text-uppercase text-muted" style="font-size: 12px; letter-spacing: 1px;">{{ column_total }}</th>
+            </tr>
+          </thead>
+          <tbody style="border-top: 1px solid #f3f4f6;">
+            {% for product in products %}
+              <tr>
+                <td class="text-center py-3">
+                  {% if product.thumb %}
+                    <a href="{{ product.href }}"><img src="{{ product.thumb }}" alt="{{ product.name }}" class="img-fluid rounded" style="max-width: 80px;"/></a>
+                  {% endif %}
+                </td>
+                <td class="py-3">
+                  <a href="{{ product.href }}" class="text-dark fw-bold text-decoration-none" style="font-size: 17px;">{{ product.name }}</a>
+                  {% if not product.stock %} <span class="text-danger fw-bold">***</span>{% endif %}
+                  <div class="text-muted small mt-1" style="font-size: 14px;">
+                    {{ text_model }}: {{ product.model }}
+                    {% for option in product.option %}
+                      <br/>- {{ option.name }}: {{ option.value }}
+                    {% endfor %}
+                  </div>
+                </td>
+                <td class="py-3">
+                  <form method="post" data-oc-target="#shopping-cart">
+                    <div class="input-group input-group-sm rounded-base overflow-hidden" style="border: 1px solid #dee2e6;">
+                      <input type="text" name="quantity" value="{{ product.quantity }}" size="1" class="form-control border-0 text-center fw-bold" style="font-size: 16px;"/>
+                      <input type="hidden" name="key" value="{{ product.cart_id }}"/>
+                      <button type="submit" formaction="{{ edit }}" class="btn btn-light border-start" style="background: #fff;"><i class="fa-solid fa-rotate text-muted" style="font-size: 14px;"></i></button>
+                      <a href="{{ product.remove }}" class="btn btn-light border-start" style="background: #fff;"><i class="fa-solid fa-xmark text-danger" style="font-size: 14px;"></i></a>
+                    </div>
+                  </form>
+                </td>
+                <td class="text-end py-3" style="font-size: 17px;">{{ product.price }}</td>
+                <td class="text-end py-3 fw-bold" style="font-size: 17px; color: #000;">{{ product.total }}</td>
+              </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
+
+      <div class="d-flex justify-content-end mt-4">
+        <div style="width: 300px;">
+          {% for total in totals %}
+            <div class="d-flex justify-content-between py-2 {% if loop.last %}border-top mt-2 pt-3{% endif %}">
+              <span class="text-muted fw-medium">{{ total.title }}</span>
+              <span class="{% if loop.last %}text-black fw-bolder fs-5{% else %}fw-bold{% endif %}">{{ total.text }}</span>
+            </div>
+          {% endfor %}
+        </div>
+      </div>
+    </div>
+
+    <div class="d-flex justify-content-between align-items-center mt-4 pt-3">
+      <a href="{{ continue }}" class="btn btn-outline-dark px-4 py-2 fw-bold" style="border-radius: 6px; border-color: #000; color: #000; font-size: 16px;">
+        <i class="fa-solid fa-arrow-left me-2"></i> {{ button_shopping }}
+      </a>
+      <a href="{{ checkout }}" class="btn btn-dark px-5 py-2 fw-bold" style="background-color: #000; color: #fff; border-radius: 6px; font-size: 17px; box-shadow: 0 4px 12px rgba(0,0,0,0.1);">
+        {{ button_checkout }}
+      </a>
+    </div>
+
+  {% else %}
+    <div class="text-center py-5 bg-white rounded-base border shadow-sm">
+      <h1 class="fw-bold mb-3">{{ heading_title }}</h1>
+      <p class="text-muted mb-4">{{ text_no_results }}</p>
+      <a href="{{ continue }}" class="btn btn-dark px-5 py-2 fw-bold" style="background-color: #000; border-radius: 6px;">{{ button_continue }}</a>
+    </div>
+  {% endif %}
+</div>

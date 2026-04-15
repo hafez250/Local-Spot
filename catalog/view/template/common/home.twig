@@ -1,0 +1,186 @@
+
+
+
+
+{{ header }} 
+<div class="top-nav"></div>
+
+        <nav class="navbar navbar-expand-lg bg-black px-5 py-0">
+  <div class="container-fluid px-5 py-0">
+    <button class="navbar-toggler  " type="button" data-bs-toggle="collapse" data-bs-target="#navbarText" aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation" >
+      <span class="navbar-toggler-icon "></span>
+    </button>
+    <div class="collapse navbar-collapse text-white " id="navbarText">
+      <ul class="navbar-nav nav-underline mx-auto mb-2 mb-lg-0 text-white">
+
+      <li class="nav-item text-white">
+          <a href="{{ category_men }}" class="text-white nav-link {% if route == 'product/men' %}active{% endif %}">Men</a>
+        </li>
+        <li class="nav-item">
+          <a href="{{ category_woman }}" class="text-white nav-link {% if route == 'product/women' %}active{% endif %}">Women</a>
+        </li>
+        <li class="nav-item">
+          <a href="{{ category_winter }}" class="text-white nav-link {% if route == 'product/winter' %}active{% endif %}">Winter</a>
+        </li>
+         <li class="nav-item">
+          <a href="{{ category_summer }}" class="text-white nav-link {% if route == 'product/summer' %}active{% endif %}">Summer</a>
+        </li>
+        <li class="nav-item">
+          <a href="{{ category_brands }}" class="text-white nav-link {% if route == 'product/manufacturer' %}active{% endif %}">Brands</a>
+        </li>
+      </ul>
+      <span class="navbar-text py-0">
+        {{search}}
+      </span>
+    </div>
+  </div>
+</nav>
+
+
+<section class="season-collection-wrap px-5 pb-5 mt-5">
+  <h2 class="m-4 mb-4 px-5 text-black categpries-h"> Winter '26 Collection <i class="fa-regular fa-snowflake fa-beat-fade ms-2" style="color: rgb(116, 192, 252);"></i></h2>
+  <div class="row row-cols-1 row-cols-sm-2 row-cols-lg-5 g-4 mb-5 px-5 mx-0">
+    {% for product in winter_products %}
+      <div class="col">
+        <article class="custom-card season-product-card h-100">
+          <a href="{{ product.href }}">
+            <div class="image-box">
+              <img src="{{ product.thumb }}" alt="{{ product.name }}" title="{{ product.name }}"/>
+            </div>
+          </a>
+          <h4><a href="{{ product.href }}">{{ product.name }}</a></h4>
+          <p class="season-brand-name mb-2"><a href="{{ product.brand_href }}" class="season-brand-link">{{ product.brand_name }}</a></p>
+          {% if product.price %}
+            <div class="product-price mt-0">
+              {% if product.special %}
+                <span>{{ product.special }}</span>
+                <span class="text-decoration-line-through text-muted ms-2" style="font-size: 14px;">{{ product.price }}</span>
+              {% else %}
+                <span style="color: black; font-weight: 700;">{{ product.price }}</span>
+              {% endif %}
+            </div>
+          {% endif %}
+          <a href="{{ product.href }}" class="btn btn-dark mt-auto">View Product</a>
+        </article>
+      </div>
+    {% endfor %}
+    <div class="col d-flex align-items-center justify-content-center">
+      <a href="{{ winter_explore_all }}" class="season-explore-all h-100 text-decoration-none">
+        <span class="season-explore-kicker">Winter 26</span>
+        <span class="season-explore-title">Explore All</span>
+        <span class="season-explore-arrow"><i class="fa-solid fa-arrow-right"></i></span>
+      </a>
+    </div>
+  </div>
+
+  <section class="season-dual-showcase mb-5 px-5" aria-label="Gender Collection Highlights">
+    <a href="{{ category_men }}" class="season-dual-card season-dual-card-winter text-decoration-none">
+      <span class="season-dual-bg" style="background-image: url('/opencart1/image/catalog/svgbanner.webp');"></span>
+      <span class="season-dual-shade"></span>
+      <span class="season-dual-content">
+        <span class="season-dual-title">Men's Collection</span>
+        <span class="season-dual-cta">Shop Now</span>
+      </span>
+    </a>
+    <a href="{{ category_woman }}" class="season-dual-card season-dual-card-summer text-decoration-none">
+      <span class="season-dual-bg" style="background-image: url('/opencart1/image/catalog/starninebanner.webp');"></span>
+      <span class="season-dual-shade"></span>
+      <span class="season-dual-content">
+        <span class="season-dual-title">Women's Collection</span>
+        <span class="season-dual-cta">Shop Now</span>
+      </span>
+    </a>
+  </section>
+
+
+  <h2 class="m-4 mb-4 px-5 text-black categpries-h"> Summer '26 Collection <i class="fa-regular fa-sun fa-fade ms-2" style="color: rgb(255, 212, 59);"></i></h2>
+  <div class="row row-cols-1 row-cols-sm-2 row-cols-lg-5 g-4 px-5 mx-0">
+    {% for product in summer_products %}
+      <div class="col">
+        <article class="custom-card season-product-card h-100">
+          <a href="{{ product.href }}">
+            <div class="image-box">
+              <img src="{{ product.thumb }}" alt="{{ product.name }}" title="{{ product.name }}"/>
+            </div>
+          </a>
+          <h4><a href="{{ product.href }}">{{ product.name }}</a></h4>
+          <p class="season-brand-name mb-2"><a href="{{ product.brand_href }}" class="season-brand-link">{{ product.brand_name }}</a></p>
+          {% if product.price %}
+            <div class="product-price mt-0">
+              {% if product.special %}
+                <span>{{ product.special }}</span>
+                <span class="text-decoration-line-through text-muted ms-2" style="font-size: 14px;">{{ product.price }}</span>
+              {% else %}
+                <span style="color: black; font-weight: 700;">{{ product.price }}</span>
+              {% endif %}
+            </div>
+          {% endif %}
+          <a href="{{ product.href }}" class="btn btn-dark mt-auto">View Product</a>
+        </article>
+      </div>
+    {% endfor %}
+    <div class="col d-flex align-items-center justify-content-center">
+      <a href="{{ summer_explore_all }}" class="season-explore-all h-100 text-decoration-none">
+        <span class="season-explore-kicker">Summer</span>
+        <span class="season-explore-title">Explore All</span>
+        <span class="season-explore-arrow"><i class="fa-solid fa-arrow-right"></i></span>
+      </a>
+    </div>
+  </div>
+  <h1 class="m-4 px-5 text-black categpries-h"> Brands :</h1>
+<div class="cards d-flex justify-content-center ">
+
+<div class="row w-100 px-5 mx-0">
+  <div class="col-md-3 col-sm-6 my-4  d-flex justify-content-center">
+<div class="cardaya" style="--img: url('/opencart1/image/catalog/starninebanner.webp')">       
+      <div class="overlay d-flex flex-column justify-content-center align-items-center text-center">
+        <h5 class="card-title">Starnine's Collection</h5>
+        <a href="{{ category_starnine }}" class="shop-now">Shop Now</a>
+      </div>
+    </div>
+  </div>
+
+  <div class="col-md-3 col-sm-6 my-4  d-flex justify-content-center">
+<div class="cardaya" style="--img: url('/opencart1/image/catalog/svgbanner.webp')">    
+      <div class="overlay d-flex flex-column justify-content-center align-items-center text-center">
+        <h5 class="card-title">Svg's Collection</h5>
+        <a href="{{ category_svg }}" class="shop-now">Shop Now</a>
+      </div>
+    </div>
+  </div>
+
+  <div class="col-md-3 col-sm-6 my-4  d-flex justify-content-center">
+<div class="cardaya" style="--img: url('/opencart1/image/catalog/seemlyb.jpg')">    
+  <div class="overlay d-flex flex-column justify-content-center align-items-center text-center">
+        <h5 class="card-title">Seemly's Collection</h5>
+        <a href="{{ category_seemly }}" class="shop-now">Shop Now</a>
+      </div>
+    </div>
+  </div>
+
+  <div class="col-md-3 col-sm-6 my-4  d-flex justify-content-center">
+<div class="cardaya" style="--img: url('/opencart1/image/catalog/black-wahet-cleopatra-800x800.jpg')">    
+      <div class="overlay  d-flex flex-column justify-content-center align-items-center text-center">
+        <h5 class="card-title">Antikka's Collection</h5>
+        <a href="{{ category_antikka }}" class="shop-now">Shop Now</a>
+      </div>
+    </div>
+  </div>
+
+
+
+  
+
+  
+</div>
+
+
+</div>
+</section>
+
+<div id="common-home" class="container">
+  <div class="row">{{ column_left }}
+    <div id="content" class="col">{{ content_top }}{{ content_bottom }}</div>
+    {{ column_right }}</div>
+</div>
+{{ footer }}

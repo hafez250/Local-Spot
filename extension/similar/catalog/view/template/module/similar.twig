@@ -1,0 +1,15 @@
+<div id="content" class="container">
+  <h1>{{ heading_title }}</h1>
+
+  {% if products %}
+    <div class="row " style="margin-top:50px;">
+      {% for product in products %}
+        <div class="col-md-3">
+          {{ product|raw }}
+        </div>
+      {% endfor %}
+    </div>
+  {% else %}
+    <p>{{ text_empty }}</p>
+  {% endif %}
+</div>

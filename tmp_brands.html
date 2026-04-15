@@ -1,0 +1,368 @@
+<!DOCTYPE html>
+<html dir="ltr" lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>Find Your Favorite Brand</title>
+  <base href="http://localhost/opencart1/"/>
+      <script src="catalog/view/javascript/jquery/jquery-3.7.1.min.js" type="text/javascript"></script>
+  <link href="catalog/view/stylesheet/bootstrap.css" type="text/css" rel="stylesheet" media="screen"/>
+  <link href="catalog/view/stylesheet/fonts/fontawesome/css/all.min.css" rel="stylesheet" type="text/css"/>
+  <link href="catalog/view/stylesheet/stylesheet.css" type="text/css" rel="stylesheet"/>
+  <link href="catalog/view/stylesheet/custom.css" rel="stylesheet"/>
+  
+  <script src="catalog/view/javascript/common.js" type="text/javascript"></script>
+      <link rel="icon" href="http://localhost/opencart1/image/catalog/localspot-removebg-preview.png" type="image/png">
+          </head>
+<body>
+<div id="container">
+  <div id="alert"></div>
+  <div class="toast-container position-fixed top-0 start-50 translate-middle-x mt-3" style="z-index: 1080;">
+    <div id="oc-toast" class="toast wishlist-toast" role="alert" aria-live="assertive" aria-atomic="true">
+      <div class="d-flex align-items-center w-100">
+        <span class="toast-icon" aria-hidden="true">✅</span>
+        <div class="toast-body wishlist-toast-body"></div>
+        <button type="button" class="btn-close ms-auto wishlist-toast-close" data-bs-dismiss="toast" aria-label="Close"></button>
+      </div>
+    </div>
+  </div>
+
+<style>
+  .ticker-container {
+    overflow: hidden;
+    white-space: nowrap;
+    background: black;
+  }
+
+  .ticker-move {
+    display: inline-block;
+    animation: ticker 30s linear infinite;
+  }
+
+  @keyframes ticker {
+    0%   { transform: translateX(0); }
+    100% { transform: translateX(-50%); }
+  }
+
+  .ticker-text {
+    color: white;
+    font-family:Helvetica, Arial, sans-serif;
+    font-weight:600;
+
+    font-size: 13px;
+    padding-right: 60px; /* space between each repeated sentence */
+  }
+
+
+/* Top nav with background image */
+
+.top-nav {
+    background-image: url('image/catalog/kendaljenner.jpg');
+    background-size: cover;
+    background-position: center;
+    width: 100%;
+    height: 85vh;
+    position: relative;
+}
+
+/* Navbar starts transparent */
+.navbar-bg {
+    background-color: rgba(255, 255, 255, 0) !important; /* override Bootstrap */
+    transition: background-color 0.3s ease;
+}
+
+/* Navbar background on hover */
+.navbar-bg:hover {
+    background-color: rgba(255, 255, 255, 0.9) !important; /* override Bootstrap */
+}
+
+
+</style>
+
+<nav class="navbar bg-black p-0">
+  <div class="container-fluid ticker-container mx-4">
+      <div class="ticker-move ">
+
+      <!-- Your text repeated many times -->
+      <span class="ticker-text">
+        Black Friday Sale! Get up to 50% OFF on all products — Limited Time Only!
+        <a href="http://localhost/opencart1/index.php?route=common/home&amp;language=en-gb" style="color:white; text-decoration: underline;">Shop Now</a>
+      </span>
+
+      <span class="ticker-text">
+        Black Friday Sale! Get up to 50% OFF on all products — Limited Time Only!
+        <a href="http://localhost/opencart1/index.php?route=common/home&amp;language=en-gb" style="color:white; text-decoration: underline;">Shop Now</a>
+      </span>
+
+      <span class="ticker-text">
+        Black Friday Sale! Get up to 50% OFF on all products — Limited Time Only!
+        <a href="http://localhost/opencart1/index.php?route=common/home&amp;language=en-gb" style="color:white; text-decoration: underline;">Shop Now</a>
+      </span>
+
+      <span class="ticker-text">
+        Black Friday Sale! Get up to 50% OFF on all products — Limited Time Only!
+        <a href="http://localhost/opencart1/index.php?route=common/home&amp;language=en-gb" style="color:white; text-decoration: underline;">Shop Now</a>
+      </span>
+
+      <span class="ticker-text">
+        Black Friday Sale! Get up to 50% OFF on all products — Limited Time Only!
+        <a href="http://localhost/opencart1/index.php?route=common/home&amp;language=en-gb" style="color:white; text-decoration: underline;">Shop Now</a>
+      </span>
+
+      <!-- Duplicate for seamless infinite scrolling -->
+      <span class="ticker-text">
+        Black Friday Sale! Get up to 50% OFF on all products — Limited Time Only!
+        <a href="http://localhost/opencart1/index.php?route=common/home&amp;language=en-gb" style="color:white; text-decoration: underline;">Shop Now</a>
+      </span>
+
+      <span class="ticker-text">
+        Black Friday Sale! Get up to 50% OFF on all products — Limited Time Only!
+        <a href="http://localhost/opencart1/index.php?route=common/home&amp;language=en-gb" style="color:white; text-decoration: underline;">Shop Now</a>
+      </span>
+
+      <span class="ticker-text">
+        Black Friday Sale! Get up to 50% OFF on all products — Limited Time Only!
+        <a href="http://localhost/opencart1/index.php?route=common/home&amp;language=en-gb" style="color:white; text-decoration: underline;">Shop Now</a>
+      </span>
+
+    </div>
+  </div>
+</nav>
+
+  <header>
+<nav class="navbar navbar-expand-lg px-3 px-lg-5 py-0 site-main-nav">
+  <div class="container-fluid site-main-nav-inner">
+
+    <!-- LEFT: Toggler + Menu -->
+    <div class="site-main-left d-flex align-items-center">
+
+      <!-- Toggler -->
+      <button class="navbar-toggler me-2" type="button" data-bs-toggle="collapse" data-bs-target="#navbarText">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+
+      <!-- Collapsible Menu -->
+      <div class="collapse navbar-collapse site-main-collapse" id="navbarText">
+        <ul class="navbar-nav nav nav-underline mb-2 mb-lg-0 text-center">
+          <li class="nav-item">
+  <a href="http://localhost/opencart1/index.php?route=common/home&amp;language=en-gb"
+     class="nav-link ">
+     Home
+  </a>
+</li>
+         <li class="nav-item">
+        <a href="http://localhost/opencart1/index.php?route=information/contact&amp;language=en-gb" class="nav-link ">Contact Us</a>
+      </li>
+
+      
+      
+      <li class="nav-item">
+        <a href="http://localhost/opencart1/index.php?route=account/register&amp;language=en-gb" class="nav-link">Register</a>
+      </li>
+      <li class="nav-item">
+        <a href="http://localhost/opencart1/index.php?route=account/login&amp;language=en-gb" class="nav-link">Login</a>
+      </li>
+          </ul>
+
+      </div>
+
+    </div>
+
+    <!-- CENTER: Logo (ABSOLUTE → True center) -->
+    <div class="site-main-logo">
+      <a href="http://localhost/opencart1/index.php?route=common/home&amp;language=en-gb">
+        <img src="http://localhost/opencart1/image/catalog/localspot.jpeg" alt="Localspot" class="logo1">
+      </a>
+    </div>
+
+    <!-- RIGHT: Icons -->
+    <ul class="nav d-flex align-items-center site-main-actions">
+      <li class="nav-item"><a href="http://localhost/opencart1/index.php?route=account/wishlist&amp;language=en-gb" class="nav-link text-black"><i class="fa-regular fa-heart"></i></a></li>
+      <li class="nav-item"><div id="cart" class="dropdown">
+  <a data-bs-toggle="dropdown" class="nav-link text-black" style="cursor: pointer;">
+    <i class="fa-solid fa-bag-shopping"></i>
+  </a>
+
+  <ul class="dropdown-menu dropdown-menu-end p-3 shadow-lg border-0 rounded-base" style="width: 350px; font-size: 18px; border-radius: 8px;">
+          <li class="text-center py-5">
+        <div class="text-muted mb-2"><i class="fa-solid fa-cart-ghost fa-3x"></i></div>
+        <p class="m-0 fw-bold" style="color: #6b7280;">Your shopping cart is empty!</p>
+      </li>
+      </ul>
+</div>
+</li>
+      <li class="nav-item dropdown">
+        <a href="#"
+           class="nav-link text-black dropdown-toggle account-menu-toggle"
+           data-bs-toggle="dropdown"
+           aria-expanded="false">
+          <i class="fa-regular fa-user"></i>
+        </a>
+        <ul class="dropdown-menu dropdown-menu-end account-menu-dropdown">
+                      <li><a class="dropdown-item account-menu-item" href="http://localhost/opencart1/index.php?route=account/login&amp;language=en-gb">Login</a></li>
+            <li><a class="dropdown-item account-menu-item" href="http://localhost/opencart1/index.php?route=account/register&amp;language=en-gb">Register</a></li>
+                  </ul>
+      </li>
+    </ul>
+
+  </div>
+</nav>
+ 
+
+
+
+ 
+
+   
+   </header>
+
+ 
+  <main>
+
+<div id="product-manufacturer" class="container">
+  <nav class="modern-breadcrumb-wrap" aria-label="Breadcrumb">
+    <ol class="modern-breadcrumb">
+              <li class="modern-breadcrumb-item">
+                      <a href="http://localhost/opencart1/index.php?route=common/home&amp;language=en-gb" class="modern-breadcrumb-link"><i class="fas fa-home"></i></a>
+                  </li>
+              <li class="modern-breadcrumb-item is-current">
+                      <span class="modern-breadcrumb-link" aria-current="page">Brand</span>
+                  </li>
+          </ol>
+  </nav>
+  <div class="row">
+    <div id="content" class="col">
+
+      <div class="brand-page-header">
+        <h1 class="brand-page-title">Find Your Favorite Brand</h1>
+        <p class="brand-page-subtitle">Shop clothing brands in one place</p>
+      </div>
+              <div class="row row-cols-1 row-cols-sm-2 row-cols-lg-3 row-cols-xl-4 g-3 brand-grid">
+                      <div class="col">
+              <a href="http://localhost/opencart1/index.php?route=product/category&amp;language=en-gb&amp;path=492_504" class="brand-card">
+                <div class="brand-card-logo-wrap">
+                  <img src="http://localhost/opencart1/image/cache/catalog/antikalogo-200x120.png" alt="Antikka logo" class="brand-card-logo" loading="lazy">
+                </div>
+                <span class="brand-card-name">Antikka</span>
+                <span class="brand-card-count">37 Products</span>
+                <span class="brand-card-cta">View Collection</span>
+              </a>
+            </div>
+                      <div class="col">
+              <a href="http://localhost/opencart1/index.php?route=product/category&amp;language=en-gb&amp;path=492_508" class="brand-card">
+                <div class="brand-card-logo-wrap">
+                  <img src="http://localhost/opencart1/image/cache/catalog/asililogo-200x120.webp" alt="Asili logo" class="brand-card-logo" loading="lazy">
+                </div>
+                <span class="brand-card-name">Asili</span>
+                <span class="brand-card-count">17 Products</span>
+                <span class="brand-card-cta">View Collection</span>
+              </a>
+            </div>
+                      <div class="col">
+              <a href="http://localhost/opencart1/index.php?route=product/category&amp;language=en-gb&amp;path=492_516" class="brand-card">
+                <div class="brand-card-logo-wrap">
+                  <img src="http://localhost/opencart1/image/catalog/brand_logos/basiclook.svg" alt="Basiclook logo" class="brand-card-logo" loading="lazy">
+                </div>
+                <span class="brand-card-name">Basiclook</span>
+                <span class="brand-card-count">86 Products</span>
+                <span class="brand-card-cta">View Collection</span>
+              </a>
+            </div>
+                      <div class="col">
+              <a href="http://localhost/opencart1/index.php?route=product/category&amp;language=en-gb&amp;path=492_513" class="brand-card">
+                <div class="brand-card-logo-wrap">
+                  <img src="http://localhost/opencart1/image/cache/catalog/brand_logos/blackedition-200x120.jpg" alt="Blackedition logo" class="brand-card-logo" loading="lazy">
+                </div>
+                <span class="brand-card-name">Blackedition</span>
+                <span class="brand-card-count">33 Products</span>
+                <span class="brand-card-cta">View Collection</span>
+              </a>
+            </div>
+                      <div class="col">
+              <a href="http://localhost/opencart1/index.php?route=product/category&amp;language=en-gb&amp;path=492_544" class="brand-card">
+                <div class="brand-card-logo-wrap">
+                  <img src="http://localhost/opencart1/image/catalog/brand_logos/corebasics.svg" alt="Corebasics logo" class="brand-card-logo" loading="lazy">
+                </div>
+                <span class="brand-card-name">Corebasics</span>
+                <span class="brand-card-count">28 Products</span>
+                <span class="brand-card-cta">View Collection</span>
+              </a>
+            </div>
+                      <div class="col">
+              <a href="http://localhost/opencart1/index.php?route=product/category&amp;language=en-gb&amp;path=492_527" class="brand-card">
+                <div class="brand-card-logo-wrap">
+                  <img src="http://localhost/opencart1/image/catalog/kndt.avif" alt="KNTD logo" class="brand-card-logo" loading="lazy">
+                </div>
+                <span class="brand-card-name">KNTD</span>
+                <span class="brand-card-count">248 Products</span>
+                <span class="brand-card-cta">View Collection</span>
+              </a>
+            </div>
+                      <div class="col">
+              <a href="http://localhost/opencart1/index.php?route=product/category&amp;language=en-gb&amp;path=492_493" class="brand-card">
+                <div class="brand-card-logo-wrap">
+                  <img src="http://localhost/opencart1/image/catalog/brand_logos/seemly.avif" alt="Seemly logo" class="brand-card-logo" loading="lazy">
+                </div>
+                <span class="brand-card-name">Seemly</span>
+                <span class="brand-card-count">145 Products</span>
+                <span class="brand-card-cta">View Collection</span>
+              </a>
+            </div>
+                      <div class="col">
+              <a href="http://localhost/opencart1/index.php?route=product/category&amp;language=en-gb&amp;path=492_61" class="brand-card">
+                <div class="brand-card-logo-wrap">
+                  <img src="http://localhost/opencart1/image/catalog/brand_logos/starnine.avif" alt="Starnine logo" class="brand-card-logo" loading="lazy">
+                </div>
+                <span class="brand-card-name">Starnine</span>
+                <span class="brand-card-count">27 Products</span>
+                <span class="brand-card-cta">View Collection</span>
+              </a>
+            </div>
+                      <div class="col">
+              <a href="http://localhost/opencart1/index.php?route=product/category&amp;language=en-gb&amp;path=492_62" class="brand-card">
+                <div class="brand-card-logo-wrap">
+                  <img src="http://localhost/opencart1/image/cache/catalog/brand_logos/svg-200x120.webp" alt="Svg logo" class="brand-card-logo" loading="lazy">
+                </div>
+                <span class="brand-card-name">Svg</span>
+                <span class="brand-card-count">18 Products</span>
+                <span class="brand-card-cta">View Collection</span>
+              </a>
+            </div>
+                  </div>
+            
+<div class="fullwidth-wrapper">
+    </div></div>
+    </div>
+</div>
+</main>
+<footer style="background:#000;">
+  <div class="container">
+    <div class="row">
+              <div class="col-sm-3">
+          <h5 style="font-size:18px;"><a href="http://localhost/opencart1/index.php?route=account/wishlist&amp;language=en-gb"><img src="image/catalog/localspotblack.png" alt="Localspot" style="height:28px;width:auto;vertical-align:middle;margin-right:8px; color:white;">Localspot</a></h5> 
+
+        </div>
+            <div class="col-sm-3">
+        <h5 style="font-size:18px;"><a href="http://localhost/opencart1/index.php?route=information/contact&amp;language=en-gb">Contact Us</a></h5>
+
+      </div>
+      <div class="col-sm-3">
+        <h5 style="font-size:18px;"><a href="http://localhost/opencart1/index.php?route=product/manufacturer&amp;language=en-gb">Brands</a></h5>
+
+      </div>
+      <div class="col-sm-3">
+        <h5 style="font-size:18px;"><a href="http://localhost/opencart1/index.php?route=account/account&amp;language=en-gb">My Account</a></h5>
+    
+      </div>
+    </div>
+    <hr>
+    <p style="text-align:center;">Powered By OpenCart Localspot &copy; 2026</p>
+    
+  </div>
+</footer>
+</div>
+
+<script src="catalog/view/javascript/bootstrap/js/bootstrap.bundle.min.js" type="text/javascript"></script>
+</body></html>
+

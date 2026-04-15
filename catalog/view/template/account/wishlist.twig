@@ -1,0 +1,90 @@
+{{ header }}
+<div id="account-wishlist" class="container py-4">
+ 
+  <div class="row">{{ column_left }}
+    <div id="content" class="col">{{ content_top }}
+      <h1 class="Ft mb-5 fw-bold">{{ heading_title }}</h1>
+      <div id="wishlist">{{ list }}</div>
+      <div class="text-center "><a href="{{ clear }}" 
+   id="wishlist-clear" 
+   class="btn mt-5 px-4"
+   style="font-size:18px;
+          background-color:red;
+          color:white;
+          border-radius:50px !important;
+        font-family:serif;
+          display:inline-block;"
+   onmouseover="this.style.backgroundColor='#cc0000'"
+   onmouseout="this.style.backgroundColor='red'">
+   {{ button_clear_wishlist }}
+</a>
+</div>
+      {{ content_bottom }}</div>
+    {{ column_right }}</div>
+</div>
+<script type="text/javascript"><!--
+$('#wishlist').on('click', '.btn-remove', function(e) {
+    e.preventDefault();
+
+    var element = this;
+
+    $.ajax({
+        url: $(element).attr('href'),
+        dataType: 'json',
+        beforeSend: function() {
+            $(element).button('loading');
+        },
+        complete: function() {
+            $(element).button('reset');
+        },
+        success: function(json) {
+            console.log(json);
+
+            if (json['error']) {
+                $('#alert').prepend('<div class="alert alert-danger alert-dismissible"><i class="fa-solid fa-circle-exclamation"></i> ' + json['error'] + ' <button type="button" class="btn-close" data-bs-dismiss="alert"></button></div>');
+            }
+
+            if (json['success']) {
+                window.ocToast('success', json['success']);
+
+                $('#wishlist').load('index.php?route=account/wishlist.list&language={{ language }}{% if customer_token %}&customer_token={{ customer_token }}{% endif %}');
+            }
+        },
+        error: function(xhr, ajaxOptions, thrownError) {
+            console.log(thrownError + "\r\n" + xhr.statusText + "\r\n" + xhr.responseText);
+        }
+    });
+});
+
+$('#wishlist-clear').on('click', function(e) {
+    e.preventDefault();
+
+    var element = this;
+
+    $.ajax({
+        url: $(element).attr('href'),
+        dataType: 'json',
+        beforeSend: function() {
+            $(element).button('loading');
+        },
+        complete: function() {
+            $(element).button('reset');
+        },
+        success: function(json) {
+            if (json['error']) {
+                $('#alert').prepend('<div class="alert alert-danger alert-dismissible"><i class="fa-solid fa-circle-exclamation"></i> ' + json['error'] + ' <button type="button" class="btn-close" data-bs-dismiss="alert"></button></div>');
+            }
+
+            if (json['success']) {
+                window.ocToast('success', json['success']);
+
+                $('#wishlist').load('index.php?route=account/wishlist.list&language={{ language }}{% if customer_token %}&customer_token={{ customer_token }}{% endif %}');
+            }
+        },
+        error: function(xhr, ajaxOptions, thrownError) {
+            console.log(thrownError + "\r\n" + xhr.statusText + "\r\n" + xhr.responseText);
+        }
+    });
+});
+//--></script>
+{{ footer }}

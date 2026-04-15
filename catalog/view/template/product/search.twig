@@ -1,0 +1,153 @@
+{{ header }}
+<div id="product-search" class="container">
+  <nav class="modern-breadcrumb-wrap" aria-label="Breadcrumb">
+    <ol class="modern-breadcrumb">
+      {% for breadcrumb in breadcrumbs %}
+        <li class="modern-breadcrumb-item{% if loop.last %} is-current{% endif %}">
+          {% if loop.last %}
+            <span class="modern-breadcrumb-link" aria-current="page">{{ breadcrumb.text }}</span>
+          {% else %}
+            <a href="{{ breadcrumb.href }}" class="modern-breadcrumb-link">{{ breadcrumb.text }}</a>
+          {% endif %}
+        </li>
+      {% endfor %}
+    </ol>
+  </nav>
+  <div class="row">
+    {{ column_left }}
+    <div id="content" class="col">
+      {{ content_top }}
+      <h1 class="Ft mb-4 pt-4 mt-2">{{ heading_title }}</h1>
+      <div class="search-brand-strip mb-4">
+        <input
+          type="text"
+          id="input-search-inline"
+          class="search-brand-strip-input"
+          value="{{ search }}"
+          placeholder="Search"
+          aria-label="Search products"
+        />
+        <a href="{{ search_clear_href }}" class="search-brand-strip-clear" aria-label="Clear search">&times;</a>
+      </div>
+      <hr class="search-divider"/>
+      <h2 class="search-results-heading">{{ text_search }}</h2>
+      {% if products %}
+        <div id="display-control" class="row">
+          <div class="col-md-3">
+            <div class="mb-3">
+              <a href="{{ compare }}" id="compare-total" class="btn btn-primary d-block compare-btn"><i class="fa-solid fa-arrow-right-arrow-left"></i> <span class="d-inline d-md-none d-lg-inline">{{ text_compare }}</span></a>
+            </div>
+          </div>
+          <div class="col-md-1 d-none d-md-block">
+            <div class="btn-group">
+              <button type="button" id="button-list" class="btn btn-light" data-bs-toggle="tooltip" title="{{ button_list }}"><i class="fa-solid fa-table-list"></i></button>
+              <button type="button" id="button-grid" class="btn btn-light" data-bs-toggle="tooltip" title="{{ button_grid }}"><i class="fa-solid fa-table-cells"></i></button>
+            </div>
+          </div>
+          <div class="col-md-4 offset-md-1 col-6">
+            <div class="input-group mb-3">
+              <label for="input-sort" class="input-group-text">{{ text_sort }}</label>
+              <select id="input-sort" class="form-select limit-select" onchange="location = this.value;">
+                {% for sorts in sorts %}
+                  <option value="{{ sorts.href }}"{% if sorts.value == '%s-%s'|format(sort, order) %} selected{% endif %}>{{ sorts.text }}</option>
+                {% endfor %}
+              </select>
+            </div>
+          </div>
+          <div class="col-md-3 col-6">
+            <div class="input-group mb-3">
+              <label for="input-brand-toolbar" class="input-group-text">Brand</label>
+              <select id="input-brand-toolbar" class="form-select limit-select">
+                <option value="0">All Brands</option>
+                {% for brand in brand_filters %}
+                  <option value="{{ brand.category_id }}"{% if brand.category_id == brand_id %} selected{% endif %}>{{ brand.name }}</option>
+                {% endfor %}
+              </select>
+            </div>
+          </div>
+        </div>
+        <div id="product-list" class="row row-cols-1 row-cols-sm-2 row-cols-md-2 row-cols-lg-4">
+          {% for product in products %}
+            <div class="col mb-3">{{ product }}</div>
+          {% endfor %}
+        </div>
+        <div class="row">
+          <div class="col-sm-6 text-start">{{ pagination }}</div>
+          <div class="col-sm-6 text-end results-text">{{ results }}</div>
+        </div>
+      {% else %}
+        <p>{{ text_no_results }}</p>
+      {% endif %}
+      {{ content_bottom }}
+    </div>
+    {{ column_right }}
+  </div>
+</div>
+<script type="text/javascript"><!--
+var inlineSearchTimer = null;
+var minAutoSearchChars = 2;
+
+function goSearchWithInlineInput() {
+    var url = 'index.php?route=product/search&language={{ language }}';
+    var inlineSearch = $('#input-search-inline').val().trim();
+    var brandId = $('#input-brand-toolbar').val();
+
+    if (inlineSearch) {
+      url += '&search=' + encodeURIComponent(inlineSearch);
+    }
+
+    if (brandId > 0) {
+      url += '&brand_id=' + encodeURIComponent(brandId);
+    }
+
+    location = url;
+}
+
+$('#input-brand-toolbar').on('change', function() {
+    goSearchWithInlineInput();
+});
+
+$('#input-search-inline').on('keydown', function(e) {
+    if (e.keyCode == 13) {
+      e.preventDefault();
+      goSearchWithInlineInput();
+    }
+});
+
+$('#input-search-inline').on('input', function() {
+    var value = $('#input-search-inline').val().trim();
+
+    if (inlineSearchTimer) {
+      clearTimeout(inlineSearchTimer);
+    }
+
+    if (value.length === 0) {
+      return;
+    }
+
+    if (value.length < minAutoSearchChars) {
+      return;
+    }
+
+    inlineSearchTimer = setTimeout(function() {
+      goSearchWithInlineInput();
+    }, 1400);
+});
+
+$(function() {
+    var input = document.getElementById('input-search-inline');
+
+    if (!input) {
+      return;
+    }
+
+    input.focus();
+
+    var len = input.value.length;
+
+    if (input.setSelectionRange) {
+      input.setSelectionRange(len, len);
+    }
+});
+//--></script>
+{{ footer }}

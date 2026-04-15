@@ -1,0 +1,90 @@
+{{ header }}
+<div id="account-subscription" class="container py-4" style="font-size: 18px; line-height: 1.5;">
+  <nav class="mb-4" aria-label="Breadcrumb">
+    <ol class="d-flex align-items-center list-unstyled p-0 m-0">
+      {% for breadcrumb in breadcrumbs %}
+        <li class="d-flex align-items-center">
+          {% if not loop.last %}
+            <a href="{{ breadcrumb.href }}" class="text-decoration-none fw-bold" style="font-size: 18px; color: #4b5563;">{{ breadcrumb.text }}</a>
+            <svg class="mx-2" width="7" height="12" viewBox="0 0 6 10" fill="none" xmlns="http://www.w3.org/2000/svg" style="color: #9ca3af;">
+              <path d="M1 9L5 5L1 1" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          {% else %}
+            <span class="fw-bolder" aria-current="page" style="font-size: 18px; color: #000000;">{{ breadcrumb.text }}</span>
+          {% endif %}
+        </li>
+      {% endfor %}
+    </ol>
+  </nav>
+
+  <div class="row g-4">
+    {{ column_left }}
+
+    <div id="content" class="col-lg-9 col-md-8">
+      {{ content_top }}
+
+      <div class="p-4 bg-white rounded-base border shadow-sm" style="border-color: #f3f4f6 !important; border-radius: 8px;">
+        <h1 class="fw-bold mb-4 d-flex align-items-center" style="font-size: 24px;">
+          <span class="bg-brand rounded-pill me-2" style="width: 4px; height: 28px; display: inline-block; background-color: #000;"></span>
+          {{ heading_title }}
+        </h1>
+
+        {% if subscriptions %}
+          <div class="table-responsive">
+            <table class="table align-middle">
+              <thead style="background-color: #f9fafb;">
+                <tr>
+                  <th class="py-3 border-0 text-end text-uppercase text-muted" style="font-size: 12px; letter-spacing: 1px;">{{ column_subscription_id }}</th>
+                  <th class="py-3 border-0 text-end text-uppercase text-muted" style="font-size: 12px; letter-spacing: 1px;">{{ column_product_total }}</th>
+                  <th class="py-3 border-0 text-uppercase text-muted" style="font-size: 12px; letter-spacing: 1px;">{{ column_description }}</th>
+                  <th class="py-3 border-0 text-uppercase text-muted" style="font-size: 12px; letter-spacing: 1px;">{{ column_status }}</th>
+                  <th class="py-3 border-0 text-uppercase text-muted" style="font-size: 12px; letter-spacing: 1px;">{{ column_date_added }}</th>
+                  <th class="py-3 border-0"></th>
+                </tr>
+              </thead>
+              <tbody style="border-top: 1px solid #f3f4f6;">
+                {% for subscription in subscriptions %}
+                  <tr>
+                    <td class="py-3 text-end fw-bold">#{{ subscription.subscription_id }}</td>
+                    <td class="py-3 text-end">{{ subscription.product_total }}</td>
+                    <td class="py-3">{{ subscription.description }}</td>
+                    <td class="py-3">
+                      <span class="px-3 py-1 rounded-pill bg-light fw-semibold" style="font-size: 14px; border: 1px solid #e5e7eb;">
+                        {{ subscription.status }}
+                      </span>
+                    </td>
+                    <td class="py-3 text-muted" style="font-size: 15px;">{{ subscription.date_added }}</td>
+                    <td class="py-3 text-end">
+                      <a href="{{ subscription.view }}" data-bs-toggle="tooltip" title="{{ button_view }}" class="btn btn-dark rounded-base px-3" style="background-color: #000; padding: 8px 12px;">
+                        <i class="fa-solid fa-eye" style="font-size: 14px;"></i>
+                      </a>
+                    </td>
+                  </tr>
+                {% endfor %}
+              </tbody>
+            </table>
+          </div>
+
+          <div class="d-flex justify-content-between align-items-center mt-4 pt-3 border-top">
+            <div>{{ pagination }}</div>
+            <div class="small text-muted">{{ results }}</div>
+          </div>
+        {% else %}
+          <div class="text-center py-5">
+            <p class="text-muted mb-0">{{ text_no_subscription }}</p>
+          </div>
+        {% endif %}
+      </div>
+
+      <div class="d-flex justify-content-end mt-4">
+        <a href="{{ continue }}" class="btn btn-dark px-5" style="font-size: 16px; padding: 10px 30px; border-radius: 6px; background-color: #000; color: #fff;">
+          {{ button_continue }}
+        </a>
+      </div>
+
+      {{ content_bottom }}
+    </div>
+    {{ column_right }}
+  </div>
+</div>
+{{ footer }}

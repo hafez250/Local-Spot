@@ -1,0 +1,150 @@
+<form action="{{ action }}" method="post" class="input-group my-1 rounded-pill live-search-form live-search-icon-mode" data-autocomplete-url="{{ autocomplete }}">
+  <input type="text" name="search" value="{{ search }}"
+         placeholder="Search For Our Products"
+         class="form-control form-control-lg border-0 live-search-input" autocomplete="off" />
+
+  <button type="submit" class="btn btn-light d-flex align-items-center justify-content-center rounded-circle live-search-trigger"
+          style="width:50px; height:50px;">
+    <i class="fa-solid fa-magnifying-glass"></i>
+  </button>
+
+  <div class="live-search-dropdown" hidden>
+    <div class="live-search-results"></div>
+  </div>
+</form>
+
+<script>
+(function() {
+  var forms = document.querySelectorAll('.live-search-form');
+
+  forms.forEach(function(form) {
+    var input = form.querySelector('.live-search-input');
+    var dropdown = form.querySelector('.live-search-dropdown');
+    var resultsEl = form.querySelector('.live-search-results');
+    var triggerBtn = form.querySelector('.live-search-trigger');
+    var endpoint = form.getAttribute('data-autocomplete-url');
+    var debounceTimer = null;
+    var requestCounter = 0;
+
+    if (!input || !dropdown || !resultsEl || !endpoint || !triggerBtn) {
+      return;
+    }
+
+    function hideDropdown() {
+      dropdown.hidden = true;
+      resultsEl.innerHTML = '';
+    }
+
+    function openSearch() {
+      form.classList.add('is-open');
+      input.focus();
+    }
+
+    function closeSearch() {
+      form.classList.remove('is-open');
+      hideDropdown();
+    }
+
+    function renderResults(products) {
+      if (!products.length) {
+        resultsEl.innerHTML = '<div class="live-search-empty">No products found</div>';
+        dropdown.hidden = false;
+        return;
+      }
+
+      var html = products.map(function(product) {
+        var safeName = String(product.name || '').replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+        var safePrice = String(product.price || '').replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+
+        return '' +
+          '<a class="live-search-item" href="' + product.href + '">' +
+            '<img class="live-search-thumb" src="' + product.thumb + '" alt="' + safeName + '" loading="lazy">' +
+            '<span class="live-search-meta">' +
+              '<span class="live-search-name">' + safeName + '</span>' +
+              (safePrice ? '<span class="live-search-price">' + safePrice + '</span>' : '') +
+            '</span>' +
+          '</a>';
+      }).join('');
+
+      resultsEl.innerHTML = html;
+      dropdown.hidden = false;
+    }
+
+    function fetchResults(term) {
+      requestCounter += 1;
+      var requestId = requestCounter;
+      var url = endpoint + '&term=' + encodeURIComponent(term);
+
+      fetch(url, { credentials: 'same-origin' })
+        .then(function(response) { return response.json(); })
+        .then(function(products) {
+          if (requestId !== requestCounter) {
+            return;
+          }
+
+          if (!Array.isArray(products)) {
+            hideDropdown();
+            return;
+          }
+
+          renderResults(products);
+        })
+        .catch(function() {
+          hideDropdown();
+        });
+    }
+
+    input.addEventListener('input', function() {
+      var term = input.value.trim();
+
+      if (debounceTimer) {
+        clearTimeout(debounceTimer);
+      }
+
+      if (term.length < 1) {
+        hideDropdown();
+        return;
+      }
+
+      debounceTimer = setTimeout(function() {
+        fetchResults(term);
+      }, 150);
+    });
+
+    input.addEventListener('blur', function() {
+      setTimeout(hideDropdown, 180);
+    });
+
+    input.addEventListener('focus', function() {
+      if (input.value.trim().length > 0 && resultsEl.innerHTML.trim() !== '') {
+        dropdown.hidden = false;
+      }
+    });
+
+    document.addEventListener('click', function(event) {
+      if (!form.contains(event.target)) {
+        closeSearch();
+      }
+    });
+
+    triggerBtn.addEventListener('click', function(event) {
+      if (!form.classList.contains('is-open')) {
+        event.preventDefault();
+        openSearch();
+        return;
+      }
+
+      if (!input.value.trim()) {
+        event.preventDefault();
+        openSearch();
+      }
+    });
+
+    input.addEventListener('keydown', function(event) {
+      if (event.key === 'Escape') {
+        closeSearch();
+      }
+    });
+  });
+})();
+</script>

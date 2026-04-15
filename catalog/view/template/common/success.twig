@@ -1,0 +1,37 @@
+{{ header }}
+<div id="common-success" class="container{% if is_logout %} logout-success-page{% endif %}">
+  <nav class="modern-breadcrumb-wrap" aria-label="Breadcrumb">
+    <ol class="modern-breadcrumb">
+      {% for breadcrumb in breadcrumbs %}
+        <li class="modern-breadcrumb-item{% if loop.last %} is-current{% endif %}">
+          {% if loop.first %}
+            {% if loop.last %}
+              <span class="modern-breadcrumb-link" aria-current="page">
+                <svg class="modern-breadcrumb-home" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="none" viewBox="0 0 24 24"><path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m4 12 8-8 8 8M6 10.5V19a1 1 0 0 0 1 1h3v-3a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1v3h3a1 1 0 0 0 1-1v-8.5"/></svg>
+                {{ breadcrumb.text }}
+              </span>
+            {% else %}
+              <a href="{{ breadcrumb.href }}" class="modern-breadcrumb-link">{{ breadcrumb.text }}</a>
+            {% endif %}
+          {% else %}
+            {% if loop.last %}
+              <span class="modern-breadcrumb-link" aria-current="page">{{ breadcrumb.text }}</span>
+            {% else %}
+              <a href="{{ breadcrumb.href }}" class="modern-breadcrumb-link">{{ breadcrumb.text }}</a>
+            {% endif %}
+          {% endif %}
+        </li>
+      {% endfor %}
+    </ol>
+  </nav>
+  <div class="row">{{ column_left }}
+    <div id="content" class="col">{{ content_top }}
+      <div class="{% if is_logout %}logout-success-card{% endif %}">
+        <h1{% if is_logout %} class="logout-success-title"{% endif %}>{{ heading_title }}</h1>
+        <div{% if is_logout %} class="logout-success-message"{% endif %}>{{ text_message }}</div>
+        <div class="text-end{% if is_logout %} logout-success-actions{% endif %}"><a href="{{ continue }}" class="btn btn-primary{% if is_logout %} logout-success-btn{% endif %}">{% if is_logout %}Back to Home{% else %}{{ button_continue }}{% endif %}</a></div>
+      </div>
+      {{ content_bottom }}</div>
+    {{ column_right }}</div>
+</div>
+{{ footer }}

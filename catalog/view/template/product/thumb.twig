@@ -1,0 +1,81 @@
+<div class="custom-card">
+
+    <!-- IMAGE BOX -->
+    <a href="{{ href }}">
+        <div class="image-box">
+            <img src="{{ thumb }}" alt="{{ name }}" title="{{ name }}" loading="lazy" onerror="this.onerror=null;this.src='image/placeholder.png';">
+        </div>
+    </a>
+
+
+
+    <!-- PRODUCT NAME -->
+    <h4>
+        <a href="{{ href }}">{{ name }}</a>
+    </h4>
+    {% if brand_name %}
+    <p class="product-card-brand">
+        {% if brand_href %}
+            <a href="{{ brand_href }}" class="product-card-brand-link">{{ brand_name }}</a>
+        {% else %}
+            {{ brand_name }}
+        {% endif %}
+    </p>
+    {% endif %}
+{% if not show_brand_only %}
+    <!-- DESCRIPTION -->
+     <p>{{ description }}</p>
+    {% endif %}
+<!-- PRICE AREA -->
+    {% if price %}
+    <div class="product-price">
+        {% if not special %}
+           <span style="color:black; font-weight:700; font-family:'SF Pro Text', 'SF Pro Icons', 'Helvetica Neue', Helvetica, Arial, sans-serif;">{{ price }}</span>
+        {% else %}
+            <span >{{ special }}</span>
+            <span style="text-decoration:line-through; color:#888; font-size:14px; margin-left:8px;">{{ price }}</span>
+        {% endif %}
+    </div>
+    {% endif %}
+
+    <!-- RATING -->
+    {% if review_status and rating %}
+    <div class="rating" style="margin-bottom:10px;">
+        {% for i in 1..5 %}
+            {% if rating < i %}
+                <span class="fa-stack"><i class="fa-regular fa-star fa-stack-1x"></i></span>
+            {% else %}
+                <span class="fa-stack"><i class="fa-solid fa-star fa-stack-1x"></i><i class="fa-regular fa-star fa-stack-1x"></i></span>
+            {% endif %}
+        {% endfor %}
+    </div>
+    {% endif %}
+
+    <!-- BUY BUTTON -->
+    <form method="post" data-oc-toggle="ajax" data-oc-load="{{ cart }}" data-oc-target="#cart">
+        <div class="action-row">
+    <button type="submit" formaction="{{ cart_add }}" class="buy-now">
+       Add To Cart
+    </button>
+
+    <button
+        type="submit"
+        formaction="{% if in_wishlist %}{{ wishlist_remove }}{% else %}{{ wishlist_add }}{% endif %}"
+        class="like{% if in_wishlist %} in-wishlist{% endif %}"
+        data-bs-toggle="tooltip"
+        title="{{ button_wishlist }}"
+        data-wishlist-add="{{ wishlist_add }}"
+        data-wishlist-remove="{{ wishlist_remove }}"
+    >
+        <i class="fa-heart {% if in_wishlist %}fa-solid text-danger{% else %}fa-regular{% endif %}"></i>
+    </button>
+</div>
+
+
+        <input type="hidden" name="product_id" value="{{ product_id }}"/>
+        <input type="hidden" name="quantity" value="{{ minimum }}"/>
+    </form>
+
+</div>
+
+

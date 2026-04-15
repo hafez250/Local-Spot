@@ -1,0 +1,18 @@
+{{ header }}
+<div id="content" class="container">
+  <h1 class="Ft my-5">{{ heading_title }}</h1>
+
+  {% if products %}
+    <div id="product-list" class="row g-4 mt-6">
+          {% for product in products %}
+            <div class="col-12 suggestion-col mb-3 mt-5">{{ product }}</div>
+          {% endfor %}
+        </div>
+  {% else %}
+
+
+  
+    <p>{{ text_empty }}</p>
+  {% endif %}
+</div>
+{{ footer }}
